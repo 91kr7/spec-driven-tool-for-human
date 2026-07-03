@@ -20,11 +20,8 @@ Delega l'analisi di `$ARGUMENTS` al subagent `sdd-analyst` (Opus, ragionamento e
 2. Lancia il subagent `sdd-analyst` via Task, passandogli:
    - la richiesta → `$ARGUMENTS`
    - la data corrente
-3. Se il subagent restituisce **domande per l'umano**:
-   - ponile all'utente (sei tu l'intermediario)
-   - raccogli le risposte
-   - **riprendi lo stesso subagent** (resume / `SendMessage`, NON un nuovo Task) passandogli le risposte → mantiene il contesto del primo giro e finalizza il file senza segnaposto
-   - ripeti finché non restano domande
+3. Domande per l'umano → applica la convenzione `${CLAUDE_PLUGIN_ROOT}/convenzioni/intermediazione-domande.md` (ruolo orchestratore): poni le domande, riprendi lo stesso subagent con `SendMessage`, ripeti finché non restano domande.
+   > `${CLAUDE_PLUGIN_ROOT}` = radice del plugin; se non impostata, cerca sotto `~/.claude`.
 4. Riporta all'utente, in forma schematica:
    - percorso del file di analisi
    - tipo → nuova / correzione / evolutiva

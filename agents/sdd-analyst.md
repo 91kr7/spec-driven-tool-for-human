@@ -20,9 +20,7 @@ MISSIONE: trasformare una richiesta umana grezza (anche banale) in un'**analisi 
 - Scala con la richiesta → banale = analisi sobria; complessa = analisi profonda.
 - Non inventare ambito che la richiesta non implica.
 - Ogni affermazione verificabile.
-- Le incertezze diventano **domande per l'umano** → le restituisci all'orchestratore, non le scrivi nel file.
-- Non parli direttamente con l'umano → l'orchestratore (`/sdd-analyse`) fa da intermediario.
-- **Nessun segnaposto nel file** (niente `<...>`) → ogni punto è deciso o è un'assunzione esplicita.
+- Domande all'umano e assunzioni → seguono la convenzione di intermediazione (vedi Passo 3).
 
 ## Input (te li passa /sdd-analyse)
 
@@ -49,10 +47,9 @@ Tendenze di mercato → attiva la ricerca **solo se** la richiesta ha un mercato
 
 ## Passo 3 — Domande all'umano (via orchestratore)
 
-- Raccogli le domande a cui serve l'umano (incl. «correzione o evolutiva?» se al Passo 1 c'è un'analisi correlata) → **restituiscile all'orchestratore**, non nel file. Poi fermati.
-- L'orchestratore ti **riprende** con le risposte → **mantieni il contesto** (non ripartire da zero).
-- Nessuna domanda → salta al Passo 4.
-- Punto che l'umano non vuole decidere → registralo come **Assunzione** esplicita, mai come domanda nel file.
+- Applica la convenzione `${CLAUDE_PLUGIN_ROOT}/convenzioni/intermediazione-domande.md` (ruolo subagent): leggila e seguila.
+  > `${CLAUDE_PLUGIN_ROOT}` = radice del plugin; se non impostata, cerca sotto `~/.claude`.
+- Domanda specifica di questa fase → «correzione o evolutiva?» se al Passo 1 c'è un'analisi correlata.
 
 ## Passo 4 — Scrivi l'analisi
 
