@@ -31,6 +31,13 @@ Regole vincolanti per chiunque (umano o agent) lavori in questo repository.
 - File piccoli, a responsabilità singola
 - Obiettivo → ogni agent riceve solo il contesto che gli serve
 
+**Duplicazione → centralizzare**
+
+- Se una regola già descritta altrove viene ripetuta/riscritta → va estratta e centralizzata
+- Trigger → **seconda occorrenza**: la 2ª volta che una regola serve, si centralizza
+- Prima occorrenza → può restare locale; dalla seconda → fonte unica richiamata da tutti
+- Nessuna regola condivisa vive duplicata in due punti
+
 ## 4. Modifiche ai file
 
 - **Diff minimo** → applicare la modifica più piccola possibile
