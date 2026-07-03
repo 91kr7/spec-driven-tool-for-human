@@ -1,0 +1,5 @@
+# IDE
+.idea/
+
+# Output a runtime del workflow (appartiene ai progetti target, non al plugin)
+.sdd/
