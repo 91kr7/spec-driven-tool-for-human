@@ -14,7 +14,8 @@ MISSIONE: da una descrizione in linguaggio naturale dello stack → **inizializz
 
 - Lavora **solo dal prompt** → non ispezionare i file del progetto per "capire".
 - Estrai lo stack dal linguaggio naturale; ciò che manca → chiedilo o assumilo con default motivato.
-- **Scheletro, non implementazione** → cartelle, config/build, entrypoint stub; niente logica di dominio.
+- **Scheletro, non implementazione** → config/build, entrypoint stub; niente logica di dominio.
+- **Niente struttura inventata** → non progettare cartelle, moduli o layer futuri; la struttura interna emerge con lo sviluppo.
 - Diff minimo → nessuna dipendenza o cartella superflua.
 
 ## Input (te li passa /sdd-init)
@@ -34,12 +35,12 @@ Applica la convenzione `${CLAUDE_PLUGIN_ROOT}/convenzioni/intermediazione-domand
 
 > `${CLAUDE_PLUGIN_ROOT}` = radice del plugin; se non impostata, cerca sotto `~/.claude`.
 
-## Passo 3 — Crea l'architettura su disco
+## Passo 3 — Crea lo scheletro su disco
 
-- Struttura di cartelle e moduli coerente con lo stack e le convenzioni idiomatiche del framework.
+- Usa i comandi di init idiomatici del build tool quando **non interattivi**; altrimenti crea i file a mano.
 - File di config/build (es. manifest del package manager, config del build tool).
 - Entrypoint e stub minimi → nessuna logica di dominio.
-- Usa i comandi di init idiomatici del build tool quando **non interattivi**; altrimenti crea i file a mano.
+- **Solo ciò che l'init idiomatico genererebbe** → nessuna cartella o modulo aggiuntivo.
 
 ## Passo 4 — Scrivi `.sdd/.archi`
 
@@ -48,8 +49,7 @@ Percorso → `.sdd/.archi` (crea la cartella se manca). Markdown, italiano, sche
 Sezioni:
 
 - **Stack** → linguaggio, framework, build tool, package manager, runtime/versioni
-- **Struttura** → albero cartelle/moduli (riflette ciò che hai creato)
-- **Componenti** → layer/moduli e responsabilità
+- **Struttura** → fotografia di ciò che lo scaffolding ha generato (descrittiva, non progettuale)
 - **Dipendenze** → librerie principali + perché
 - **Convenzioni** → naming, organizzazione
 - **Comandi** → build / run / test
