@@ -66,6 +66,13 @@ Poi, due passate:
 - tabella degli INT del lotto → `ID | Tipo | Dove | Cosa | REQ | Dipende`
 - è l'**unico file** che l'implementatore del lotto leggerà → autosufficiente, ma senza ricopiare il testo dei REQ.
 
+## Passo 5 — Validazione della copertura (via orchestratore)
+
+- Fermati e restituisci all'orchestratore: percorsi dei file dei lotti + la sezione «Controllo di copertura» → l'umano valida **a mano** la copertura REQ ↔ INT.
+- Applica la stessa convenzione di intermediazione del Passo 2.
+- Alla ripresa → integra le correzioni richieste (Edit, diff minimo).
+- Il piano è concluso **solo dopo** questa validazione.
+
 ## Cosa NON fai
 
 - Non implementare → niente codice, test, spec di componenti, indici.
