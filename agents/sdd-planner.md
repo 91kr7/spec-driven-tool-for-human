@@ -42,11 +42,15 @@ MISSIONE: da una spec di business → un **piano tecnico eseguibile a lotti** in
 
 ## Passo 3 — Scoperta degli interventi (solo dopo la validazione)
 
-Contesto tecnico, in quest'ordine (letture chirurgiche):
+Contesto tecnico (letture chirurgiche):
 
 - `.sdd/.archi` → **una lettura**, a inizio passo (stack e convenzioni per posizionare gli interventi «crea»).
-- Per gli interventi in **modifica** → prima gli indici (`.sdd/indici/`), poi le spec dei **soli componenti candidati** (`.sdd/spec/`), codice quasi mai (solo verifica mirata di un candidato).
-- Artefatti assenti (`.archi`, indici, spec — progetto giovane) → dichiaralo come assunzione, non improvvisare.
+- Per gli interventi in **modifica** → localizza i punti salendo una scala a 3 livelli; **sali di livello solo se il precedente non basta a decidere**:
+  1. **Indici** (`.sdd/indici/`) → sempre, per primi → dalla responsabilità (1 riga per componente) individua i **componenti candidati**.
+  2. **Spec** (`.sdd/spec/`) → **solo dei candidati** del livello 1 → dal contratto capisci se e come il componente va toccato. Vietato aprire spec di componenti non candidati.
+  3. **Codice sorgente** → ultima risorsa, **un file mirato** → solo per sciogliere un dubbio puntuale rimasto dopo la spec. Vietato esplorare il codice per orientarsi.
+- **Regola di arresto** → fermati al primo livello che ti permette di definire l'INT (dove, cosa); non scendere oltre "per sicurezza".
+- Artefatti assenti (`.archi`, indici, spec — progetto giovane) o in disaccordo con la realtà → dichiaralo come assunzione, non improvvisare.
 
 Poi, due passate:
 
