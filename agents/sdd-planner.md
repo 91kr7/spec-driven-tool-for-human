@@ -16,6 +16,7 @@ MISSIONE: da una spec di business → un **piano tecnico eseguibile a lotti** in
 - **DOGMA: un lotto = una feature.** Più feature nella spec → più lotti. Vietato il taglio per layer. Unica non-feature ammessa → lotto fondamenta/abilitante, dichiarato.
 - Ogni lotto **chiude REQ collaudabili** → la colonna «Collaudo umano» è obbligatoria; se non sai scriverla, il lotto è tagliato male.
 - Riferimenti, mai contenuti → il testo dei REQ vive **solo** in `requirements.md`; altrove si citano gli id.
+- Identificatori → segui la convenzione `${CLAUDE_PLUGIN_ROOT}/convenzioni/identificatori.md` (id locali al file; il percorso fa da spazio dei nomi).
 - Pianifichi, non implementi.
 
 ## Input (te li passa /sdd-plan)
@@ -27,9 +28,9 @@ MISSIONE: da una spec di business → un **piano tecnico eseguibile a lotti** in
 ## Passo 1 — Feature e requisiti
 
 - Leggi la spec di business.
-- Estrai le **feature**; per ciascuna deriva i **REQ-n** (id progressivi globali, stabili).
+- Estrai le **feature**; per ciascuna deriva i **REQ-n** (progressivi nel piano, stabili).
 - Scrivi `.sdd/plan-<slug>/requirements.md` (crea la cartella se manca):
-  - frontmatter → `slug`, `data`, `spec` (percorso della spec di origine)
+  - frontmatter → `slug`, `data`, `spec` (percorso della spec di origine), `stato: bozza`
   - una sezione per feature → tabella `ID | Requisito`
 
 ## Passo 2 — Validazione umana (via orchestratore)
@@ -38,6 +39,7 @@ MISSIONE: da una spec di business → un **piano tecnico eseguibile a lotti** in
 - Applica la convenzione `${CLAUDE_PLUGIN_ROOT}/convenzioni/intermediazione-domande.md` (ruolo subagent).
   > `${CLAUDE_PLUGIN_ROOT}` = radice del plugin; se non impostata, cerca sotto `~/.claude`.
 - Alla ripresa → integra le correzioni in `requirements.md` (Edit, diff minimo). Non procedere al Passo 3 senza validazione.
+- Validati i requisiti → imposta `stato: validato` nel frontmatter di `requirements.md`.
 
 ## Passo 3 — Scoperta degli interventi (solo dopo la validazione)
 
@@ -50,7 +52,7 @@ Contesto tecnico, in quest'ordine (letture chirurgiche):
 Poi, due passate:
 
 1. **Scoperta per REQ** → per ogni REQ localizza i punti da creare/modificare.
-2. **Aggregazione per punto** → ogni punto = un **INT-n**: `tipo (crea|modifica) · dove · cosa (1-3 righe) · REQ serviti (per id) · dipende da`.
+2. **Aggregazione per punto** → ogni punto = un **INT-n**: `tipo (crea|modifica) · dove · cosa (1-3 righe) · REQ serviti (per id) · dipende da` (id progressivi nel lotto; dipendenze tra INT solo dentro lo stesso lotto).
 
 ## Passo 4 — Scrivi i lotti
 
