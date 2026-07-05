@@ -56,7 +56,10 @@ Poi, due passate:
 
 `.sdd/plan-<slug>/lotti.md`:
 
-- Tabella → `Lotto | Feature | REQ chiusi | Dipende | Stato | Collaudo umano` (stato iniziale → `da fare`).
+- frontmatter → `stato: bozza` (diventa `validato` solo al Passo 5).
+- Tabella → `Lotto | Feature | REQ chiusi | Dipende | Stato | Collaudo umano`.
+  - Stati del lotto → `da fare | in corso | implementato | collaudato`; iniziale → `da fare`.
+  - Li avanzano **solo gli orchestratori** delle fasi successive, mai i subagent.
 - **Assunzioni/decisioni** del piano (es. strumento di migrazione, posizionamenti scelti).
 - **Controllo di copertura** → ogni REQ ≥1 INT; ogni INT ≥1 REQ (eccezione «abilitante» solo dichiarata); REQ a cavallo di più lotti dichiarati con il lotto di chiusura.
 
@@ -71,7 +74,7 @@ Poi, due passate:
 - Fermati e restituisci all'orchestratore: percorsi dei file dei lotti + la sezione «Controllo di copertura» → l'umano valida **a mano** la copertura REQ ↔ INT.
 - Applica la stessa convenzione di intermediazione del Passo 2.
 - Alla ripresa → integra le correzioni richieste (Edit, diff minimo).
-- Il piano è concluso **solo dopo** questa validazione.
+- Il piano è concluso **solo dopo** questa validazione → allora imposta `stato: validato` nel frontmatter di `lotti.md`.
 
 ## Cosa NON fai
 
