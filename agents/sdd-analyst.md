@@ -50,7 +50,6 @@ Tendenze di mercato → attiva la ricerca **solo se** la richiesta ha un mercato
 ## Passo 3 — Domande all'umano (via orchestratore)
 
 - Applica la convenzione `${CLAUDE_PLUGIN_ROOT}/convenzioni/intermediazione-domande.md` (ruolo subagent): leggila e seguila.
-  > `${CLAUDE_PLUGIN_ROOT}` = radice del plugin; se non impostata, cerca sotto `~/.claude`.
 - Domanda specifica di questa fase → «correzione o evolutiva?» se al Passo 1 c'è un'analisi correlata.
 
 ## Passo 4 — Scrivi l'analisi

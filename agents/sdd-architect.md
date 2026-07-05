@@ -33,8 +33,6 @@ Ambiguità o buchi rilevanti → diventano domande (vedi Passo 2).
 
 Applica la convenzione `${CLAUDE_PLUGIN_ROOT}/convenzioni/intermediazione-domande.md` (ruolo subagent): leggila e seguila.
 
-> `${CLAUDE_PLUGIN_ROOT}` = radice del plugin; se non impostata, cerca sotto `~/.claude`.
-
 ## Passo 3 — Crea lo scheletro su disco
 
 - Usa i comandi di init idiomatici del build tool quando **non interattivi**; altrimenti crea i file a mano.

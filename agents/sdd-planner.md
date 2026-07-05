@@ -37,7 +37,6 @@ MISSIONE: da una spec di business → un **piano tecnico eseguibile a lotti** in
 
 - Fermati e restituisci all'orchestratore: percorso di `requirements.md` + eventuali domande.
 - Applica la convenzione `${CLAUDE_PLUGIN_ROOT}/convenzioni/intermediazione-domande.md` (ruolo subagent).
-  > `${CLAUDE_PLUGIN_ROOT}` = radice del plugin; se non impostata, cerca sotto `~/.claude`.
 - Alla ripresa → integra le correzioni in `requirements.md` (Edit, diff minimo). Non procedere al Passo 3 senza validazione.
 - Validati i requisiti → imposta `stato: validato` nel frontmatter di `requirements.md`.
 

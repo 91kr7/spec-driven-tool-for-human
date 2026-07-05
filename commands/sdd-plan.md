@@ -23,7 +23,6 @@ Delega la pianificazione tecnica della spec `$ARGUMENTS` al subagent `sdd-planne
    - presenta all'utente `requirements.md` (percorso + sintesi schematica delle feature/REQ)
    - raccogli conferma o correzioni
    - applica la convenzione `${CLAUDE_PLUGIN_ROOT}/convenzioni/intermediazione-domande.md` (ruolo orchestratore): riprendi lo stesso subagent con `SendMessage`, ripeti finché l'umano non valida.
-   > `${CLAUDE_PLUGIN_ROOT}` = radice del plugin; se non impostata, cerca sotto `~/.claude`.
 4. Prodotti i lotti, il subagent si ferma per la **validazione della copertura REQ ↔ INT**:
    - presenta all'utente i **percorsi** dei file prodotti + una sintesi schematica della copertura (non incollare i file interi)
    - l'umano valida a mano; raccogli conferma o correzioni
