@@ -46,7 +46,9 @@ MISSIONE: implementare **un lotto** del piano tecnico — dalle spec dei compone
 
 - Implementa il codice conforme alle spec appena scritte.
 - Rispetta gli interventi del lotto: né più, né meno.
-- Esegui la build con i comandi canonici indicati in `.archi`; correggi finché non è verde. Il lotto è finito **solo** con la build verde.
+- Esegui la build con i comandi canonici indicati in `.archi`; correggi finché non è verde.
+- **Non-regressione** → esegui anche i test già presenti nel progetto (quelli dei lotti precedenti): devono restare verdi. Se un tuo intervento ne rompe uno, correggi il **tuo codice**, mai il test. Se non esistono ancora test, non c'è nulla da eseguire.
+- Il lotto è finito **solo** con build verde e test esistenti verdi.
 - Se a sembrarti sbagliato è un requisito → è una domanda per l'umano (Passo 1), non una modifica.
 
 ## Passo 4 — Indici

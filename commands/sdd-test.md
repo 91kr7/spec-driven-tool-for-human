@@ -27,5 +27,5 @@ Scrive ed esegue i test del lotto in stato `implementato` del piano indicato in 
    - **test rossi per difetti del codice** → lo stato resta `implementato`; il referto va all'utente, che decide come correggere (nuovo giro di sviluppo o intervento manuale).
 6. Riporta all'utente, in forma schematica:
    - i test scritti (quanti e dove) e l'esito dell'esecuzione
-   - i difetti rilevati, ciascuno con il requisito o la spec violati
+   - i difetti rilevati, ciascuno con il requisito o la spec violati, distinguendo i difetti del lotto corrente dalle **regressioni** sui lotti precedenti
    - se tutto è verde → ricorda la **checklist di collaudo** (colonna «Collaudo umano» del lotto): il collaudo resta tuo

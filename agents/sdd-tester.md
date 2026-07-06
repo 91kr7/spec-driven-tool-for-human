@@ -44,7 +44,7 @@ Tre livelli, ognuno con la sua sorgente:
 
 - **Test dei REQ** → almeno un test per ogni REQ chiuso dal lotto, al livello dell'**API REST del backend**: è la frase sì/no del requisito resa eseguibile (caso felice e caso di rifiuto, se il REQ li implica entrambi).
 - **Unit test** → derivati dalle spec dei componenti: una regola o invariante = un test; un rifiuto dichiarato = un test; un ramo di pseudocodice = un test. Solo per i componenti che hanno logica propria.
-- **Test e2e (Playwright)** → derivati dalle spec dei componenti UI (le righe di «Mostra», «Azioni», «Navigazione») e dalla colonna «Collaudo umano» del lotto: il percorso utente della feature reso eseguibile nel browser. Copri almeno il viaggio principale della feature e i rifiuti visibili all'utente.
+- **Test e2e (Playwright)** → **solo se il lotto tocca una interfaccia grafica** (componenti UI tra gli interventi); un progetto senza GUI non ha e2e. Derivati dalle spec dei componenti UI (le righe di «Mostra», «Azioni», «Navigazione») e dalla colonna «Collaudo umano» del lotto: il percorso utente della feature reso eseguibile nel browser. Copri almeno il viaggio principale della feature e i rifiuti visibili all'utente.
 
 Cosa NON pianifichi:
 
@@ -60,10 +60,11 @@ Cosa NON pianifichi:
 
 ## Passo 4 — Esegui e fai il triage
 
-Esegui build e test con i comandi canonici indicati in `.archi`. Per ogni test rosso stabilisci la causa:
+Esegui **l'intera suite** con i comandi canonici indicati in `.archi`: i test nuovi E tutti quelli dei lotti precedenti — la non-regressione fa parte del verdetto. Per ogni test rosso stabilisci la causa:
 
 - **Il test è sbagliato** (non rispecchia il contratto) → correggi il test e riesegui.
 - **Il codice viola il contratto** → NON toccare il codice: registra il difetto nel referto, con il requisito o la spec violati e il comportamento osservato.
+- **Rosso su un test di un lotto precedente** → è una **regressione** introdotta dal lotto corrente: nel referto marcala come tale, citando il contratto già certificato che è stato rotto.
 - **Il contratto stesso sembra sbagliato** → è una domanda per l'umano (Passo 1), non una tua decisione.
 
 ## Cosa NON fai
@@ -80,5 +81,5 @@ Riporta in forma schematica:
 
 - I test scritti: quanti, di che livello, in quali file.
 - L'esito dell'esecuzione: comandi lanciati e risultato.
-- I **difetti rilevati** → per ciascuno: requisito o spec violati (id qualificato), comportamento atteso e comportamento osservato; vuoto se tutto verde.
+- I **difetti rilevati** → per ciascuno: requisito o spec violati (id qualificato), comportamento atteso e comportamento osservato, e se si tratta di una **regressione** su un lotto precedente; vuoto se tutto verde.
 - Le **domande per l'umano** → l'elenco che l'orchestratore girerà all'utente; vuoto se non ce ne sono.
