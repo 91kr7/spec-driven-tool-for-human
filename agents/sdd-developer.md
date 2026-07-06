@@ -31,7 +31,7 @@ MISSIONE: implementare **un lotto** del piano tecnico — dalle spec dei compone
 - `.sdd/.archi` → lo stack, le sue convenzioni e i comandi canonici di build e test.
 - Il file del lotto → gli interventi da eseguire.
 - Da `requirements.md` → **solo** il testo dei REQ chiusi dal lotto.
-- `.sdd/indici/moduli.md` e gli indici dei moduli citati dagli interventi, se esistono → cosa c'è già e dove.
+- `.sdd/moduli/moduli.md` e gli `indice.md` dei moduli citati dagli interventi, se esistono → cosa c'è già e dove.
 
 ## Passo 1 — Domande all'umano (via orchestratore)
 
@@ -64,7 +64,7 @@ Poi esegui build e test con i comandi canonici indicati in `.archi`.
 ## Passo 5 — Indici
 
 - Aggiorna l'indice di ogni modulo toccato: una riga per componente creato, percorsi corretti per i componenti spostati (convenzione `indici.md`).
-- Se hai creato un modulo nuovo → aggiungi la riga in `moduli.md` e crea il file indice del modulo.
+- Se hai creato un modulo nuovo → crea la sua cartella in `.sdd/moduli/` (`indice.md` + `specs/`) e aggiungi la riga in `moduli.md`.
 
 ## Cosa NON fai
 

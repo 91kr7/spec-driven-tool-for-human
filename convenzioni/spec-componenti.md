@@ -4,8 +4,9 @@ La spec di un componente è il suo **contratto**: descrive cosa fa e quali regol
 
 ## Posizione e nome
 
-- Percorso → `.sdd/spec/<modulo>/<componente>.md` (nome file in kebab-case, es. `prestito-service.md`).
-- Il percorso del file sorgente NON si scrive nella spec: vive nell'indice del modulo (vedi convenzione indici).
+- Percorso → `.sdd/moduli/<modulo>/specs/<componente>.md` (nome file in kebab-case, es. `prestito-service.md`).
+- La spec vive nella cartella del suo modulo, accanto all'`indice.md` (vedi convenzione indici).
+- Il percorso del file sorgente NON si scrive nella spec: vive nell'indice del modulo.
 
 ## Struttura del file
 
