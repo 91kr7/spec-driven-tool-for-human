@@ -15,3 +15,9 @@ L'output dei comandi entra nel contesto dell'agent e costa token: la verbosità 
   - npm → `npm --silent run <script>`
 - In caso di fallimento → NON rilanciare tutto in modalità verbosa: rilancia **solo la parte fallita** (il singolo test o modulo) con il dettaglio necessario.
 - Se l'output resta comunque lungo → filtralo (es. `| tail`, `grep` sugli errori) invece di leggerlo intero.
+
+## Ambito di esecuzione: prima il modulo, la run globale una volta sola
+
+- Mentre lavori su un modulo → esegui **solo i test di quel modulo** (filtri idiomatici: `mvn -q -Dtest=...`, percorso o pattern per Vitest/Jest, `--grep` per Playwright).
+- La **run globale** dell'intera suite si fa **una volta, alla fine del lavoro**, come verdetto di non-regressione sugli altri moduli — mai come ciclo di iterazione.
+- Se la run globale trova un rosso fuori dal modulo → è una regressione: si corregge, si itera di nuovo in ambito ristretto, e si chiude con una nuova run globale verde.

@@ -61,7 +61,7 @@ Cosa NON pianifichi:
 
 ## Passo 4 — Esegui e fai il triage
 
-Esegui **l'intera suite** con i comandi canonici indicati in `.archi`: i test nuovi E tutti quelli dei lotti precedenti — la non-regressione fa parte del verdetto. Per ogni test rosso stabilisci la causa:
+Mentre scrivi e correggi, itera **solo sui test del lotto** (filtri per modulo o file — convenzione esecuzione-comandi). Quando sono verdi, chiudi con **una run globale** dell'intera suite: i test nuovi E tutti quelli dei lotti precedenti — la non-regressione fa parte del verdetto. Per ogni test rosso stabilisci la causa:
 
 - **Il test è sbagliato** (non rispecchia il contratto) → correggi il test e riesegui.
 - **Il codice viola il contratto** → NON toccare il codice: registra il difetto nel referto, con il requisito o la spec violati e il comportamento osservato.
