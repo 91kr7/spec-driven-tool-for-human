@@ -57,6 +57,11 @@ Poi, due passate:
 1. **Scoperta per REQ** → per ogni REQ localizza i punti da creare/modificare.
 2. **Aggregazione per punto** → ogni punto = un **INT-n**: `tipo (crea|modifica) · dove · cosa (1-3 righe) · REQ serviti (per id) · dipende da` (id progressivi nel lotto; dipendenze tra INT solo dentro lo stesso lotto).
 
+Il `dove` dipende dal tipo:
+
+- `modifica` → percorso esatto, ancorato a indici/spec (scala di approfondimento sopra).
+- `crea` → **modulo/area di dominio** (es. «backend, area prestiti») → **mai nomi di file o classi**: il design dei componenti e il posizionamento esatto li decide l'implementatore, che li registra in indici/spec.
+
 ## Passo 4 — Scrivi i lotti
 
 `.sdd/plan-<slug>/lotti.md`:
@@ -65,7 +70,9 @@ Poi, due passate:
 - Tabella → `Lotto | Feature | REQ chiusi | Dipende | Stato | Collaudo umano`.
   - Stati del lotto → `da fare | in corso | implementato | collaudato`; iniziale → `da fare`.
   - Li avanzano **solo gli orchestratori** delle fasi successive, mai i subagent.
+  - La colonna «REQ chiusi» è **esaustiva** → tutti i REQ chiusi dal lotto, anche quelli chiusi implementativamente; tabella, controllo di copertura e frontmatter dei lotti riportano la **stessa lista**. Le note spiegano, mai sostituiscono.
 - **Assunzioni/decisioni** del piano (es. strumento di migrazione, posizionamenti scelti).
+- **Deroghe** → una decisione umana (presa in validazione) che contraddice la spec va registrata qui come deroga esplicita («in deroga alla spec, decisione umana») e segnalata nell'output finale → la spec va corretta.
 - **Controllo di copertura** → ogni REQ ≥1 INT; ogni INT ≥1 REQ (eccezione «abilitante» solo dichiarata); REQ a cavallo di più lotti dichiarati con il lotto di chiusura.
 
 `.sdd/plan-<slug>/lotti/lotto-<slug-feature>.md` (uno per lotto):
