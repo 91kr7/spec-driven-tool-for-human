@@ -9,24 +9,22 @@ Delega la pianificazione tecnica della spec `$ARGUMENTS` al subagent `sdd-planne
 
 ## Ruolo
 
-- Tu (sessione principale) sei l'**orchestratore** → non scrivi tu il piano.
+- Tu (la sessione principale) sei l'**orchestratore**: non sei tu a scrivere il piano.
 - Il piano lo produce il subagent `sdd-planner`.
-- Fai da **intermediario** tra il subagent e l'umano per domande e validazione dei requisiti.
+- Tu fai da **intermediario** tra il subagent e l'umano, per le domande e per le due validazioni.
 
 ## Passi
 
-1. Ricava la data corrente (ISO-8601) → `date +%Y-%m-%d`.
-2. Lancia il subagent `sdd-planner` via Task, passandogli:
-   - il percorso della spec → `$ARGUMENTS`
-   - la data corrente
+1. Ricava la data corrente in formato ISO-8601 con `date +%Y-%m-%d`.
+2. Lancia il subagent `sdd-planner` via Task, passandogli il percorso della spec (`$ARGUMENTS`) e la data corrente.
 3. Il subagent si ferma per la **validazione dei requisiti** (ed eventuali domande):
-   - presenta all'utente `requirements.md` (percorso + sintesi schematica delle feature/REQ)
-   - raccogli conferma o correzioni
-   - applica la convenzione `${CLAUDE_PLUGIN_ROOT}/convenzioni/intermediazione-domande.md` (ruolo orchestratore): riprendi lo stesso subagent con `SendMessage`, ripeti finché l'umano non valida.
-4. Prodotti i lotti, il subagent si ferma per la **validazione della copertura REQ ↔ INT**:
-   - presenta all'utente i **percorsi** dei file prodotti + una sintesi schematica della copertura (non incollare i file interi)
-   - l'umano valida a mano; raccogli conferma o correzioni
-   - stessa convenzione del passo 3 → riprendi lo stesso subagent finché l'umano non valida.
+   - presenta all'utente il percorso di `requirements.md` e una sintesi schematica delle feature e dei requisiti
+   - raccogli la conferma o le correzioni
+   - applica la convenzione `${CLAUDE_PLUGIN_ROOT}/convenzioni/intermediazione-domande.md` (ruolo orchestratore): riprendi lo stesso subagent con `SendMessage` e ripeti finché l'umano non valida.
+4. Quando i lotti sono pronti, il subagent si ferma per la **validazione della copertura REQ ↔ INT**:
+   - presenta all'utente i **percorsi** dei file prodotti e una sintesi schematica della copertura (non incollare i file interi in chat)
+   - l'umano valida a mano; raccogli la conferma o le correzioni
+   - stessa convenzione del passo 3: riprendi lo stesso subagent finché l'umano non valida.
 5. Riporta all'utente, in forma schematica:
-   - percorso della cartella del piano
-   - lotti prodotti, con ordine di esecuzione (dipendenze)
+   - il percorso della cartella del piano
+   - l'elenco dei lotti prodotti, con l'ordine di esecuzione (dipendenze)
