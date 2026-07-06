@@ -46,7 +46,7 @@ Contesto tecnico (letture chirurgiche):
 
 - Leggi `.sdd/.archi` **una sola volta**, a inizio passo: ti dice lo stack tecnologico e le sue convenzioni, che userai per posizionare gli interventi di tipo «crea».
 - Per gli interventi in **modifica** → localizza i punti salendo una scala a 3 livelli; **sali di livello solo se il precedente non basta a decidere**:
-  1. **Indici** (`.sdd/indici/`) → sempre, per primi → dalla responsabilità (1 riga per componente) individua i **componenti candidati**.
+  1. **Indici** (`.sdd/indici/`) → sempre, per primi: leggi l'indice radice `moduli.md` per individuare i moduli candidati, poi apri **solo** gli indici di quei moduli e individua i **componenti candidati** (struttura: convenzione `${CLAUDE_PLUGIN_ROOT}/convenzioni/indici.md`).
   2. **Spec** (`.sdd/spec/`) → **solo dei candidati** del livello 1 → dal contratto capisci se e come il componente va toccato. Vietato aprire spec di componenti non candidati.
   3. **Codice sorgente** → ultima risorsa, **un file mirato** → solo per sciogliere un dubbio puntuale rimasto dopo la spec. Vietato esplorare il codice per orientarsi.
 - **Regola di arresto** → fermati al primo livello che ti permette di definire l'INT (dove, cosa); non scendere oltre "per sicurezza".
