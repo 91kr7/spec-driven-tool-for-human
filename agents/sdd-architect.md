@@ -50,7 +50,7 @@ Sezioni:
 - **Struttura** → la fotografia di ciò che lo scaffolding ha generato (descrittiva, non progettuale).
 - **Dipendenze** → le librerie principali e il motivo per cui ci sono.
 - **Convenzioni** → naming e organizzazione dei file.
-- **Comandi** → come si compila, si avvia e si testa il progetto.
+- **Comandi** → come si compila, si avvia e si testa il progetto; registra le **varianti a bassa verbosità** (es. `mvn -q`, reporter minimali), che saranno quelle usate dagli agent.
 - **Assunzioni** → i default che hai scelto, con motivazione.
 
 Il `.archi` descrive **esattamente** ciò che hai creato su disco: nessuna divergenza tra file e realtà.

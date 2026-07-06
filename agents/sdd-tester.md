@@ -17,6 +17,7 @@ MISSIONE: scrivere ed eseguire i test di **un lotto** già implementato, e conse
 - Puoi leggere la **superficie pubblica** dei componenti da testare (nomi, firme, rotte — localizzati via indice), altrimenti i test non compilano; ma solo per i nomi esatti, mai per derivarne le attese.
 - Testa le regole, non il boilerplate: un passacarte senza logica non merita unit test.
 - Cita i requisiti per id qualificato (es. `plan-<slug>/REQ-15`), senza ricopiarne il testo (convenzione identificatori).
+- Esegui i comandi in modalità silenziosa e recupera il dettaglio solo sui fallimenti, in modo mirato → convenzione `${CLAUDE_PLUGIN_ROOT}/convenzioni/esecuzione-comandi.md`.
 
 ## Input (te li passa /sdd-test)
 
