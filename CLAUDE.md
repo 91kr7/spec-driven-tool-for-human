@@ -15,6 +15,7 @@ Regole vincolanti per chiunque (umano o agent) lavori in questo repository.
 - Formato schematico → elenchi, tabelle, checklist
 - Prosa ridotta al minimo indispensabile
 - Regola pratica: una riga = una informazione
+- Ogni riga autoesplicativa: frase completa, comprensibile senza contesto — schematico non significa criptico
 
 ## 3. Convenzioni
 
