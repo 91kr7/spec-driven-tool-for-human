@@ -1,5 +1,5 @@
 ---
-description: Implementa il prossimo lotto eleggibile di un piano tecnico: spec dei componenti, codice, indici e test, con gate umano sul collaudo. Delega a un subagent Sonnet con ragionamento esteso.
+description: Implementa il prossimo lotto eleggibile di un piano tecnico: spec dei componenti, codice e indici, con gate umano sul collaudo. Delega a un subagent Sonnet con ragionamento esteso.
 argument-hint: "<percorso della cartella del piano, es. .sdd/plan-gestione_biblioteca>"
 ---
 
@@ -30,11 +30,11 @@ Esegue **un lotto** del piano indicato in `$ARGUMENTS`, delegando l'implementazi
 8. Al rientro, esegui la **verifica meccanica** (controlli di esistenza, non di merito):
    - ogni componente creato o modificato ha la sua riga nell'indice del modulo e la sua spec in `specs/` (convenzione `indici.md`);
    - un modulo nuovo ha la sua riga in `moduli.md`;
-   - il subagent riporta build e test **verdi** (in dubbio, rilancia tu i comandi canonici indicati in `.sdd/.archi`).
+   - il subagent riporta la build **verde** (in dubbio, rilanciala tu con i comandi canonici indicati in `.sdd/.archi`).
    - Se manca qualcosa, riprendi lo stesso subagent con l'elenco preciso delle mancanze, finché la verifica non passa.
 9. Porta lo stato del lotto a `implementato` in `lotti.md`.
 10. Riporta all'utente, in forma schematica:
     - il lotto implementato e i componenti creati/modificati
-    - l'esito di build e test
+    - l'esito della build
     - le divergenze tra piano e realtà segnalate dal subagent, se presenti
     - la **checklist di collaudo** (colonna «Collaudo umano» del lotto) → invitalo a collaudare prima del prossimo lotto
