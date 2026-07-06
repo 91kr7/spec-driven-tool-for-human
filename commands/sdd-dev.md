@@ -28,7 +28,7 @@ Esegue **un lotto** del piano indicato in `$ARGUMENTS`, delegando l'implementazi
    - la data corrente
 7. Se il subagent restituisce domande per l'umano → applica la convenzione `${CLAUDE_PLUGIN_ROOT}/convenzioni/intermediazione-domande.md` (ruolo orchestratore): poni le domande all'utente, riprendi lo stesso subagent con `SendMessage` e ripeti finché non restano domande.
 8. Al rientro, esegui la **verifica meccanica** (controlli di esistenza, non di merito):
-   - ogni componente creato o modificato ha la sua riga nell'indice del modulo e la sua spec (convenzioni `indici.md` e `spec-componenti.md`);
+   - ogni componente creato o modificato ha la sua riga nell'indice del modulo e la sua spec in `specs/` (convenzione `indici.md`);
    - un modulo nuovo ha la sua riga in `moduli.md`;
    - il subagent riporta build e test **verdi** (in dubbio, rilancia tu i comandi canonici indicati in `.sdd/.archi`).
    - Se manca qualcosa, riprendi lo stesso subagent con l'elenco preciso delle mancanze, finché la verifica non passa.

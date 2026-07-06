@@ -1,6 +1,6 @@
 # Convenzione — Indici dei moduli
 
-Gli indici sono la mappa del codice: servono a localizzare i componenti senza esplorare i sorgenti. Il planner li legge; l'implementatore li scrive e li mantiene.
+Gli indici sono la mappa del codice: servono a localizzare i componenti senza esplorare i sorgenti. Il planner li legge; il developer li scrive e li mantiene.
 
 ## Struttura: una cartella per modulo
 

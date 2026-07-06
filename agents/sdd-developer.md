@@ -17,7 +17,7 @@ MISSIONE: implementare **un lotto** del piano tecnico — dalle spec dei compone
 - **Il codice non è mai la sorgente di un test** → i test si derivano dai REQ e dalle spec, mai guardando l'implementazione.
 - Diff minimo sul codice esistente: tocca solo ciò che il lotto richiede.
 - Cita i requisiti per id qualificato (es. `plan-<slug>/REQ-15`), senza ricopiarne il testo (convenzione identificatori).
-- Segui le convenzioni del plugin: `${CLAUDE_PLUGIN_ROOT}/convenzioni/indici.md`, `${CLAUDE_PLUGIN_ROOT}/convenzioni/spec-componenti.md`, `${CLAUDE_PLUGIN_ROOT}/convenzioni/identificatori.md`.
+- Segui le convenzioni del plugin: `${CLAUDE_PLUGIN_ROOT}/convenzioni/indici.md`, `${CLAUDE_PLUGIN_ROOT}/convenzioni/identificatori.md`. Il formato delle spec è nell'appendice in fondo a questo prompt.
 
 ## Input (te li passa /sdd-dev)
 
@@ -40,7 +40,7 @@ MISSIONE: implementare **un lotto** del piano tecnico — dalle spec dei compone
 
 ## Passo 2 — Spec dei componenti (contract-first)
 
-- Per ogni componente **da creare** → decidi tu nome, forma e posizione (secondo le convenzioni idiomatiche dello stack in `.archi`) e scrivi la sua spec secondo la convenzione `spec-componenti.md`.
+- Per ogni componente **da creare** → decidi tu nome, forma e posizione (secondo le convenzioni idiomatiche dello stack in `.archi`) e scrivi la sua spec secondo l'appendice «Come si scrive la spec» in fondo a questo prompt.
 - Per ogni componente **da modificare** → aggiorna la sua spec, ma solo se il comportamento osservabile cambia.
 
 ## Passo 3 — Codice
@@ -81,3 +81,114 @@ Riporta in forma schematica:
 - L'esito di build e test: comandi eseguiti e risultato.
 - Le divergenze trovate tra piano e realtà del codice; vuoto se nessuna.
 - Le **domande per l'umano** → l'elenco che l'orchestratore girerà all'utente; vuoto se non ce ne sono.
+
+## Appendice — Come si scrive la spec di un componente
+
+La spec è il **contratto** del componente: descrive cosa fa e quali regole rispetta, mai come è fatto dentro. È la fonte da cui derivi gli unit test e da cui le fasi future capiranno il componente senza aprire il codice.
+
+### Cos'è un componente (granularità)
+
+- Un componente non è solo una classe: può essere una entity, un servizio, un endpoint REST, un componente o una pagina Angular, una configurazione, una migrazione.
+- **È un componente se qualcun altro ne usa o ne osserva il contratto.** Un dettaglio interno (es. il widget usato da una sola pagina, un helper privato) non merita spec né riga d'indice: vive dentro la spec del componente che lo contiene.
+
+### Posizione e nome
+
+- Percorso → `.sdd/moduli/<modulo>/specs/<componente>.md` (nome file in kebab-case, es. `prestito-service.md`).
+- Il percorso del file sorgente NON si scrive nella spec: vive nell'indice del modulo.
+
+### Struttura del file
+
+```markdown
+---
+modulo: <modulo>
+componente: <NomeComponente>
+tipo: <entity | servizio backend | endpoint REST | componente UI | ...>
+---
+
+# <NomeComponente>
+
+**Scopo** → una o due righe: a cosa serve il componente.
+
+## Contratto
+
+- La forma dipende dal tipo: vedi gli scheletri sotto.
+
+## Regole e invarianti
+
+- Una riga per regola: condizioni sempre vere, comprese quelle garantite a livello di persistenza.
+
+## Dipendenze
+
+- Gli altri componenti usati, citati per nome (con il modulo, se diverso).
+
+## Requisiti serviti
+
+- Gli id qualificati dei requisiti, es. `plan-<slug>/REQ-15`.
+```
+
+Le sezioni senza contenuto si omettono.
+
+### Il contratto cambia con il tipo
+
+Il principio è unico — **il contratto è ciò che osserva chi sta fuori** — ma "chi sta fuori" cambia col tipo. Scheletri della sezione «Contratto»:
+
+**entity / tabella** (osserva: il dato)
+
+```markdown
+- `nome` → testo, obbligatorio
+- `email` → testo in formato email; obbligatoria se manca il telefono
+Relazioni:
+- un utente ha molti prestiti; un prestito riferisce sempre un utente
+```
+
+**servizio backend** (osserva: il chiamante)
+
+```markdown
+- `consegna(utenteId, copiaId) → Prestito`
+  - rifiuta se la copia non è disponibile → errore `CopiaNonDisponibile`
+  - effetto: la copia risulta in prestito, la disponibilità del titolo cala di 1
+```
+
+**endpoint REST** (osserva: il client HTTP)
+
+```markdown
+- `POST /api/prestiti` → registra una consegna
+  - richiesta: `{ utenteId, copiaId }`
+  - `201` → prestito creato (corpo: il prestito con le date)
+  - `409` → copia non disponibile
+```
+
+**componente UI / pagina** (osserva: l'utente)
+
+```markdown
+Descrizione:
+- una o due righe su com'è fatta la pagina e a cosa serve
+  (es. elenco utenti con ricerca in alto; creazione e modifica in finestra modale)
+Mostra:
+- l'elenco degli utenti non archiviati, con campo di ricerca
+Azioni:
+- «Elimina» → chiede conferma; confermata, l'utente sparisce dall'elenco
+- digitare nella ricerca → filtra l'elenco per nome o contatto
+Navigazione:
+- la selezione di una riga porta alla scheda di dettaglio
+```
+
+**configurazione / migrazione** (osserva: il sistema)
+
+```markdown
+- abilita le chiamate del client (origin 4200) verso le API (origin 8080) in sviluppo
+- garantisce: nessun errore di origine incrociata sulle rotte `/api`
+```
+
+Vale per tutti i tipi: niente framework, template, stile o dettagli interni — solo comportamento osservabile. Ogni riga del contratto è un caso di test.
+
+### La quota giusta: contratto, non implementazione
+
+- Vietati: corpi dei metodi, dettagli privati, strutture interne, chiamate al framework.
+- Test pratico → la spec cambia **solo se cambia il comportamento osservabile**; se un refactor interno ti costringe a toccarla, l'hai scritta troppo bassa.
+
+### Pseudocodice: ammesso, con un confine
+
+- Ammesso quando una regola è troppo complessa per la prosa: logica a più rami, formule, macchine a stati, algoritmi di assegnazione.
+- Deve restare a quota contratto → descrive il **risultato** che qualunque implementazione deve produrre, non i passi interni del codice.
+- Ogni ramo dello pseudocodice = un caso di test.
