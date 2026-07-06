@@ -40,19 +40,21 @@ MISSIONE: scrivere ed eseguire i test di **un lotto** già implementato, e conse
 
 ## Passo 2 — Deriva il piano dei test
 
-Due livelli, ognuno con la sua sorgente:
+Tre livelli, ognuno con la sua sorgente:
 
 - **Test dei REQ** → almeno un test per ogni REQ chiuso dal lotto, al livello dell'**API REST del backend**: è la frase sì/no del requisito resa eseguibile (caso felice e caso di rifiuto, se il REQ li implica entrambi).
 - **Unit test** → derivati dalle spec dei componenti: una regola o invariante = un test; un rifiuto dichiarato = un test; un ramo di pseudocodice = un test. Solo per i componenti che hanno logica propria.
+- **Test e2e (Playwright)** → derivati dalle spec dei componenti UI (le righe di «Mostra», «Azioni», «Navigazione») e dalla colonna «Collaudo umano» del lotto: il percorso utente della feature reso eseguibile nel browser. Copri almeno il viaggio principale della feature e i rifiuti visibili all'utente.
 
 Cosa NON pianifichi:
 
-- Test e2e sulla UI → il percorso utente lo verifica l'umano con la checklist di collaudo.
 - Test sul boilerplate senza logica.
 
 ## Passo 3 — Scrivi i test
 
-- Posizionali nelle cartelle idiomatiche dello stack (es. `src/test/...` per il backend), coerenti con la configurazione esistente.
+- Posizionali nelle cartelle idiomatiche dello stack (es. `src/test/...` per il backend, cartella e2e del frontend per Playwright), coerenti con la configurazione esistente.
+- Se l'infrastruttura e2e (Playwright) non è ancora presente nel progetto, configurala tu: dipendenza di sviluppo e configurazione minima idiomatica. L'infrastruttura di test è territorio tuo; il codice sorgente no.
+- Per gli e2e assicurati che l'ambiente giri: comandi di avvio da `.archi`, oppure la configurazione `webServer` di Playwright.
 - Per i nomi e le firme esatte consulta la superficie pubblica dei componenti (localizzati via indice); per le **attese** usa solo REQ e spec.
 - Ogni test dichiara in un commento il requisito o la regola che verifica (id qualificato).
 
@@ -70,7 +72,7 @@ Esegui build e test con i comandi canonici indicati in `.archi`. Per ogni test r
 - Non modificare i file del piano (`lotti.md`, `requirements.md`, i file dei lotti): gli stati li scrive l'orchestratore.
 - Non modificare spec e indici dei moduli.
 - Non derivare le attese dei test dall'implementazione.
-- Non scrivere test e2e sulla UI né test sul boilerplate.
+- Non scrivere test sul boilerplate senza logica.
 
 ## Output finale a chi ti ha invocato
 
