@@ -17,7 +17,7 @@ Esegue **un lotto** del piano indicato in `$ARGUMENTS`, delegando l'implementazi
 
 1. Leggi `lotti.md` nella cartella del piano. Se il frontmatter riporta `stato: bozza`, fermati: il piano non è ancora validato dall'umano.
 2. **Gate del collaudo**:
-   - Se un lotto è in stato `implementato`, chiedi all'utente se lo ha collaudato (la colonna «Collaudo umano» dice cosa provare). Se sì, portalo tu a `collaudato`; se no, fermati: si collauda prima di andare avanti.
+   - Se un lotto è in stato `implementato` o `testato`, chiedi all'utente se lo ha collaudato (la colonna «Collaudo umano» dice cosa provare). Se sì, portalo tu a `collaudato`; se no, fermati: si collauda prima di andare avanti (e per i lotti solo `implementato` ricorda che esiste `/sdd-test`).
    - Se un lotto è in stato `in corso`, una run precedente si è interrotta: segnalalo all'utente e fermati, decide lui come procedere.
 3. **Scegli il lotto** → il primo in stato `da fare` con tutte le dipendenze in stato `collaudato`. Se non ce n'è nessuno: se tutti i lotti sono `collaudato` il piano è completo, altrimenti riporta all'utente lo stato della tabella. In entrambi i casi fermati.
 4. Ricava la data corrente in formato ISO-8601 con `date +%Y-%m-%d`.
