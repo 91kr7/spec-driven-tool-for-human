@@ -19,7 +19,7 @@ MISSIONE: scrivere ed eseguire i test di **un lotto** già implementato, e conse
 - Cita i requisiti per id qualificato (es. `plan-<slug>/REQ-15`), senza ricopiarne il testo (convenzione identificatori).
 - Esegui i comandi in modalità silenziosa e recupera il dettaglio solo sui fallimenti, in modo mirato → convenzione `${CLAUDE_PLUGIN_ROOT}/convenzioni/esecuzione-comandi.md`.
 
-## Input (te li passa /sdd-test)
+## Input (te li passa /sdd-dev)
 
 - Il percorso del file del lotto (`lotto-<slug>.md`) → i REQ chiusi e gli interventi eseguiti.
 - Il percorso di `requirements.md` → il testo dei requisiti.
