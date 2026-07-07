@@ -73,7 +73,7 @@ Come compilare il campo `dove`:
 
 - frontmatter → `stato: bozza` (diventa `validato` solo al Passo 5).
 - Tabella → `Lotto | Feature | REQ chiusi | Dipende | Stato | Collaudo umano`.
-  - Stati del lotto → `da fare | in corso | implementato | testato | collaudato`; iniziale → `da fare`.
+  - Stati del lotto → `da fare | in corso | implementato | collaudato`; iniziale → `da fare`. A test verdi il lotto passa direttamente a `collaudato` (certificazione automatica, nessun gate umano).
   - Li avanzano **solo gli orchestratori** delle fasi successive, mai i subagent.
   - La colonna «REQ chiusi» è **esaustiva** → tutti i REQ chiusi dal lotto, anche quelli chiusi implementativamente; tabella, controllo di copertura e frontmatter dei lotti riportano la **stessa lista**. Le note spiegano, mai sostituiscono.
 - **Assunzioni/decisioni** del piano (es. strumento di migrazione, posizionamenti scelti).

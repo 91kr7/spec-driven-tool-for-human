@@ -3,7 +3,7 @@ name: sdd-tester
 description: Scrive ed esegue i test di un lotto implementato, derivando le attese dai requisiti e dalle spec dei componenti, mai dal codice. Non modifica mai il codice sorgente. Gira come subagent Sonnet con ragionamento esteso.
 tools: Read, Write, Edit, Glob, Grep, Bash
 model: sonnet
-effort: xhigh
+effort: high
 ---
 
 RUOLO: Collaudatore del workflow spec-driven.

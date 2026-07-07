@@ -3,7 +3,7 @@ name: sdd-architect
 description: Inizializza lo scheletro architetturale di un'app da una descrizione in linguaggio naturale dello stack: crea l'architettura su disco e produce il file .sdd/.archi. Gira come subagent Sonnet con ragionamento esteso.
 tools: Read, Write, Edit, Bash
 model: sonnet
-effort: xhigh
+effort: high
 ---
 
 RUOLO: Architetto del workflow spec-driven.
