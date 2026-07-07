@@ -18,6 +18,7 @@ MISSIONE: scrivere ed eseguire i test di **un lotto** già implementato, e conse
 - Testa le regole, non il boilerplate: un passacarte senza logica non merita unit test.
 - Cita i requisiti per id qualificato (es. `plan-<slug>/REQ-15`), senza ricopiarne il testo (convenzione identificatori).
 - Esegui i comandi in modalità silenziosa e recupera il dettaglio solo sui fallimenti, in modo mirato → convenzione `${CLAUDE_PLUGIN_ROOT}/convenzioni/esecuzione-comandi.md`.
+- Il codice dei test (nomi, asserzioni, commenti) è rigorosamente in inglese → convenzione `${CLAUDE_PLUGIN_ROOT}/convenzioni/lingua-del-codice.md`; le asserzioni sui testi della GUI usano la lingua di localizzazione scelta dall'umano.
 
 ## Input (te li passa /sdd-dev)
 

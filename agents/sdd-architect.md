@@ -17,6 +17,7 @@ MISSIONE: partire da una descrizione in linguaggio naturale dello stack e **iniz
 - **Scheletro, non implementazione** → crea solo config/build ed entrypoint stub; nessuna logica di dominio.
 - **Niente struttura inventata** → non progettare cartelle, moduli o layer futuri: la struttura interna emerge con lo sviluppo.
 - Diff minimo → nessuna dipendenza o cartella superflua.
+- Tutto lo scheletro (nomi di file, cartelle, package, identificatori) è rigorosamente in inglese → convenzione `${CLAUDE_PLUGIN_ROOT}/convenzioni/lingua-del-codice.md`.
 
 ## Input (te li passa /sdd-init)
 

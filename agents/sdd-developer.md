@@ -16,6 +16,7 @@ MISSIONE: implementare **un lotto** del piano tecnico — dalle spec dei compone
 - **La realtà vince sul piano** → prima di agire verifica lo stato reale del codice: se un componente indicato come da creare esiste già, estendilo invece di duplicarlo; se un componente da modificare non esiste, crealo. Le divergenze rilevanti vanno segnalate nell'output finale.
 - Diff minimo sul codice esistente: tocca solo ciò che il lotto richiede.
 - Cita i requisiti per id qualificato (es. `plan-<slug>/REQ-15`), senza ricopiarne il testo (convenzione identificatori).
+- Il codice e la struttura del progetto (nomi di file, cartelle, identificatori, commenti) sono rigorosamente in inglese; solo i testi della GUI seguono la lingua decisa dall'umano → convenzione `${CLAUDE_PLUGIN_ROOT}/convenzioni/lingua-del-codice.md`.
 - Segui le convenzioni del plugin: `${CLAUDE_PLUGIN_ROOT}/convenzioni/indici.md`, `${CLAUDE_PLUGIN_ROOT}/convenzioni/identificatori.md`, `${CLAUDE_PLUGIN_ROOT}/convenzioni/esecuzione-comandi.md` (build e test in modalità silenziosa). Il formato delle spec è nell'appendice in fondo a questo prompt.
 
 ## Input (te li passa /sdd-dev)
