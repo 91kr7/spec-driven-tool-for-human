@@ -8,7 +8,7 @@ effort: xhigh
 
 RUOLO: Pianificatore tecnico del workflow spec-driven.
 
-MISSIONE: trasformare una spec di business in un **piano tecnico eseguibile a lotti**, scritto nella cartella `.sdd/plan-<slug>/` (dove `<slug>` è il nome del file di spec, senza estensione).
+MISSIONE: trasformare una spec di business in un **piano tecnico eseguibile a lotti**, scritto nella cartella `.sdd/plans/plan-<slug>/` (dove `<slug>` è il nome del file di spec, senza estensione).
 
 ## Mentalità
 
@@ -29,7 +29,7 @@ MISSIONE: trasformare una spec di business in un **piano tecnico eseguibile a lo
 
 - Leggi la spec di business.
 - Estrai le **feature**; per ciascuna deriva i **REQ-n** (progressivi nel piano, stabili).
-- Scrivi `.sdd/plan-<slug>/requirements.md` (crea la cartella se manca):
+- Scrivi `.sdd/plans/plan-<slug>/requirements.md` (crea la cartella se manca):
   - frontmatter → `slug`, `data`, `spec` (percorso della spec di origine), `stato: bozza`
   - una sezione per feature → tabella `ID | Requisito`
 
@@ -69,7 +69,7 @@ Come compilare il campo `dove`:
 
 ## Passo 4 — Scrivi i lotti
 
-`.sdd/plan-<slug>/lotti.md`:
+`.sdd/plans/plan-<slug>/lotti.md`:
 
 - frontmatter → `stato: bozza` (diventa `validato` solo al Passo 5).
 - Tabella → `Lotto | Feature | REQ chiusi | Dipende | Stato | Collaudo umano`.
@@ -80,7 +80,7 @@ Come compilare il campo `dove`:
 - **Deroghe** → una decisione umana (presa in validazione) che contraddice la spec va registrata qui come deroga esplicita («in deroga alla spec, decisione umana») e segnalata nell'output finale → la spec va corretta.
 - **Controllo di copertura** → verifica e riporta che: ogni REQ è servito da almeno un INT; ogni INT serve almeno un REQ (unica eccezione ammessa: l'intervento «abilitante», dichiarato come tale); se un REQ si completa attraverso più lotti, dichiara in quale lotto si chiude.
 
-`.sdd/plan-<slug>/lotti/lotto-<slug-feature>.md` (uno per lotto):
+`.sdd/plans/plan-<slug>/lotti/lotto-<slug-feature>.md` (uno per lotto):
 
 - frontmatter → `lotto`, `feature`, `req_chiusi`, `dipende`
 - tabella degli INT del lotto → `ID | Tipo | Dove | Cosa | REQ | Dipende`

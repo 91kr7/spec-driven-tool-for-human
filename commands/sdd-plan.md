@@ -1,5 +1,5 @@
 ---
-description: Trasforma una spec di business in un piano tecnico a lotti (feature, requisiti, interventi) in .sdd/plan-<slug>/, con validazione umana dei requisiti. Delega a un subagent Opus con ragionamento esteso.
+description: Trasforma una spec di business in un piano tecnico a lotti (feature, requisiti, interventi) in .sdd/plans/plan-<slug>/, con validazione umana dei requisiti. Delega a un subagent Opus con ragionamento esteso.
 argument-hint: "<percorso del file di spec/analisi di business>"
 ---
 

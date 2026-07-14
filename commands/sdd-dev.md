@@ -1,6 +1,6 @@
 ---
 description: Implementa e testa il prossimo lotto eleggibile di un piano tecnico: sviluppo (spec, codice, indici) e subito dopo i test derivati dai contratti; a test verdi il lotto è certificato in automatico (collaudato), senza gate umano. Delega ai subagent sdd-developer e sdd-tester.
-argument-hint: "<percorso della cartella del piano, es. .sdd/plan-gestione_biblioteca>"
+argument-hint: "<percorso della cartella del piano, es. .sdd/plans/plan-gestione_biblioteca>"
 ---
 
 # /sdd-dev — Sviluppo e test di un lotto
