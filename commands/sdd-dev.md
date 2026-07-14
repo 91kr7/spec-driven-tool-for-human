@@ -20,12 +20,12 @@ Esegue **tutti i lotti** del piano indicato in `$ARGUMENTS`, uno dopo l'altro: p
 1. Leggi `lotti.md` nella cartella del piano. Se il frontmatter riporta `stato: bozza`, fermati: il piano non è ancora validato dall'umano.
 2. Gate d'ingresso:
    - un lotto è in stato `testato` (residuo di una run precedente alla certificazione automatica) → i suoi test erano verdi: portalo a `collaudato` e prosegui.
-   - un lotto è in stato `implementato` → sviluppo concluso ma test mancanti: salta direttamente alla fase Test per quel lotto.
+   - un lotto è in stato `implementato` → sviluppo concluso ma test mancanti: salta direttamente alla fase Test per quel lotto (stabilisci comunque se è l'ultimo lotto, passo 3, per la run globale del tester).
    - un lotto è in stato `in corso` → una run precedente si è interrotta: segnalalo all'utente e fermati, decide lui come procedere.
 
 ### Ciclo sui lotti — ripeti finché ci sono lotti lavorabili
 
-3. Scegli il lotto → il primo in stato `da fare` con tutte le dipendenze in stato `collaudato`. Se non ce n'è nessuno, esci dal ciclo e vai alla **Chiusura del piano**.
+3. Scegli il lotto → il primo in stato `da fare` con tutte le dipendenze in stato `collaudato`. Se non ce n'è nessuno, esci dal ciclo e vai alla **Chiusura del piano**. Stabilisci inoltre se è l'**ultimo lotto** del piano → lo è quando, oltre a quello scelto, nessun altro lotto resta da lavorare (tutti gli altri già `collaudato`): serve a decidere se far girare la **run globale** della suite nella fase Test (passo 10).
 4. Ricava la data corrente in formato ISO-8601 con `date +%Y-%m-%d`.
 
 ### Fase sviluppo
@@ -39,7 +39,7 @@ Esegue **tutti i lotti** del piano indicato in `$ARGUMENTS`, uno dopo l'altro: p
 8. Al rientro, esegui la **verifica meccanica** (controlli di esistenza, non di merito):
    - ogni componente creato o modificato ha la sua riga nell'indice del modulo e la sua spec in `specs/` (convenzione `indici.md`);
    - un modulo nuovo ha la sua riga in `moduli.md`;
-   - il subagent riporta build **verde** e test preesistenti **verdi** — la non-regressione sui lotti già certificati (in dubbio, rilancia tu i comandi canonici indicati in `.sdd/.archi`).
+   - il subagent riporta build **verde**; lo sviluppo **non esegue i test** — la verifica e la non-regressione sono compito della fase Test. In dubbio, rilancia tu la build coi comandi canonici indicati in `.sdd/.archi`.
    - Se manca qualcosa, riprendi lo stesso subagent con l'elenco preciso delle mancanze, finché la verifica non passa.
 9. Porta lo stato del lotto a `implementato`.
 
@@ -49,6 +49,7 @@ Esegue **tutti i lotti** del piano indicato in `$ARGUMENTS`, uno dopo l'altro: p
     - il percorso del file del lotto (`lotti/lotto-<slug>.md`)
     - il percorso di `requirements.md`
     - la data corrente
+    - se è l'**ultimo lotto** del piano (passo 3) → su di esso va eseguita la run globale della suite; sui lotti intermedi solo i test del lotto
 11. Domande del tester → stessa convenzione di intermediazione del passo 7.
 12. Al rientro, valuta il referto:
     - **tutti i test verdi** → porta lo stato del lotto direttamente a `collaudato`: i test verdi certificano il lotto, senza gate di collaudo umano (in dubbio, rilancia i comandi di test indicati in `.sdd/.archi` per conferma).

@@ -25,6 +25,7 @@ MISSIONE: scrivere ed eseguire i test di **un lotto** già implementato, e conse
 - Il percorso del file del lotto (`lotto-<slug>.md`) → i REQ chiusi e gli interventi eseguiti.
 - Il percorso di `requirements.md` → il testo dei requisiti.
 - La data corrente in formato ISO-8601: non hai un orologio, usa quella ricevuta.
+- Se il lotto è l'**ultimo del piano** → su di esso va eseguita la run globale dell'intera suite (Passo 4); sui lotti intermedi solo i test del lotto.
 - Eventuali risposte dell'umano a domande poste in un giro precedente.
 
 ## Passo 0 — Contesto (una lettura ciascuno)
@@ -62,11 +63,16 @@ Cosa NON pianifichi:
 
 ## Passo 4 — Esegui e fai il triage
 
-Mentre scrivi e correggi, itera **solo sui test del lotto** (filtri per modulo o file — convenzione esecuzione-comandi). Quando sono verdi, chiudi con **una run globale** dell'intera suite: i test nuovi E tutti quelli dei lotti precedenti — la non-regressione fa parte del verdetto. Per ogni test rosso stabilisci la causa:
+Mentre scrivi e correggi, itera **solo sui test del lotto** (filtri per modulo o file — convenzione esecuzione-comandi). Quando sono verdi:
+
+- **lotto intermedio** → chiudi qui: nessuna run globale, il verdetto copre i soli test del lotto.
+- **ultimo lotto del piano** (te lo dice l'orchestratore) → chiudi con **una run globale** dell'intera suite (i test nuovi E tutti quelli dei lotti precedenti), come verdetto di non-regressione sull'intero piano.
+
+Per ogni test rosso stabilisci la causa:
 
 - **Il test è sbagliato** (non rispecchia il contratto) → correggi il test e riesegui.
 - **Il codice viola il contratto** → NON toccare il codice: registra il difetto nel referto, con il requisito o la spec violati e il comportamento osservato.
-- **Rosso su un test di un lotto precedente** → è una **regressione** introdotta dal lotto corrente: nel referto marcala come tale, citando il contratto già certificato che è stato rotto.
+- **Rosso su un test di un lotto precedente** (emerge nella run globale dell'ultimo lotto) → è una **regressione**: marcala come tale nel referto, citando il contratto già certificato rotto. La suite globale gira solo alla fine: la regressione può risalire a un lotto intermedio, cita il contratto violato senza attribuire a priori il lotto colpevole.
 - **Il contratto stesso sembra sbagliato** → è una domanda per l'umano (Passo 1), non una tua decisione.
 
 ## Cosa NON fai

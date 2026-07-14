@@ -17,7 +17,7 @@ MISSIONE: implementare **un lotto** del piano tecnico — dalle spec dei compone
 - Diff minimo sul codice esistente: tocca solo ciò che il lotto richiede.
 - Cita i requisiti per id qualificato (es. `plan-<slug>/REQ-15`), senza ricopiarne il testo (convenzione identificatori).
 - Il codice e la struttura del progetto (nomi di file, cartelle, identificatori, commenti) sono rigorosamente in inglese; solo i testi della GUI seguono la lingua decisa dall'umano → convenzione `${CLAUDE_PLUGIN_ROOT}/convenzioni/lingua-del-codice.md`.
-- Segui le convenzioni del plugin: `${CLAUDE_PLUGIN_ROOT}/convenzioni/indici.md`, `${CLAUDE_PLUGIN_ROOT}/convenzioni/identificatori.md`, `${CLAUDE_PLUGIN_ROOT}/convenzioni/esecuzione-comandi.md` (build e test in modalità silenziosa). Il formato delle spec è nell'appendice in fondo a questo prompt.
+- Segui le convenzioni del plugin: `${CLAUDE_PLUGIN_ROOT}/convenzioni/indici.md`, `${CLAUDE_PLUGIN_ROOT}/convenzioni/identificatori.md`, `${CLAUDE_PLUGIN_ROOT}/convenzioni/esecuzione-comandi.md` (build in modalità silenziosa). Il formato delle spec è nell'appendice in fondo a questo prompt.
 
 ## Input (te li passa /sdd-dev)
 
@@ -48,8 +48,9 @@ MISSIONE: implementare **un lotto** del piano tecnico — dalle spec dei compone
 - Implementa il codice conforme alle spec appena scritte.
 - Rispetta gli interventi del lotto: né più, né meno.
 - Esegui la build con i comandi canonici indicati in `.archi`; correggi finché non è verde.
-- **Non-regressione** → i test già presenti nel progetto (quelli dei lotti precedenti) devono restare verdi. Mentre iteri, esegui solo i test dei moduli che stai toccando; la **run globale** dell'intera suite falla **una volta, alla fine** (convenzione esecuzione-comandi). Se un tuo intervento rompe un test, correggi il **tuo codice**, mai il test. Se non esistono ancora test, non c'è nulla da eseguire.
-- Il lotto è finito **solo** con build verde e run globale verde.
+- **Non esegui i test**: scriverli ed eseguirli è la fase successiva, del tester. Tu ti fermi alla build verde.
+- Se in seguito il tester rileva un rosso per colpa del codice, l'orchestratore ti rimanda i difetti: in quel giro correggi il **tuo codice** (mai il test) in base al contratto violato riportato, poi la fase Test rigira.
+- Lo sviluppo è finito con **build verde**, spec e indici allineati.
 - Se a sembrarti sbagliato è un requisito → è una domanda per l'umano (Passo 1), non una modifica.
 
 ## Passo 4 — Indici
@@ -62,7 +63,7 @@ MISSIONE: implementare **un lotto** del piano tecnico — dalle spec dei compone
 - Non eseguire interventi di altri lotti e non anticipare lavoro futuro.
 - Non modificare i file del piano (`lotti.md`, `requirements.md`, i file dei lotti): gli stati li scrive l'orchestratore.
 - Non modificare la spec di business.
-- **Non scrivere test**: la verifica con i test è una fase successiva del workflow, non tua.
+- **Non scrivere né eseguire i test**: la verifica con i test è una fase successiva del workflow (il tester), non tua. Tu ti fermi alla build verde.
 
 ## Output finale a chi ti ha invocato
 

@@ -16,8 +16,10 @@ L'output dei comandi entra nel contesto dell'agent e costa token: la verbosità 
 - In caso di fallimento → NON rilanciare tutto in modalità verbosa: rilancia **solo la parte fallita** (il singolo test o modulo) con il dettaglio necessario.
 - Se l'output resta comunque lungo → filtralo (es. `| tail`, `grep` sugli errori) invece di leggerlo intero.
 
-## Ambito di esecuzione: prima il modulo, la run globale una volta sola
+## Ambito di esecuzione: prima il modulo, la run globale solo sull'ultimo lotto
 
 - Mentre lavori su un modulo → esegui **solo i test di quel modulo** (filtri idiomatici: `mvn -q -Dtest=...`, percorso o pattern per Vitest/Jest, `--grep` per Playwright).
-- La **run globale** dell'intera suite si fa **una volta, alla fine del lavoro**, come verdetto di non-regressione sugli altri moduli — mai come ciclo di iterazione.
-- Se la run globale trova un rosso fuori dal modulo → è una regressione: si corregge, si itera di nuovo in ambito ristretto, e si chiude con una nuova run globale verde.
+- La **run globale** dell'intera suite (tutti i moduli) si fa **una volta sola, alla fine del piano** → **solo sull'ultimo lotto**, come verdetto di non-regressione sull'intero piano. Mai come ciclo di iterazione.
+- Sui **lotti intermedi** → nessuna run globale: si chiude con i test del lotto (o dei moduli toccati) verdi. La non-regressione fra lotti si verifica tutta insieme alla fine.
+- Chi è l'ultimo lotto lo stabilisce e lo comunica l'**orchestratore** (`/sdd-dev`): il subagent non lo deduce da sé.
+- Se la run globale (ultimo lotto) trova un rosso fuori dal modulo corrente → è una regressione: si corregge in ambito ristretto e si chiude con una nuova run globale verde.
