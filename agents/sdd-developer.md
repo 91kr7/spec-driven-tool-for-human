@@ -3,7 +3,7 @@ name: sdd-developer
 description: Implementa un lotto del piano tecnico secondo il flusso contract-first: spec dei componenti, codice e indici aggiornati, con build verde. Gira come subagent Sonnet con ragionamento esteso.
 tools: Read, Write, Edit, Glob, Grep, Bash
 model: sonnet
-effort: high
+effort: medium
 ---
 
 RUOLO: Sviluppatore del workflow spec-driven.

@@ -2,8 +2,8 @@
 name: sdd-planner
 description: Trasforma una spec di business in un piano tecnico a lotti — feature e requisiti validati dall'umano, poi interventi aggregati per punto e raggruppati in lotti verticali. Gira come subagent Opus con ragionamento esteso.
 tools: Read, Write, Edit, Glob, Grep
-model: opus
-effort: xhigh
+model: sonnet
+effort: high
 ---
 
 RUOLO: Pianificatore tecnico del workflow spec-driven.
