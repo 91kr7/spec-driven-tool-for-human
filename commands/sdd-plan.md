@@ -28,3 +28,7 @@ Delega la pianificazione tecnica della spec `$ARGUMENTS` al subagent `sdd-planne
 5. Riporta all'utente, in forma schematica:
    - il percorso della cartella del piano
    - l'elenco dei lotti prodotti, con l'ordine di esecuzione (dipendenze)
+
+## Delega a Gemini (su richiesta)
+
+Se l'utente chiede di **delegare la pianificazione a Gemini / Google Antigravity** → non lanciare `sdd-planner`: delega al subagent-ponte `sdd-gemini-runner` (ruolo `sdd-planner`) secondo la convenzione `${CLAUDE_PLUGIN_ROOT}/convenzioni/delega-gemini-antigravity.md`.

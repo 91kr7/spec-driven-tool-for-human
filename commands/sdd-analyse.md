@@ -22,3 +22,7 @@ Delega l'analisi della richiesta `$ARGUMENTS` al subagent `sdd-analyst` (Opus, r
 4. Riporta all'utente, in forma schematica:
    - il percorso del file di analisi prodotto
    - il tipo di analisi: nuova, correzione o evolutiva
+
+## Delega a Gemini (su richiesta)
+
+Se l'utente chiede di **delegare l'analisi a Gemini / Google Antigravity** → non lanciare `sdd-analyst`: delega al subagent-ponte `sdd-gemini-runner` (ruolo `sdd-analyst`) secondo la convenzione `${CLAUDE_PLUGIN_ROOT}/convenzioni/delega-gemini-antigravity.md`.

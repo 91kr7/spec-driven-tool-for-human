@@ -66,3 +66,7 @@ Esegue **tutti i lotti** del piano indicato in `$ARGUMENTS`, uno dopo l'altro: p
 ### Chiusura del piano
 
 15. Quando il passo 3 non trova più lotti lavorabili, riepiloga all'utente: i lotti certificati nella run e i componenti principali toccati, gli eventuali lotti rimasti indietro con il motivo, lo stato complessivo → **completo** se tutti i lotti sono `collaudato`, altrimenti **bloccato** con lo stato della tabella.
+
+## Delega a Gemini (su richiesta)
+
+Se l'utente chiede di **delegare a Gemini / Google Antigravity** la fase di sviluppo e/o test → non lanciare il subagent nativo: delega al subagent-ponte `sdd-gemini-runner`, passandogli il ruolo interessato (`sdd-developer` per lo sviluppo, `sdd-tester` per i test), secondo la convenzione `${CLAUDE_PLUGIN_ROOT}/convenzioni/delega-gemini-antigravity.md`. Le verifiche meccaniche, i gate e la gestione degli stati su `lotti.md` restano compito tuo.

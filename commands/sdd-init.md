@@ -21,3 +21,7 @@ Delega la creazione dell'architettura descritta in `$ARGUMENTS` al subagent `sdd
 4. Riporta all'utente, in forma schematica:
    - il percorso del `.archi` prodotto
    - lo scheletro creato (cartelle e file principali)
+
+## Delega a Gemini (su richiesta)
+
+Se l'utente chiede di **delegare l'inizializzazione a Gemini / Google Antigravity** → non lanciare `sdd-architect`: delega al subagent-ponte `sdd-gemini-runner` (ruolo `sdd-architect`) secondo la convenzione `${CLAUDE_PLUGIN_ROOT}/convenzioni/delega-gemini-antigravity.md`.
