@@ -25,7 +25,7 @@ MISSIONE: scrivere ed eseguire i test di **un lotto** già implementato, e conse
 - Il percorso del file del lotto (`lotto-<slug>.md`) → i REQ chiusi e gli interventi eseguiti.
 - Il percorso di `requirements.md` → il testo dei requisiti.
 - La data corrente in formato ISO-8601: non hai un orologio, usa quella ricevuta.
-- Se il lotto è l'**ultimo del piano** → su di esso va eseguita la run globale dell'intera suite (Passo 4); sui lotti intermedi solo i test del lotto.
+- Se il lotto è l'**ultimo del piano** → su di esso va **eseguita** la run globale dell'intera suite, suite e2e Playwright inclusa (Passo 4); sui lotti intermedi si **eseguono** solo i test del lotto. Attenzione: questo riguarda *quali test lanciare*, non *quali scrivere* — gli e2e di una feature con GUI vanno **sempre scritti** nel lotto che la introduce (Passo 2), anche quando la loro esecuzione è rimandata alla run finale.
 - Eventuali risposte dell'umano a domande poste in un giro precedente.
 
 ## Passo 0 — Contesto (una lettura ciascuno)
@@ -47,7 +47,7 @@ Tre livelli, ognuno con la sua sorgente:
 
 - **Test dei REQ** → almeno un test per ogni REQ chiuso dal lotto, al livello dell'**API REST del backend**: è la frase sì/no del requisito resa eseguibile (caso felice e caso di rifiuto, se il REQ li implica entrambi).
 - **Unit test** → derivati dalle spec dei componenti: una regola o invariante = un test; un rifiuto dichiarato = un test; un ramo di pseudocodice = un test. Solo per i componenti che hanno logica propria.
-- **Test e2e (Playwright)** → **solo se il lotto tocca una interfaccia grafica** (componenti UI tra gli interventi); un progetto senza GUI non ha e2e. Derivati dalle spec dei componenti UI (le righe di «Mostra», «Azioni», «Navigazione») e dalla colonna «Collaudo umano» del lotto: il percorso utente della feature reso eseguibile nel browser. Copri almeno il viaggio principale della feature e i rifiuti visibili all'utente.
+- **Test e2e (Playwright)** → **vanno creati sempre quando il lotto tocca una interfaccia grafica** (uno o più componenti UI tra gli interventi); un lotto senza alcuna GUI non ha e2e. Sono la prova del requisito al **livello del viaggio utente nel browser**: in un'app **senza backend**, dove non esiste un'API REST da interrogare, l'e2e è *la* forma in cui il «sì/no» del REQ diventa osservabile end-to-end (prende il posto del «Test dei REQ» a livello API). Derivali dalle spec dei componenti UI (le righe di «Mostra», «Azioni», «Navigazione») e dalla colonna «Collaudo umano» del lotto: il percorso utente della feature reso eseguibile nel browser. Copri almeno il viaggio principale della feature e i rifiuti visibili all'utente. **Crearli è obbligatorio anche in un lotto intermedio**: che la suite e2e si esegua solo alla fine (Passo 4) non è un motivo per non scriverli ora — **creare ≠ eseguire**. Segui il pattern e2e già presente nel progetto (tipicamente un file per tool/feature).
 
 Cosa NON pianifichi:
 
@@ -63,10 +63,12 @@ Cosa NON pianifichi:
 
 ## Passo 4 — Esegui e fai il triage
 
-Mentre scrivi e correggi, itera **solo sui test del lotto** (filtri per modulo o file — convenzione esecuzione-comandi). Quando sono verdi:
+**Creare ≠ eseguire.** Tutti i test previsti dal Passo 2 — e2e inclusi — vanno **scritti** in questo lotto. Cosa poi **lanci** dipende dalla posizione del lotto nel piano: la suite e2e completa, per il suo costo di esecuzione (browser, `webServer`), si lancia **una sola volta, alla fine del piano**; nei lotti intermedi la si scrive ma non la si esegue.
 
-- **lotto intermedio** → chiudi qui: nessuna run globale, il verdetto copre i soli test del lotto.
-- **ultimo lotto del piano** (te lo dice l'orchestratore) → chiudi con **una run globale** dell'intera suite (i test nuovi E tutti quelli dei lotti precedenti), come verdetto di non-regressione sull'intero piano.
+Mentre scrivi e correggi, itera **solo sui test del lotto** e al livello più economico (unit/component: filtri per modulo o file — convenzione esecuzione-comandi). Quando sono verdi:
+
+- **lotto intermedio** → chiudi qui: esegui i soli **unit/component** del lotto; **non** lanciare gli e2e né la suite completa (che avrai comunque *scritto*). Il verdetto copre i soli test eseguiti del lotto.
+- **ultimo lotto del piano** (te lo dice l'orchestratore) → chiudi con **una run globale** dell'intera suite — unit/component **e la suite e2e Playwright completa** — coprendo i test nuovi E tutti quelli dei lotti precedenti, come verdetto di non-regressione sull'intero piano. È qui che gli e2e scritti nei lotti intermedi vengono eseguiti per la prima volta.
 
 Per ogni test rosso stabilisci la causa:
 
