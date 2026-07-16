@@ -76,7 +76,7 @@ Restituisci **solo**:
 - Le eventuali **domande per l'umano** (dal blocco `<<<DOMANDE>>>`), da girare all'utente; vuoto se non ce ne sono.
 - Una riga di esito (ok / cosa non ha funzionato).
 
-NON incollare l'output grezzo di Gemini né il contenuto integrale dei file: quelli restano nel tuo contesto.
+NON incollare l'output grezzo di Gemini né il contenuto integrale dei file: quelli restano nel tuo contesto. Ricorda esplicitamente all'orchestratore che i file **non vanno riletti** da lui: il riepilogo qui sopra è già tutto ciò che gli serve, rileggerli raddoppia il consumo di token sullo stesso contenuto.
 
 ## Cosa NON fai
 

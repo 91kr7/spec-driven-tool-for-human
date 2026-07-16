@@ -8,6 +8,8 @@ Si applica **solo su richiesta esplicita** dell'umano (es. «fallo con Gemini»,
 
 L'output grezzo di Gemini è pesante e non deve sporcare il contesto dell'orchestratore. Perciò la delega **gira dentro un subagent** (`sdd-gemini-runner`): l'output di `agy` resta nel contesto del ponte; all'orchestratore torna solo un riepilogo schematico (percorsi dei file + esito + eventuali domande).
 
+**L'orchestratore non apre mai i file scritti dal ponte** (né con `Read` né rileggendoli in altro modo): il riepilogo del ponte è l'unica fonte che consulta. Rileggerli vanifica l'isolamento e raddoppia il consumo di token per lo stesso contenuto.
+
 ## Chi fa cosa
 
 - **Orchestratore** → invece del subagent nativo, lancia `sdd-gemini-runner` via `Task` passandogli **il nome del ruolo da delegare** (`sdd-analyst`, `sdd-planner`, `sdd-developer`, …), l'input dello step, la data corrente e il modello Gemini scelto. Gestisce come sempre l'intermediazione delle domande e le verifiche/gate previsti dal comando.
@@ -27,7 +29,7 @@ Il ponte non ricopia la logica dei ruoli: inoltra **lo stesso prompt** dell'agen
 1. Ricava la data corrente (`date +%Y-%m-%d`).
 2. Scegli il modello (vedi sopra) o usa quello indicato dall'umano.
 3. Lancia `sdd-gemini-runner` via `Task`, passandogli: ruolo da delegare, input dello step, data, modello, eventuali risposte dell'umano a domande precedenti.
-4. Al rientro, tratta il riepilogo del ponte **come tratteresti l'output del subagent nativo**: stesse verifiche meccaniche, stessi gate, stessa intermediazione delle domande (convenzione `${CLAUDE_PLUGIN_ROOT}/convenzioni/intermediazione-domande.md`). Per un nuovo giro (correzioni o risposte), rilancia `sdd-gemini-runner`.
+4. Al rientro, tratta il riepilogo del ponte **come tratteresti l'output del subagent nativo**: stesse verifiche meccaniche, stessi gate, stessa intermediazione delle domande (convenzione `${CLAUDE_PLUGIN_ROOT}/convenzioni/intermediazione-domande.md`). Per un nuovo giro (correzioni o risposte), rilancia `sdd-gemini-runner`. **Non leggere tu i file** che il ponte ha scritto: fidati del riepilogo, i controlli restano meccanici (esistenza dei percorsi dichiarati), mai di merito sul contenuto.
 5. Nel riepilogo all'utente, segnala che lo step è stato prodotto **via Antigravity/Gemini** e con quale modello.
 
 ## Sicurezza e limiti

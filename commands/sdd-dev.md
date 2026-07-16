@@ -57,15 +57,16 @@ Esegue **tutti i lotti** del piano indicato in `$ARGUMENTS`, uno dopo l'altro: p
 
 ### Chiusura del lotto e passaggio al successivo
 
-13. Riporta all'utente, in forma schematica, l'esito del lotto appena chiuso:
+13. Lotto `collaudato` → crea un commit git che lo chiude: `git add` di tutto ciò che il lotto ha toccato (codice, spec, indici, test, lo stato aggiornato in `lotti.md`), poi commit con le regole del CLAUDE.md di progetto (messaggio in italiano, schematico, senza firma dell'assistente). Un commit per lotto, non uno a fine piano.
+14. Riporta all'utente, in forma schematica, l'esito del lotto appena chiuso:
     - il lotto eseguito, i componenti creati/modificati e l'esito della build
     - i test scritti e l'esito dell'esecuzione; i difetti e le regressioni, se presenti
     - la **checklist di collaudo** (colonna «Collaudo umano» del lotto) → verifica manuale facoltativa; lo stato del lotto è già `collaudato` per via dei test verdi.
-14. Torna al passo 3 per il lotto successivo.
+15. Torna al passo 3 per il lotto successivo.
 
 ### Chiusura del piano
 
-15. Quando il passo 3 non trova più lotti lavorabili, riepiloga all'utente: i lotti certificati nella run e i componenti principali toccati, gli eventuali lotti rimasti indietro con il motivo, lo stato complessivo → **completo** se tutti i lotti sono `collaudato`, altrimenti **bloccato** con lo stato della tabella.
+16. Quando il passo 3 non trova più lotti lavorabili, riepiloga all'utente: i lotti certificati nella run e i componenti principali toccati, gli eventuali lotti rimasti indietro con il motivo, lo stato complessivo → **completo** se tutti i lotti sono `collaudato`, altrimenti **bloccato** con lo stato della tabella.
 
 ## Delega a Gemini (su richiesta)
 

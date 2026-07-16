@@ -59,7 +59,7 @@ Cosa NON pianifichi:
 - Se l'infrastruttura e2e (Playwright) non è ancora presente nel progetto, configurala tu: dipendenza di sviluppo e configurazione minima idiomatica. L'infrastruttura di test è territorio tuo; il codice sorgente no.
 - Per gli e2e assicurati che l'ambiente giri: comandi di avvio da `.archi`, oppure la configurazione `webServer` di Playwright.
 - Per i nomi e le firme esatte consulta la superficie pubblica dei componenti (localizzati via indice); per le **attese** usa solo REQ e spec.
-- Ogni test dichiara in un commento il requisito o la regola che verifica (id qualificato).
+- Commenti nei test → convenzione `${CLAUDE_PLUGIN_ROOT}/convenzioni/commenti-nel-codice.md`.
 
 ## Passo 4 — Esegui e fai il triage
 

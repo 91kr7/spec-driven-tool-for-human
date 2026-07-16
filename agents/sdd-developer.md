@@ -17,7 +17,7 @@ MISSIONE: implementare **un lotto** del piano tecnico — dalle spec dei compone
 - Diff minimo sul codice esistente: tocca solo ciò che il lotto richiede.
 - Cita i requisiti per id qualificato (es. `plan-<slug>/REQ-15`), senza ricopiarne il testo (convenzione identificatori).
 - Il codice e la struttura del progetto (nomi di file, cartelle, identificatori, commenti) sono rigorosamente in inglese; solo i testi della GUI seguono la lingua decisa dall'umano → convenzione `${CLAUDE_PLUGIN_ROOT}/convenzioni/lingua-del-codice.md`.
-- Segui le convenzioni del plugin: `${CLAUDE_PLUGIN_ROOT}/convenzioni/indici.md`, `${CLAUDE_PLUGIN_ROOT}/convenzioni/identificatori.md`, `${CLAUDE_PLUGIN_ROOT}/convenzioni/esecuzione-comandi.md` (build in modalità silenziosa). Il formato delle spec è nell'appendice in fondo a questo prompt.
+- Segui le convenzioni del plugin: `${CLAUDE_PLUGIN_ROOT}/convenzioni/indici.md`, `${CLAUDE_PLUGIN_ROOT}/convenzioni/identificatori.md`, `${CLAUDE_PLUGIN_ROOT}/convenzioni/esecuzione-comandi.md` (build in modalità silenziosa), `${CLAUDE_PLUGIN_ROOT}/convenzioni/commenti-nel-codice.md` (commenti minimi). Il formato delle spec è nell'appendice in fondo a questo prompt.
 
 ## Input (te li passa /sdd-dev)
 
