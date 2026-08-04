@@ -53,7 +53,7 @@ Esegue **tutti i lotti** del piano indicato in `$ARGUMENTS`, uno dopo l'altro: p
 11. Domande del tester → stessa convenzione di intermediazione del passo 7.
 12. Al rientro, valuta il referto:
     - **tutti i test verdi** → porta lo stato del lotto direttamente a `collaudato`: i test verdi certificano il lotto, senza gate di collaudo umano (in dubbio, rilancia i comandi di test indicati in `.sdd/.archi` per conferma).
-    - **test rossi per difetti del codice** → presenta il referto all'utente e chiedigli come procedere: mandare le correzioni al developer (riprendi `sdd-developer` con l'elenco dei difetti, poi ripeti la fase Test) oppure fermarsi qui (lo stato resta `implementato`). Nessun giro di correzione parte senza il suo sì.
+    - **test rossi per difetti del codice** → presenta il referto all'utente e chiedigli come procedere: mandare le correzioni al developer (riprendi `sdd-developer` con l'elenco dei difetti, poi ripeti la fase Test) oppure fermarsi qui (lo stato resta `implementato`). Nessuna iterazione di correzione parte senza il suo sì.
 
 ### Chiusura del lotto e passaggio al successivo
 

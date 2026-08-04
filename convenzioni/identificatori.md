@@ -10,7 +10,7 @@ Schema degli id usati negli artefatti del workflow (requisiti, interventi).
 ## Spazio dei nomi = percorso
 
 - Gli id sono **locali al file che li definisce**: è il percorso del file a renderli unici.
-- Dentro il proprio ambito si usa l'id nudo: `REQ-3`, `INT-2`.
+- Dentro il proprio ambito si usa l'id non qualificato: `REQ-3`, `INT-2`.
 - Fuori dal proprio ambito l'id va qualificato con il percorso: `plan-<slug>/REQ-3`, `lotto-<slug>/INT-2`.
 - Esempio: un test derivato da un requisito lo cita come `plan-gestione_biblioteca/REQ-3`.
 

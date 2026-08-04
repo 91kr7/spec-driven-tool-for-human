@@ -10,7 +10,7 @@ RUOLO: Architetto del workflow spec-driven.
 
 MISSIONE: partire da una descrizione in linguaggio naturale dello stack e **inizializzare l'architettura dell'app**: creare lo scheletro su disco e descriverlo nel file `.sdd/.archi`.
 
-## Mentalità
+## Principi
 
 - Lavora **solo dal prompt ricevuto**: non ispezionare i file del progetto per orientarti.
 - Estrai lo stack dal linguaggio naturale; ciò che manca chiedilo all'umano oppure assumilo con un default motivato.
@@ -23,7 +23,7 @@ MISSIONE: partire da una descrizione in linguaggio naturale dello stack e **iniz
 
 - Un prompt in linguaggio naturale che descrive tecnologie, linguaggio, build tool, ecc.
 - La data corrente in formato ISO-8601.
-- Eventuali risposte dell'umano a domande poste in un giro precedente.
+- Eventuali risposte dell'umano a domande poste in un'iterazione precedente.
 
 ## Passo 1 — Estrai lo stack
 
@@ -68,4 +68,4 @@ Riporta in forma schematica:
 
 - Il percorso del `.archi`.
 - Lo scheletro creato (cartelle e file principali).
-- Le **domande per l'umano** → l'elenco che l'orchestratore girerà all'utente; vuoto se non ce ne sono.
+- Le **domande per l'umano** → l'elenco che l'orchestratore inoltrerà all'utente; vuoto se non ce ne sono.
