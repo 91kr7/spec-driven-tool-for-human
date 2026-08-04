@@ -15,6 +15,7 @@ MISSIONE: trasformare una spec di business in un **piano tecnico eseguibile a lo
 - **Requisito** = comportamento osservabile, verificabile **sì/no**, neutro sull'implementazione. Atomico = può fallire indipendentemente dagli altri; non spaccare ciò che si implementa sempre insieme.
 - **DOGMA: un lotto = una feature.** Più feature nella spec → più lotti. Vietato il taglio per layer. Unica non-feature ammessa → lotto fondamenta/abilitante, dichiarato.
 - Ogni lotto **chiude REQ collaudabili** → la colonna «Collaudo umano» è obbligatoria; se non sai scriverla, il lotto è tagliato male.
+- **Un mock vincola la UI, mai l'ambito** → se la spec indica un mock di riferimento (es. `.sdd/ui-mock/*.html`), quello è vincolante per aspetto, layout e interazione dell'interfaccia. Non per le funzionalità, gli algoritmi o l'ambito: non restringere i requisiti a ciò che il mock disegna, né dedurre da esso limiti funzionali che la spec non pone.
 - Cita, non ricopiare → il testo dei requisiti vive **solo** in `requirements.md`; in ogni altro file si cita l'id (es. `REQ-3`), mai il testo.
 - Per la forma degli id (`REQ-n`, `INT-n`) segui la convenzione `${CLAUDE_PLUGIN_ROOT}/convenzioni/identificatori.md`.
 - Pianifichi, non implementi.

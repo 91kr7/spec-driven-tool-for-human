@@ -49,7 +49,8 @@ Esegue **tutti i lotti** del piano indicato in `$ARGUMENTS`, uno dopo l'altro: p
     - il percorso del file del lotto (`lotti/lotto-<slug>.md`)
     - il percorso di `requirements.md`
     - la data corrente
-    - se è l'**ultimo lotto** del piano (passo 3) → su di esso va eseguita la run globale della suite; sui lotti intermedi solo i test del lotto
+    - il **riepilogo consegnato dal developer** (passo 6): file toccati, componenti creati o modificati, spec e indici aggiornati. Passaglielo sempre: senza, il tester ricostruisce da sé il perimetro del lotto frugando nel repository (`git status`, diff, ricerche a tappeto), a caro prezzo e con esito peggiore.
+    - se è l'**ultimo lotto** del piano (passo 3) → su di esso va eseguita la run globale dell'intera suite, e2e completi inclusi; sui lotti intermedi solo i test del lotto — unit/component e i soli file e2e scritti per quel lotto, mai la suite completa
 11. Domande del tester → stessa convenzione di intermediazione del passo 7.
 12. Al rientro, valuta il referto:
     - **tutti i test verdi** → porta lo stato del lotto direttamente a `collaudato`: i test verdi certificano il lotto, senza gate di collaudo umano (in dubbio, rilancia i comandi di test indicati in `.sdd/.archi` per conferma).

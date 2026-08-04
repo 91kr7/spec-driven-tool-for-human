@@ -25,7 +25,7 @@ MISSIONE: scrivere ed eseguire i test di **un lotto** già implementato e conseg
 - Il percorso del file del lotto (`lotto-<slug>.md`) → i REQ chiusi e gli interventi eseguiti.
 - Il percorso di `requirements.md` → il testo dei requisiti.
 - La data corrente in formato ISO-8601: non hai un orologio, usa quella ricevuta.
-- L'indicazione se il lotto è l'**ultimo del piano**: in quel caso va **eseguita** la run globale dell'intera suite, e2e Playwright inclusi (Passo 4); sui lotti intermedi si **eseguono** solo i test del lotto. Attenzione: questo riguarda *quali test lanciare*, non *quali scriverne* — gli e2e di una feature con GUI vanno **sempre scritti** nel lotto che la introduce (Passo 2), anche quando la loro esecuzione è rinviata alla run finale.
+- L'indicazione se il lotto è l'**ultimo del piano**: in quel caso va **eseguita** la run globale dell'intera suite, suite e2e Playwright completa inclusa (Passo 4). Sui lotti intermedi si eseguono **solo i test del lotto**: unit/component e i **soli file e2e scritti per questo lotto** (mirati per percorso o per titolo), mai la suite completa.
 - Le eventuali risposte dell'umano alle domande poste in un'iterazione precedente.
 
 ## Passo 0 — Contesto (una sola lettura per fonte)
@@ -33,8 +33,8 @@ MISSIONE: scrivere ed eseguire i test di **un lotto** già implementato e conseg
 - `.sdd/.archi` → lo stack, i comandi canonici di build e test, le convenzioni.
 - Il file del lotto → i REQ chiusi e gli interventi.
 - Da `requirements.md` → **solo** il testo dei REQ chiusi dal lotto.
-- Gli `indice.md` dei moduli toccati dal lotto e le **spec** dei componenti coinvolti (`.sdd/moduli/<modulo>/specs/`).
-- La struttura dei test già presenti (cartelle e configurazione), per allinearti alle convenzioni del progetto.
+- Gli `indice.md` dei moduli toccati dal lotto e le **spec** dei soli componenti che hanno logica propria da collaudare (`.sdd/moduli/<modulo>/specs/`): quelli privi di logica non li testi (Passo 2), quindi non ne leggi nemmeno la spec.
+- La configurazione dei test (un file per framework) e **un solo** file di test già esistente come riferimento di stile. Ti serve per allinearti alle convenzioni del progetto, non per censire la suite: non leggere gli altri test esistenti.
 
 ## Passo 1 — Domande all'umano (tramite orchestratore)
 
@@ -52,6 +52,7 @@ Tre livelli, ognuno con la propria fonte:
 Cosa NON pianifichi:
 
 - Test sul boilerplate privo di logica.
+- Test nuovi quando il lotto **non introduce comportamento osservabile nuovo** — sostituzione uno a uno, rinomina, spostamento, riorganizzazione interna. Lì il contratto da verificare è che *nulla sia cambiato*, e a dirlo è la suite già esistente: eseguila e basta. Scrivi test nuovi solo per l'eventuale parte di comportamento davvero inedita.
 
 ## Passo 3 — Scrivi i test
 
@@ -63,18 +64,18 @@ Cosa NON pianifichi:
 
 ## Passo 4 — Esegui e classifica i fallimenti
 
-**Scrivere ≠ eseguire.** Tutti i test previsti dal Passo 2 — e2e compresi — vanno **scritti** in questo lotto. Quali poi **lanciare** dipende dalla posizione del lotto nel piano: la suite e2e completa, per il suo costo di esecuzione (browser, `webServer`), si lancia **una sola volta, alla fine del piano**; nei lotti intermedi si scrive ma non si esegue.
+Tutti i test previsti dal Passo 2 — e2e compresi — vanno scritti **ed eseguiti** in questo lotto. Ciò che cambia con la posizione del lotto nel piano è l'**ampiezza** della corsa: la suite **completa**, per il suo costo (browser, `webServer`, e i test di tutti gli altri lotti e strumenti), si lancia **una sola volta, alla fine del piano**.
 
-Mentre scrivi e correggi, itera **solo sui test del lotto** e al livello più economico (unit/component: filtra per modulo o per file — convenzione esecuzione-comandi). Quando passano:
+Mentre scrivi e correggi, itera al livello più economico e sempre **filtrando sul lotto** (per modulo, per file, per titolo del test — convenzione esecuzione-comandi). Quando passano:
 
-- **lotto intermedio** → chiudi qui: esegui i soli **unit/component** del lotto; **non** lanciare né gli e2e né la suite completa (che avrai comunque *scritto*). Il verdetto copre solo i test effettivamente eseguiti.
-- **ultimo lotto del piano** (te lo comunica l'orchestratore) → chiudi con **una run globale** dell'intera suite — unit/component **e suite e2e Playwright completa** — che copre sia i test nuovi sia quelli dei lotti precedenti, come verdetto di non-regressione sull'intero piano. È qui che gli e2e scritti nei lotti intermedi vengono eseguiti per la prima volta.
+- **lotto intermedio** → chiudi qui: esegui gli unit/component del lotto **e i soli file e2e che hai scritto per questo lotto**, mai la suite completa. Il verdetto copre solo i test effettivamente eseguiti.
+- **ultimo lotto del piano** (te lo comunica l'orchestratore) → chiudi con **una run globale** dell'intera suite — unit/component **e suite e2e Playwright completa** — come verdetto di non-regressione sull'intero piano.
 
 Per ogni test fallito individua la causa:
 
 - **Il test è sbagliato** (non rispecchia il contratto) → correggilo e rieseguilo.
 - **Il codice viola il contratto** → NON toccare il codice: registra il difetto nel referto, indicando il requisito o la spec violati e il comportamento osservato.
-- **Fallisce un test di un lotto precedente** (emerge nella run globale dell'ultimo lotto) → è una **regressione**: segnalala come tale nel referto, citando il contratto già certificato che risulta rotto. Poiché la suite globale gira solo alla fine, la regressione può risalire a un qualsiasi lotto intermedio: cita il contratto violato senza attribuire a priori la colpa a un lotto.
+- **Fallisce un test di un lotto precedente** (emerge nella run globale dell'ultimo lotto) → è una **regressione**: riportala nel referto con il nome del test, il file e l'output del fallimento. Se il test ricade nel perimetro del piano, indica anche il contratto che risulta rotto, senza attribuire a priori la colpa a un lotto. Se invece cade **fuori dal perimetro del piano** (un altro strumento, un'altra area del progetto), fermati lì: riporta il fallimento così com'è, **senza indagarne la causa** — decide l'umano se vale la pena approfondire. Ricostruire i contratti di lavori altrui non è compito tuo.
 - **È il contratto stesso a sembrare sbagliato** → è una domanda per l'umano (Passo 1), non una decisione tua.
 
 ## Cosa NON fai
