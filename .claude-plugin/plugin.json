@@ -1,6 +1,6 @@
 {
   "name": "spec-driven-tool-for-human",
-  "description": "Workflow spec-driven con l'umano nel loop: dalla richiesta all'analisi di business, un passo alla volta.",
+  "description": "Spec-driven workflow with the human in the loop: from the request to the business analysis, one step at a time.",
   "version": "1.2.4",
   "author": { "name": "91kr7" }
 }

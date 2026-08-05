@@ -1,74 +1,115 @@
 ---
-description: Implementa e testa un intero piano tecnico, lotto per lotto: per ogni lotto sviluppo (spec, codice, indici) e subito dopo i test derivati dai contratti; a test verdi il lotto è certificato in automatico (collaudato), senza gate umano, e si passa al lotto successivo. Delega ai subagent sdd-developer e sdd-tester.
-argument-hint: "<percorso della cartella del piano, es. .sdd/plans/plan-gestione_biblioteca>"
+description: Implements and tests a whole technical plan, batch by batch: for each batch development (specs, code, indexes) and immediately after the tests derived from the contracts; on green tests the batch is certified automatically, with no human gate, and the next batch starts. Delegates to the sdd-developer and sdd-tester subagents.
+argument-hint: "<path of the plan folder, e.g. .sdd/plans/plan-library_management>"
 ---
 
-# /sdd-dev — Sviluppo e test di un piano, lotto per lotto
+# /sdd-dev — Development and testing of a plan, batch by batch
 
-Esegue **tutti i lotti** del piano indicato in `$ARGUMENTS`, uno dopo l'altro: per ciascuno prima lo sviluppo (subagent `sdd-developer`), poi **subito** i test (subagent `sdd-tester`). Certificato un lotto, passa al successivo, finché il piano è completo o resta bloccato.
+Runs **all the batches** of the plan given in `$ARGUMENTS`, one after the other: for each one first
+the development (`sdd-developer` subagent), then **immediately** the tests (`sdd-tester` subagent).
+Once a batch is certified, it moves on to the next, until the plan is complete or gets stuck.
 
-## Ruolo
+## Role
 
-- Tu (la sessione principale) sei l'**orchestratore**: non implementi e non scrivi test.
-- Lo sviluppo lo fa `sdd-developer`; i test li scrive ed esegue `sdd-tester`. Sono due subagent distinti di proposito: chi certifica non è chi ha scritto il codice.
-- Tu gestisci: il ciclo sui lotti e la scelta di ciascuno, gli stati su `lotti.md`, i gate d'ingresso e sui test rossi, le verifiche meccaniche e l'intermediazione delle domande.
+- You (the main session) are the **orchestrator**: you do not implement and you do not write tests.
+- Development is done by `sdd-developer`; the tests are written and run by `sdd-tester`. They are
+  two distinct subagents on purpose: whoever certifies is not whoever wrote the code.
+- You handle: the loop over the batches and the choice of each one, the statuses in `batches.md`,
+  the entry gates and the gates on red tests, the mechanical checks and the brokering of questions.
 
-## Passi
+## Steps
 
-### Avvio (una volta sola)
+### Startup (once only)
 
-1. Leggi `lotti.md` nella cartella del piano. Se il frontmatter riporta `stato: bozza`, fermati: il piano non è ancora validato dall'umano.
-2. Gate d'ingresso:
-   - un lotto è in stato `testato` (residuo di una run precedente alla certificazione automatica) → i suoi test erano verdi: portalo a `collaudato` e prosegui.
-   - un lotto è in stato `implementato` → sviluppo concluso ma test mancanti: salta direttamente alla fase Test per quel lotto (stabilisci comunque se è l'ultimo lotto, passo 3, per la run globale del tester).
-   - un lotto è in stato `in corso` → una run precedente si è interrotta: segnalalo all'utente e fermati, decide lui come procedere.
+1. Read `batches.md` in the plan folder. If the frontmatter says `status: draft`, stop: the plan has
+   not been validated by the human yet.
+2. Entry gates:
+   - a batch is in status `tested` (a leftover from a run predating automatic certification) → its
+     tests were green: move it to `certified` and carry on.
+   - a batch is in status `implemented` → development finished but tests missing: skip straight to
+     the Test phase for that batch (still work out whether it is the last batch, step 3, for the
+     tester's global run).
+   - a batch is in status `in progress` → a previous run was interrupted: report it to the user and
+     stop, it is their call how to proceed.
 
-### Ciclo sui lotti — ripeti finché ci sono lotti lavorabili
+### Loop over the batches — repeat while there are workable batches
 
-3. Scegli il lotto → il primo in stato `da fare` con tutte le dipendenze in stato `collaudato`. Se non ce n'è nessuno, esci dal ciclo e vai alla **Chiusura del piano**. Stabilisci inoltre se è l'**ultimo lotto** del piano → lo è quando, oltre a quello scelto, nessun altro lotto resta da lavorare (tutti gli altri già `collaudato`): serve a decidere se far girare la **run globale** della suite nella fase Test (passo 10).
-4. Ricava la data corrente in formato ISO-8601 con `date +%Y-%m-%d`.
+3. Choose the batch → the first one in status `todo` with all its dependencies in status
+   `certified`. If there is none, leave the loop and go to **Closing the plan**. Also work out
+   whether it is the **last batch** of the plan → it is when, besides the chosen one, no other batch
+   is left to work on (all the others are already `certified`): this decides whether the **global
+   run** of the suite happens in the Test phase (step 10).
+4. Get the current date in ISO-8601 format with `date +%Y-%m-%d`.
 
-### Fase sviluppo
+### Development phase
 
-5. Porta lo stato del lotto a `in corso` in `lotti.md` (gli stati li scrivi tu, mai i subagent).
-6. Lancia il subagent `sdd-developer` via Task, passandogli:
-   - il percorso del file del lotto (`lotti/lotto-<slug>.md`)
-   - il percorso di `requirements.md`
-   - la data corrente
-7. Se il subagent restituisce domande per l'umano → applica la convenzione `${CLAUDE_PLUGIN_ROOT}/convenzioni/intermediazione-domande.md` (ruolo orchestratore): poni le domande all'utente, riprendi lo stesso subagent con `SendMessage` e ripeti finché non restano domande.
-8. Al rientro, esegui la **verifica meccanica** (controlli di esistenza, non di merito):
-   - ogni componente creato o modificato ha la sua riga nell'indice del modulo e la sua spec in `specs/` (convenzione `indici.md`);
-   - un modulo nuovo ha la sua riga in `moduli.md`;
-   - il subagent riporta build **verde**; lo sviluppo **non esegue i test** — la verifica e la non-regressione sono compito della fase Test. In dubbio, rilancia tu la build coi comandi canonici indicati in `.sdd/.archi`.
-   - Se manca qualcosa, riprendi lo stesso subagent con l'elenco preciso delle mancanze, finché la verifica non passa.
-9. Porta lo stato del lotto a `implementato`.
+5. Move the batch status to `in progress` in `batches.md` (statuses are written by you, never by the
+   subagents).
+6. Launch the `sdd-developer` subagent via Task, passing it:
+   - the path of the batch file (`batches/batch-<slug>.md`)
+   - the path of `requirements.md`
+   - the current date
+7. If the subagent returns questions for the human → apply the convention
+   `${CLAUDE_PLUGIN_ROOT}/conventions/question-brokering.md` (orchestrator role): put the questions
+   to the user, resume the same subagent with `SendMessage` and repeat until no questions are left.
+8. On return, run the **mechanical check** (existence checks, not judgments of merit):
+   - every component created or modified has its row in the module index and its spec in `specs/`
+     (convention `indexes.md`);
+   - a new module has its row in `modules.md`;
+   - the subagent reports a **green** build; development **does not run the tests** — verification
+     and non-regression are the Test phase's job. If in doubt, re-run the build yourself with the
+     canonical commands given in `.sdd/.archi`.
+   - If something is missing, resume the same subagent with the precise list of gaps, until the
+     check passes.
+9. Move the batch status to `implemented`.
 
-### Fase test (subito dopo lo sviluppo)
+### Test phase (right after development)
 
-10. Lancia il subagent `sdd-tester` via Task, passandogli:
-    - il percorso del file del lotto (`lotti/lotto-<slug>.md`)
-    - il percorso di `requirements.md`
-    - la data corrente
-    - il **riepilogo consegnato dal developer** (passo 6): file toccati, componenti creati o modificati, spec e indici aggiornati. Passaglielo sempre: senza, il tester ricostruisce da sé il perimetro del lotto frugando nel repository (`git status`, diff, ricerche a tappeto), a caro prezzo e con esito peggiore.
-    - se è l'**ultimo lotto** del piano (passo 3) → su di esso va eseguita la run globale dell'intera suite, e2e completi inclusi; sui lotti intermedi solo i test del lotto — unit/component e i soli file e2e scritti per quel lotto, mai la suite completa
-11. Domande del tester → stessa convenzione di intermediazione del passo 7.
-12. Al rientro, valuta il referto:
-    - **tutti i test verdi** → porta lo stato del lotto direttamente a `collaudato`: i test verdi certificano il lotto, senza gate di collaudo umano (in dubbio, rilancia i comandi di test indicati in `.sdd/.archi` per conferma).
-    - **test rossi per difetti del codice** → presenta il referto all'utente e chiedigli come procedere: mandare le correzioni al developer (riprendi `sdd-developer` con l'elenco dei difetti, poi ripeti la fase Test) oppure fermarsi qui (lo stato resta `implementato`). Nessuna iterazione di correzione parte senza il suo sì.
+10. Launch the `sdd-tester` subagent via Task, passing it:
+    - the path of the batch file (`batches/batch-<slug>.md`)
+    - the path of `requirements.md`
+    - the current date
+    - the **summary delivered by the developer** (step 6): files touched, components created or
+      modified, specs and indexes updated. Always pass it along: without it the tester reconstructs
+      the batch's perimeter by itself, rummaging through the repository (`git status`, diffs, sweep
+      searches), at a high cost and with a worse result.
+    - whether it is the **last batch** of the plan (step 3) → on it the global run of the whole suite
+      must be executed, complete e2e included; on intermediate batches only the batch's tests —
+      unit/component and only the e2e files written for that batch, never the full suite
+11. Questions from the tester → same brokering convention as step 7.
+12. On return, assess the report:
+    - **all tests green** → move the batch status straight to `certified`: green tests certify the
+      batch, with no human acceptance gate (if in doubt, re-run the test commands given in
+      `.sdd/.archi` to confirm).
+    - **red tests caused by defects in the code** → present the report to the user and ask how to
+      proceed: send the fixes to the developer (resume `sdd-developer` with the list of defects, then
+      repeat the Test phase) or stop here (the status stays `implemented`). No fix iteration starts
+      without their yes.
 
-### Chiusura del lotto e passaggio al successivo
+### Closing the batch and moving to the next
 
-13. Lotto `collaudato` → crea un commit git che lo chiude: `git add` di tutto ciò che il lotto ha toccato (codice, spec, indici, test, lo stato aggiornato in `lotti.md`), poi commit con le regole del CLAUDE.md di progetto (messaggio in italiano, schematico, senza firma dell'assistente). Un commit per lotto, non uno a fine piano.
-14. Riporta all'utente, in forma schematica, l'esito del lotto appena chiuso:
-    - il lotto eseguito, i componenti creati/modificati e l'esito della build
-    - i test scritti e l'esito dell'esecuzione; i difetti e le regressioni, se presenti
-    - la **checklist di collaudo** (colonna «Collaudo umano» del lotto) → verifica manuale facoltativa; lo stato del lotto è già `collaudato` per via dei test verdi.
-15. Torna al passo 3 per il lotto successivo.
+13. Batch `certified` → create a git commit that closes it: `git add` of everything the batch touched
+    (code, specs, indexes, tests, the updated status in `batches.md`), then commit following the
+    rules of the project CLAUDE.md (message in English, schematic, no assistant signature). One
+    commit per batch, not one at the end of the plan.
+14. Report to the user, schematically, the outcome of the batch just closed:
+    - the batch executed, the components created/modified and the build outcome
+    - the tests written and the outcome of the run; the defects and regressions, if any
+    - the **acceptance checklist** (the batch's "Human acceptance" column) → an optional manual
+      check; the batch status is already `certified` thanks to the green tests.
+15. Go back to step 3 for the next batch.
 
-### Chiusura del piano
+### Closing the plan
 
-16. Quando il passo 3 non trova più lotti lavorabili, riepiloga all'utente: i lotti certificati nella run e i componenti principali toccati, gli eventuali lotti rimasti indietro con il motivo, lo stato complessivo → **completo** se tutti i lotti sono `collaudato`, altrimenti **bloccato** con lo stato della tabella.
+16. When step 3 finds no more workable batches, summarize for the user: the batches certified in this
+    run and the main components touched, any batches left behind with the reason, and the overall
+    status → **complete** if all the batches are `certified`, otherwise **stuck**, with the state of
+    the table.
 
-## Delega a Gemini (su richiesta)
+## Delegating to Gemini (on request)
 
-Se l'utente chiede di **delegare a Gemini / Google Antigravity** la fase di sviluppo e/o test → non lanciare il subagent nativo: delega al subagent-ponte `sdd-gemini-runner`, passandogli il ruolo interessato (`sdd-developer` per lo sviluppo, `sdd-tester` per i test), secondo la convenzione `${CLAUDE_PLUGIN_ROOT}/convenzioni/delega-gemini-antigravity.md`. Le verifiche meccaniche, i gate e la gestione degli stati su `lotti.md` restano compito tuo.
+If the user asks to **delegate the development and/or test phase to Gemini / Google Antigravity** →
+do not launch the native subagent: delegate to the bridge subagent `sdd-gemini-runner`, passing it
+the role concerned (`sdd-developer` for development, `sdd-tester` for the tests), following the
+convention `${CLAUDE_PLUGIN_ROOT}/conventions/gemini-antigravity-delegation.md`. The mechanical
+checks, the gates and the handling of statuses in `batches.md` remain your job.

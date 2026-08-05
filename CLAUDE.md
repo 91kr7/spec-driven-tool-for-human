@@ -1,53 +1,54 @@
-# CLAUDE.md — Linee guida di progetto
+# CLAUDE.md — Project guidelines
 
-Regole vincolanti per chiunque (umano o agent) lavori in questo repository.
+Binding rules for anyone (human or agent) working in this repository.
 
-## 1. Lingua
+## 1. Language
 
-- File Markdown → **italiano**
-- Conversazione in chat → **italiano**
-- Vietati i calchi dall'inglese (traduzioni parola per parola)
-- Terminologia tecnica consolidata (es. `spec`, `plugin`, `commit`, `hook`) → ammessa in originale, non forzare la traduzione
+- Markdown files → **English**
+- Chat conversation → **English**
+- No calques from other languages (word-for-word translations)
+- Established technical terms (e.g. `spec`, `plugin`, `commit`, `hook`) → keep them as they are
 
-## 2. Stile dei Markdown
+## 2. Markdown style
 
-- Struttura gerarchica e chiara (titoli e sotto-titoli)
-- Formato schematico → elenchi, tabelle, checklist
-- Prosa ridotta al minimo indispensabile
-- Regola pratica: una riga = una informazione
-- Ogni riga autoesplicativa: frase completa, comprensibile senza contesto — schematico non significa criptico
+- Hierarchical, clear structure (headings and sub-headings)
+- Schematic format → lists, tables, checklists
+- Prose kept to the strict minimum
+- Rule of thumb: one line = one piece of information
+- Every line self-explanatory: a complete sentence, understandable without context — schematic does
+  not mean cryptic
 
-## 3. Convenzioni
+## 3. Conventions
 
-**Cos'è una convenzione** → una regola che **più agent** devono conoscere.
+**What a convention is** → a rule that **several agents** need to know.
 
-- Regola condivisa da 2+ agent → **convenzione centralizzata** (scritta una volta sola)
-- Regola usata da un solo agent → resta nel suo prompt, non è una convenzione
-- Gli agent la **richiamano**, non la ricopiano → fonte unica, zero duplicazione
+- Rule shared by 2+ agents → **centralized convention** (written once only)
+- Rule used by a single agent → stays in its prompt, it is not a convention
+- Agents **reference** it, they do not copy it → single source, zero duplication
 
-**Come si organizzano**
+**How they are organized**
 
-- Niente file unico "tuttofare"
-- **Una convenzione = un file dedicato**
-- File piccoli, a responsabilità singola
-- Obiettivo → ogni agent riceve solo il contesto che gli serve
+- No single catch-all file
+- **One convention = one dedicated file**
+- Small files, single responsibility
+- Goal → every agent receives only the context it needs
 
-**Duplicazione → centralizzare**
+**Duplication → centralize**
 
-- Se una regola già descritta altrove viene ripetuta/riscritta → va estratta e centralizzata
-- Trigger → **seconda occorrenza**: la 2ª volta che una regola serve, si centralizza
-- Prima occorrenza → può restare locale; dalla seconda → fonte unica richiamata da tutti
-- Nessuna regola condivisa vive duplicata in due punti
+- If a rule already described elsewhere is repeated/rewritten → it must be extracted and centralized
+- Trigger → **second occurrence**: the 2nd time a rule is needed, centralize it
+- First occurrence → may stay local; from the second on → a single source referenced by all
+- No shared rule lives duplicated in two places
 
-## 4. Modifiche ai file
+## 4. Editing files
 
-- **Diff minimo** → applicare la modifica più piccola possibile
-- Toccare solo ciò che serve, non riscrivere parti già valide
-- Preferire modifiche mirate a riscritture complete
-- Vantaggi → meno rischio, revisioni più semplici
+- **Minimal diff** → apply the smallest possible change
+- Touch only what is needed, do not rewrite parts that are already fine
+- Prefer targeted edits over full rewrites
+- Benefits → less risk, simpler reviews
 
-## 5. Commit
+## 5. Commits
 
-- Messaggi in **italiano**
-- **Non** aggiungere il nome dell'assistente (nessun `Co-Authored-By`)
-- Messaggio schematico → oggetto sintetico + eventuali dettagli in elenco
+- Messages in **English**
+- Do **not** add the assistant's name (no `Co-Authored-By`)
+- Schematic message → concise subject + any details as a list

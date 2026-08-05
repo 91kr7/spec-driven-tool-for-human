@@ -1,28 +1,34 @@
 ---
-description: Analizza in ottica di business una richiesta (anche banale) e produce un'analisi su file, primo passo del workflow spec-driven. Delega a un subagent Opus con ragionamento esteso.
-argument-hint: "<richiesta da analizzare, testo libero>"
+description: Analyzes a request (however trivial) from a business standpoint and produces an analysis on file, the first step of the spec-driven workflow. Delegates to an Opus subagent with extended reasoning.
+argument-hint: "<request to analyze, free text>"
 ---
 
-# /sdd-analyse — Analisi di business
+# /sdd-analyse — Business analysis
 
-Primo comando del workflow spec-driven.
-Delega l'analisi della richiesta `$ARGUMENTS` al subagent `sdd-analyst` (Opus, ragionamento esteso).
+The first command of the spec-driven workflow.
+It delegates the analysis of the request `$ARGUMENTS` to the `sdd-analyst` subagent (Opus, extended
+reasoning).
 
-## Ruolo
+## Role
 
-- Tu (la sessione principale) sei l'**orchestratore**: non sei tu a scrivere l'analisi.
-- L'analisi la produce il subagent `sdd-analyst`.
-- Tu fai da **intermediario** tra il subagent e l'umano per le domande.
+- You (the main session) are the **orchestrator**: you are not the one writing the analysis.
+- The analysis is produced by the `sdd-analyst` subagent.
+- You act as the **broker** between the subagent and the human for questions.
 
-## Passi
+## Steps
 
-1. Ricava la data corrente in formato ISO-8601 con `date +%Y-%m-%d`.
-2. Lancia il subagent `sdd-analyst` via Task, passandogli la richiesta (`$ARGUMENTS`) e la data corrente.
-3. Se il subagent restituisce domande per l'umano → applica la convenzione `${CLAUDE_PLUGIN_ROOT}/convenzioni/intermediazione-domande.md` (ruolo orchestratore): poni le domande all'utente, riprendi lo stesso subagent con `SendMessage` e ripeti finché non restano domande.
-4. Riporta all'utente, in forma schematica:
-   - il percorso del file di analisi prodotto
-   - il tipo di analisi: nuova, correzione o evolutiva
+1. Get the current date in ISO-8601 format with `date +%Y-%m-%d`.
+2. Launch the `sdd-analyst` subagent via Task, passing it the request (`$ARGUMENTS`) and the current
+   date.
+3. If the subagent returns questions for the human → apply the convention
+   `${CLAUDE_PLUGIN_ROOT}/conventions/question-brokering.md` (orchestrator role): put the questions
+   to the user, resume the same subagent with `SendMessage` and repeat until no questions are left.
+4. Report to the user, schematically:
+   - the path of the analysis file produced
+   - the type of analysis: new, fix or evolution
 
-## Delega a Gemini (su richiesta)
+## Delegating to Gemini (on request)
 
-Se l'utente chiede di **delegare l'analisi a Gemini / Google Antigravity** → non lanciare `sdd-analyst`: delega al subagent-ponte `sdd-gemini-runner` (ruolo `sdd-analyst`) secondo la convenzione `${CLAUDE_PLUGIN_ROOT}/convenzioni/delega-gemini-antigravity.md`.
+If the user asks to **delegate the analysis to Gemini / Google Antigravity** → do not launch
+`sdd-analyst`: delegate to the bridge subagent `sdd-gemini-runner` (role `sdd-analyst`) following the
+convention `${CLAUDE_PLUGIN_ROOT}/conventions/gemini-antigravity-delegation.md`.

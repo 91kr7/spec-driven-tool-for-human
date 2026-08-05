@@ -1,7 +1,7 @@
 # IDE
 .idea/
 
-# Output a runtime del workflow (appartiene ai progetti target, non al plugin)
+# Workflow runtime output (belongs to the target projects, not to the plugin)
 .sdd/
 
 # macOS

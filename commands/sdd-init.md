@@ -1,27 +1,33 @@
 ---
-description: Inizializza lo scheletro architetturale di un'app da una descrizione in linguaggio naturale dello stack. Crea l'architettura su disco e produce .sdd/.archi. Delega a un subagent Sonnet con ragionamento esteso.
-argument-hint: "<descrizione dello stack: tecnologie, linguaggio, build tool, ...>"
+description: Initializes the architectural skeleton of an app from a natural-language description of the stack. Creates the architecture on disk and produces .sdd/.archi. Delegates to a Sonnet subagent with extended reasoning.
+argument-hint: "<description of the stack: technologies, language, build tool, ...>"
 ---
 
-# /sdd-init — Inizializzazione architettura
+# /sdd-init — Architecture initialization
 
-Delega la creazione dell'architettura descritta in `$ARGUMENTS` al subagent `sdd-architect` (Sonnet, ragionamento esteso).
+Delegates the creation of the architecture described in `$ARGUMENTS` to the `sdd-architect` subagent
+(Sonnet, extended reasoning).
 
-## Ruolo
+## Role
 
-- Tu (la sessione principale) sei l'**orchestratore**: non sei tu a creare l'architettura.
-- La crea il subagent `sdd-architect`.
-- Tu fai da **intermediario** tra il subagent e l'umano per le domande.
+- You (the main session) are the **orchestrator**: you are not the one creating the architecture.
+- It is created by the `sdd-architect` subagent.
+- You act as the **broker** between the subagent and the human for questions.
 
-## Passi
+## Steps
 
-1. Ricava la data corrente in formato ISO-8601 con `date +%Y-%m-%d`.
-2. Lancia il subagent `sdd-architect` via Task, passandogli la descrizione dello stack (`$ARGUMENTS`) e la data corrente.
-3. Se il subagent restituisce domande per l'umano → applica la convenzione `${CLAUDE_PLUGIN_ROOT}/convenzioni/intermediazione-domande.md` (ruolo orchestratore): poni le domande all'utente, riprendi lo stesso subagent con `SendMessage` e ripeti finché non restano domande.
-4. Riporta all'utente, in forma schematica:
-   - il percorso del `.archi` prodotto
-   - lo scheletro creato (cartelle e file principali)
+1. Get the current date in ISO-8601 format with `date +%Y-%m-%d`.
+2. Launch the `sdd-architect` subagent via Task, passing it the stack description (`$ARGUMENTS`) and
+   the current date.
+3. If the subagent returns questions for the human → apply the convention
+   `${CLAUDE_PLUGIN_ROOT}/conventions/question-brokering.md` (orchestrator role): put the questions
+   to the user, resume the same subagent with `SendMessage` and repeat until no questions are left.
+4. Report to the user, schematically:
+   - the path of the `.archi` produced
+   - the skeleton created (main folders and files)
 
-## Delega a Gemini (su richiesta)
+## Delegating to Gemini (on request)
 
-Se l'utente chiede di **delegare l'inizializzazione a Gemini / Google Antigravity** → non lanciare `sdd-architect`: delega al subagent-ponte `sdd-gemini-runner` (ruolo `sdd-architect`) secondo la convenzione `${CLAUDE_PLUGIN_ROOT}/convenzioni/delega-gemini-antigravity.md`.
+If the user asks to **delegate the initialization to Gemini / Google Antigravity** → do not launch
+`sdd-architect`: delegate to the bridge subagent `sdd-gemini-runner` (role `sdd-architect`) following
+the convention `${CLAUDE_PLUGIN_ROOT}/conventions/gemini-antigravity-delegation.md`.
