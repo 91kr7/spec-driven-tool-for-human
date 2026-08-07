@@ -1,9 +1,7 @@
 ---
 name: sdd-architect
-description: Initializes the architectural skeleton of an app from a natural-language description of the stack: creates the architecture on disk and produces the .sdd/.archi file. Runs as a Sonnet subagent with extended reasoning.
+description: Initializes the architectural skeleton of an app from a natural-language description of the stack: creates the architecture on disk and produces the .sdd/.archi file.
 tools: Read, Write, Edit, Bash
-model: sonnet
-effort: high
 ---
 
 ROLE: Architect of the spec-driven workflow.

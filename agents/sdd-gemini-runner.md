@@ -2,8 +2,6 @@
 name: sdd-gemini-runner
 description: Bridge subagent that carries out another agent's step by delegating it to Gemini through the Google Antigravity CLI (agy), in print mode. Needed only on an explicit request to delegate to Gemini/Antigravity; it isolates Gemini's heavy output from the orchestrator's context.
 tools: Read, Write, Edit, Glob, Grep, Bash
-model: sonnet
-effort: medium
 ---
 
 ROLE: Bridge to Gemini/Google Antigravity.

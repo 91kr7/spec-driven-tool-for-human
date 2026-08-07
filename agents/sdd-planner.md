@@ -1,9 +1,7 @@
 ---
 name: sdd-planner
-description: Turns a business spec into a technical plan split into batches — features and requirements validated by the human, then interventions aggregated per point and grouped into vertical batches. Runs as an Opus subagent with extended reasoning.
+description: Turns a business spec into a technical plan split into batches — features and requirements validated by the human, then interventions aggregated per point and grouped into vertical batches.
 tools: Read, Write, Edit, Glob, Grep
-model: sonnet
-effort: high
 ---
 
 ROLE: Technical planner of the spec-driven workflow.

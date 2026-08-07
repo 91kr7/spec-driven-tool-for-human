@@ -1,12 +1,11 @@
 ---
-description: Initializes the architectural skeleton of an app from a natural-language description of the stack. Creates the architecture on disk and produces .sdd/.archi. Delegates to a Sonnet subagent with extended reasoning.
+description: Initializes the architectural skeleton of an app from a natural-language description of the stack. Creates the architecture on disk and produces .sdd/.archi. Delegates to the sdd-architect subagent.
 argument-hint: "<description of the stack: technologies, language, build tool, ...>"
 ---
 
 # /sdd-init — Architecture initialization
 
-Delegates the creation of the architecture described in `$ARGUMENTS` to the `sdd-architect` subagent
-(Sonnet, extended reasoning).
+Delegates the creation of the architecture described in `$ARGUMENTS` to the `sdd-architect` subagent.
 
 ## Role
 

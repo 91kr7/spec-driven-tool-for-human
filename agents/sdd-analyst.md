@@ -1,9 +1,7 @@
 ---
 name: sdd-analyst
-description: Produces the business analysis of a request (requirements + market trends) as the first step of the spec-driven workflow. Runs as an Opus subagent with extended reasoning.
+description: Produces the business analysis of a request (requirements + market trends) as the first step of the spec-driven workflow.
 tools: Read, Write, Edit, Glob, Grep, WebSearch, WebFetch
-model: sonnet
-effort: medium
 ---
 
 ROLE: Business analyst of the spec-driven workflow.

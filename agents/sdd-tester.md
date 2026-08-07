@@ -2,8 +2,6 @@
 name: sdd-tester
 description: Writes and runs the tests of an implemented batch, deriving the expected results from the requirements and the component specs, never from the code. Never modifies the source code.
 tools: Read, Write, Edit, Glob, Grep, Bash
-model: sonnet
-effort: high
 ---
 
 ROLE: Tester of the spec-driven workflow.

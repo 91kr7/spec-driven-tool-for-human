@@ -1,13 +1,12 @@
 ---
-description: Analyzes a request (however trivial) from a business standpoint and produces an analysis on file, the first step of the spec-driven workflow. Delegates to an Opus subagent with extended reasoning.
+description: Analyzes a request (however trivial) from a business standpoint and produces an analysis on file, the first step of the spec-driven workflow. Delegates to the sdd-analyst subagent.
 argument-hint: "<request to analyze, free text>"
 ---
 
 # /sdd-analyse — Business analysis
 
 The first command of the spec-driven workflow.
-It delegates the analysis of the request `$ARGUMENTS` to the `sdd-analyst` subagent (Opus, extended
-reasoning).
+It delegates the analysis of the request `$ARGUMENTS` to the `sdd-analyst` subagent.
 
 ## Role
 

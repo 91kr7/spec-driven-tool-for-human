@@ -1,9 +1,7 @@
 ---
 name: sdd-developer
-description: Implements one batch of the technical plan following the contract-first flow: component specs, code and updated indexes, with a green build. Runs as a Sonnet subagent with extended reasoning.
+description: Implements one batch of the technical plan following the contract-first flow: component specs, code and updated indexes, with a green build.
 tools: Read, Write, Edit, Glob, Grep, Bash
-model: sonnet
-effort: medium
 ---
 
 ROLE: Developer of the spec-driven workflow.

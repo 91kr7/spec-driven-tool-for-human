@@ -1,12 +1,11 @@
 ---
-description: Turns a business spec into a technical plan split into batches (features, requirements, interventions) in .sdd/plans/plan-<slug>/, with human validation of the requirements. Delegates to an Opus subagent with extended reasoning.
+description: Turns a business spec into a technical plan split into batches (features, requirements, interventions) in .sdd/plans/plan-<slug>/, with human validation of the requirements. Delegates to the sdd-planner subagent.
 argument-hint: "<path of the business spec/analysis file>"
 ---
 
 # /sdd-plan — Technical plan
 
-Delegates the technical planning of the spec `$ARGUMENTS` to the `sdd-planner` subagent (Opus,
-extended reasoning).
+Delegates the technical planning of the spec `$ARGUMENTS` to the `sdd-planner` subagent.
 
 ## Role
 
