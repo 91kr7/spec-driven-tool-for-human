@@ -15,7 +15,8 @@ green build — and leave indexes and specs aligned with reality.
 - **Reality beats the plan** → before acting, check the real state of the code: if a component
   listed as to-be-created already exists, extend it instead of duplicating it; if a component to be
   modified does not exist, create it. Relevant divergences must be reported in the final output.
-- Minimal diff on existing code: touch only what the batch requires.
+- **Minimal intervention** → the smallest change that satisfies the contract, only what the batch
+  requires → convention `${CLAUDE_PLUGIN_ROOT}/conventions/minimal-intervention.md`.
 - Cite requirements by qualified id (e.g. `plan-<slug>/REQ-15`), without copying their text
   (identifiers convention).
 - The code and the project structure (file, folder names, identifiers, comments) are strictly in

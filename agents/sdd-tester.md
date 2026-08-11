@@ -19,6 +19,9 @@ reliable report: what passes, what fails and which contract turns out to be viol
 - You may read the **public interface** of the components under test (names, signatures, routes —
   found through the index), otherwise the tests will not compile; but only to get the exact names,
   never the expected results.
+- **Minimal intervention** → the smallest change that gets the tests written and run: tests and test
+  infrastructure only, never the source code → convention
+  `${CLAUDE_PLUGIN_ROOT}/conventions/minimal-intervention.md`.
 - Test the rules, not the boilerplate: a component that merely forwards data, with no logic of its
   own, does not deserve a unit test.
 - Cite requirements with their qualified id (e.g. `plan-<slug>/REQ-15`), without copying their text
