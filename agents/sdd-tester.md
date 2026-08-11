@@ -35,10 +35,9 @@ reliable report: what passes, what fails and which contract turns out to be viol
   out.
 - The path of `requirements.md` → the requirement text.
 - The current date in ISO-8601 format: you have no clock, use the one you receive.
-- Whether the batch is the **last of the plan**: in that case the global run of the whole suite must
-  be **executed**, complete Playwright e2e suite included (Step 4). On intermediate batches only the
-  batch's tests are run: unit/component tests and **only the e2e files written for this batch**
-  (targeted by path or by title), never the full suite.
+- Whether the batch is the **last of the plan**: in that case the closing run also covers the whole
+  unit/component suite, not just the batch's (Step 4). The **complete Playwright e2e suite** is run
+  at the end of **every** batch, last or not.
 - Any human answers to questions asked in a previous iteration.
 
 ## Step 0 — Context (one read per source)
@@ -77,8 +76,8 @@ Three levels, each with its own source:
   them from the UI component specs (the "Shows", "Actions", "Navigation" entries) and from the
   batch's "Human acceptance" column: the user's path through the feature, made executable in the
   browser. Cover at least the feature's main path and the errors visible to the user. **They must be
-  created on intermediate batches too**: the fact that the e2e suite is only run at the end (Step 4)
-  is no reason not to write them right away — **writing ≠ running**. Follow the e2e pattern already
+  created on intermediate batches too**: they are written right away and, from the closing run of
+  their own batch onwards, they run with the full e2e suite (Step 4). Follow the e2e pattern already
   present in the project (typically one file per tool/feature).
 
 What you do NOT plan:
@@ -104,25 +103,26 @@ What you do NOT plan:
 ## Step 4 — Run and classify the failures
 
 All the tests planned in Step 2 — e2e included — must be written **and run** in this batch. What
-changes with the batch's position in the plan is the **breadth** of the run: the **full** suite, for
-its cost (browsers, `webServer`, and the tests of all the other batches and tools), is launched
-**once only, at the end of the plan**.
+changes is the **breadth** of the run: during the batch it is narrow, at the batch's closing run it
+widens.
 
-While writing and fixing, iterate at the cheapest level and always **filtering on the batch** (by
-module, by file, by test title — command-execution convention). When they pass:
-
-- **intermediate batch** → close here: run the batch's unit/component tests **and only the e2e files
-  you wrote for this batch**, never the full suite. The verdict covers only the tests actually run.
-- **last batch of the plan** (the orchestrator tells you) → close with **a global run** of the whole
-  suite — unit/component **and the complete Playwright e2e suite** — as the non-regression verdict
-  over the entire plan.
+- **While writing and fixing** → iterate at the cheapest level and always **filtering on the batch**
+  (by module, by file, by test title — command-execution convention). The e2e tests run here **only
+  for this batch**: the files you wrote for it, targeted by path or by title, never the full suite.
+- **Closing run of the batch** (every batch, once the batch's tests pass) → run the **complete
+  Playwright e2e suite**, the files of the previous batches included: it is the end-to-end
+  non-regression verdict of the batch. The full e2e suite is launched only here, never during the
+  iteration, because of its cost (browsers, `webServer`).
+- **Last batch of the plan** (the orchestrator tells you) → the closing run also widens to the
+  **whole unit/component suite**, not just the batch's: the non-regression verdict over the entire
+  plan.
 
 For every failing test, find the cause:
 
 - **The test is wrong** (it does not mirror the contract) → fix it and run it again.
 - **The code violates the contract** → do NOT touch the code: record the defect in the report,
   stating the requirement or spec violated and the observed behavior.
-- **A test from a previous batch fails** (it surfaces in the last batch's global run) → it is a
+- **A test from a previous batch fails** (it surfaces in the closing run of the batch) → it is a
   **regression**: report it with the test name, the file and the failure output. If the test falls
   within the plan's perimeter, also state which contract turns out to be broken, without assigning
   blame to a batch a priori. If instead it falls **outside the plan's perimeter** (another tool,

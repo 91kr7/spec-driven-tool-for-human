@@ -19,16 +19,17 @@ Command output enters the agent's context and costs tokens: verbosity must be ke
 - If the output is still long → filter it (e.g. `| tail`, `grep` on the errors) instead of reading
   it whole.
 
-## Scope of execution: the module first, the global run only on the last batch
+## Scope of execution: narrow during the batch, wider in its closing run
 
 - While working on a module → run **only that module's tests** (idiomatic filters: `mvn -q
   -Dtest=...`, a path or pattern for Vitest/Jest, `--grep` for Playwright).
-- The **global run** of the whole suite (all modules) happens **once only, at the end of the plan**
-  → **on the last batch only**, as the non-regression verdict over the entire plan. Never as an
-  iteration loop.
-- On **intermediate batches** → no global run: the batch closes with the tests of the batch (or of
-  the modules it touched) green. Non-regression across batches is verified all at once at the end.
+- **During the development of a batch, the e2e run stays on that batch** → only the e2e files
+  written for it (by path or by title). Never the full e2e suite as an iteration loop.
+- **Full e2e suite → at the end of every batch**, in its closing run, once the batch's tests are
+  green: it is the end-to-end non-regression verdict of the batch.
+- **Global run of the unit/component suite** (all modules) → **on the last batch only**, as the
+  non-regression verdict over the entire plan.
 - Which one is the last batch is decided and communicated by the **orchestrator** (`/sdd-dev`): the
   subagent does not infer it on its own.
-- If the global run (last batch) finds a failure outside the current module → it is a regression:
-  fix it in a narrow scope and close with a new green global run.
+- If a wider run finds a failure outside the current module → it is a regression: fix it in a narrow
+  scope and close with a new green run of the same breadth.

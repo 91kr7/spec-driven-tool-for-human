@@ -27,32 +27,35 @@ Once a batch is certified, it moves on to the next, until the plan is complete o
    - a batch is in status `tested` (a leftover from a run predating automatic certification) → its
      tests were green: move it to `certified` and carry on.
    - a batch is in status `implemented` → development finished but tests missing: skip straight to
-     the Test phase for that batch (still work out whether it is the last batch, step 3, for the
-     tester's global run).
+     the Test phase for that batch (still work out whether it is the last batch, step 4, for the
+     breadth of the tester's closing run).
    - a batch is in status `in progress` → a previous run was interrupted: report it to the user and
      stop, it is their call how to proceed.
+3. Open the **development branch** of the plan from `main` (or switch to it if it already exists),
+   following the convention `${CLAUDE_PLUGIN_ROOT}/conventions/branching.md`. No batch is developed
+   on `main`.
 
 ### Loop over the batches — repeat while there are workable batches
 
-3. Choose the batch → the first one in status `todo` with all its dependencies in status
+4. Choose the batch → the first one in status `todo` with all its dependencies in status
    `certified`. If there is none, leave the loop and go to **Closing the plan**. Also work out
    whether it is the **last batch** of the plan → it is when, besides the chosen one, no other batch
-   is left to work on (all the others are already `certified`): this decides whether the **global
-   run** of the suite happens in the Test phase (step 10).
-4. Get the current date in ISO-8601 format with `date +%Y-%m-%d`.
+   is left to work on (all the others are already `certified`): this decides whether the closing run
+   of the Test phase (step 11) also widens to the **whole unit/component suite**.
+5. Get the current date in ISO-8601 format with `date +%Y-%m-%d`.
 
 ### Development phase
 
-5. Move the batch status to `in progress` in `batches.md` (statuses are written by you, never by the
+6. Move the batch status to `in progress` in `batches.md` (statuses are written by you, never by the
    subagents).
-6. Launch the `sdd-developer` subagent via Task, passing it:
+7. Launch the `sdd-developer` subagent via Task, passing it:
    - the path of the batch file (`batches/batch-<slug>.md`)
    - the path of `requirements.md`
    - the current date
-7. If the subagent returns questions for the human → apply the convention
+8. If the subagent returns questions for the human → apply the convention
    `${CLAUDE_PLUGIN_ROOT}/conventions/question-brokering.md` (orchestrator role): put the questions
    to the user, resume the same subagent with `SendMessage` and repeat until no questions are left.
-8. On return, run the **mechanical check** (existence checks, not judgments of merit):
+9. On return, run the **mechanical check** (existence checks, not judgments of merit):
    - every component created or modified has its row in the module index and its spec in `specs/`
      (convention `indexes.md`);
    - a new module has its row in `modules.md`;
@@ -61,26 +64,30 @@ Once a batch is certified, it moves on to the next, until the plan is complete o
      canonical commands given in `.sdd/.archi`.
    - If something is missing, resume the same subagent with the precise list of gaps, until the
      check passes.
-9. Move the batch status to `implemented`.
+10. Move the batch status to `implemented`, then **commit** the work of the developer (code, specs,
+    indexes), following the convention `${CLAUDE_PLUGIN_ROOT}/conventions/commit.md`.
 
 ### Test phase (right after development)
 
-10. Launch the `sdd-tester` subagent via Task, passing it:
+11. Launch the `sdd-tester` subagent via Task, passing it:
     - the path of the batch file (`batches/batch-<slug>.md`)
     - the path of `requirements.md`
     - the current date
-    - the **summary delivered by the developer** (step 6): files touched, components created or
+    - the **summary delivered by the developer** (step 7): files touched, components created or
       modified, specs and indexes updated. Always pass it along: without it the tester reconstructs
       the batch's perimeter by itself, rummaging through the repository (`git status`, diffs, sweep
       searches), at a high cost and with a worse result.
-    - whether it is the **last batch** of the plan (step 3) → on it the global run of the whole suite
-      must be executed, complete e2e included; on intermediate batches only the batch's tests —
-      unit/component and only the e2e files written for that batch, never the full suite
-11. Questions from the tester → same brokering convention as step 7.
-12. On return, assess the report:
+    - whether it is the **last batch** of the plan (step 4) → on it the closing run also covers the
+      whole unit/component suite, not just the batch's
+    - the breadth of the e2e run is the same on every batch: during the batch's iteration only the
+      e2e files written for that batch, then the **complete e2e suite in the batch's closing run** —
+      full e2e at the end of each batch, never during development
+12. Questions from the tester → same brokering convention as step 8.
+13. On return, assess the report:
     - **all tests green** → move the batch status straight to `certified`: green tests certify the
       batch, with no human acceptance gate (if in doubt, re-run the test commands given in
-      `.sdd/.archi` to confirm).
+      `.sdd/.archi` to confirm), then **commit** the work of the tester (tests and their artefacts),
+      following the convention `${CLAUDE_PLUGIN_ROOT}/conventions/commit.md`.
     - **red tests caused by defects in the code** → present the report to the user and ask how to
       proceed: send the fixes to the developer (resume `sdd-developer` with the list of defects, then
       repeat the Test phase) or stop here (the status stays `implemented`). No fix iteration starts
@@ -88,23 +95,27 @@ Once a batch is certified, it moves on to the next, until the plan is complete o
 
 ### Closing the batch and moving to the next
 
-13. Batch `certified` → create a git commit that closes it: `git add` of everything the batch touched
-    (code, specs, indexes, tests, the updated status in `batches.md`), then commit following the
-    rules of the project CLAUDE.md (message in English, schematic, no assistant signature). One
-    commit per batch, not one at the end of the plan.
-14. Report to the user, schematically, the outcome of the batch just closed:
+14. Batch `certified` → create the git commit that closes it: everything the batch touched and is not
+    committed yet (the updated status in `batches.md`, any leftovers), following the convention
+    `${CLAUDE_PLUGIN_ROOT}/conventions/commit.md`. One closing commit per batch, not one at the end
+    of the plan.
+15. Report to the user, schematically, the outcome of the batch just closed:
     - the batch executed, the components created/modified and the build outcome
     - the tests written and the outcome of the run; the defects and regressions, if any
     - the **acceptance checklist** (the batch's "Human acceptance" column) → an optional manual
       check; the batch status is already `certified` thanks to the green tests.
-15. Go back to step 3 for the next batch.
+16. Go back to step 4 for the next batch.
 
 ### Closing the plan
 
-16. When step 3 finds no more workable batches, summarize for the user: the batches certified in this
+17. When step 4 finds no more workable batches, summarize for the user: the batches certified in this
     run and the main components touched, any batches left behind with the reason, and the overall
     status → **complete** if all the batches are `certified`, otherwise **stuck**, with the state of
     the table.
+18. **Reintegrate the branch** → all the batches `certified`: propose the merge into `main` to the
+    user and carry it out once they confirm, following the convention
+    `${CLAUDE_PLUGIN_ROOT}/conventions/branching.md`. Plan **stuck** → no merge: the branch stays as
+    it is, say what is missing.
 
 ## Delegating to Gemini (on request)
 

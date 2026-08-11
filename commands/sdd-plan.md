@@ -30,7 +30,9 @@ Delegates the technical planning of the spec `$ARGUMENTS` to the `sdd-planner` s
      coverage (do not paste whole files into the chat)
    - the human validates by hand; collect the confirmation or the corrections
    - same convention as step 3: resume the same subagent until the human validates.
-5. Report to the user, schematically:
+5. When the subagent has finished, **commit** what it produced, following the convention
+   `${CLAUDE_PLUGIN_ROOT}/conventions/commit.md`.
+6. Report to the user, schematically:
    - the path of the plan folder
    - the list of batches produced, with their execution order (dependencies)
 

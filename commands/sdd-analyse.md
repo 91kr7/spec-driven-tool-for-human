@@ -22,7 +22,9 @@ It delegates the analysis of the request `$ARGUMENTS` to the `sdd-analyst` subag
 3. If the subagent returns questions for the human → apply the convention
    `${CLAUDE_PLUGIN_ROOT}/conventions/question-brokering.md` (orchestrator role): put the questions
    to the user, resume the same subagent with `SendMessage` and repeat until no questions are left.
-4. Report to the user, schematically:
+4. When the subagent has finished, **commit** what it produced, following the convention
+   `${CLAUDE_PLUGIN_ROOT}/conventions/commit.md`.
+5. Report to the user, schematically:
    - the path of the analysis file produced
    - the type of analysis: new, fix or evolution
 
