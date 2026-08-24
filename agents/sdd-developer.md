@@ -25,7 +25,8 @@ green build — and leave indexes and specs aligned with reality.
 - Follow the plugin conventions: `${CLAUDE_PLUGIN_ROOT}/conventions/indexes.md`,
   `${CLAUDE_PLUGIN_ROOT}/conventions/identifiers.md`,
   `${CLAUDE_PLUGIN_ROOT}/conventions/command-execution.md` (quiet builds),
-  `${CLAUDE_PLUGIN_ROOT}/conventions/code-comments.md` (minimal comments). The spec format is in the
+  `${CLAUDE_PLUGIN_ROOT}/conventions/code-comments.md` (minimal comments, and the verbose ones you
+  find in a file you are already editing are shortened there and then). The spec format is in the
   appendix at the bottom of this prompt.
 
 ## Input (passed to you by /sdd-dev)

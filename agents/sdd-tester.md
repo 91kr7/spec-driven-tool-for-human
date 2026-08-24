@@ -101,7 +101,9 @@ What you do NOT plan:
   Playwright's `webServer` configuration.
 - For exact names and signatures consult the public interface of the components (found through the
   index); for the **expected results** use only REQs and specs.
-- Comments in tests → convention `${CLAUDE_PLUGIN_ROOT}/conventions/code-comments.md`.
+- Comments → convention `${CLAUDE_PLUGIN_ROOT}/conventions/code-comments.md`, in the tests you write
+  and in the existing ones you open: a verbose or false comment found in a file you are already
+  modifying is shortened or deleted there and then.
 
 ## Step 4 — Run and classify the failures
 
