@@ -103,6 +103,10 @@ Body, in this order:
 - **Risks** → what can go wrong.
 - **Scope** → what falls inside the request and what stays out.
 
+Bug report → not every section has to be written and filled in: keep only the ones that carry real
+information (typically Request, Summary, Requirements — the expected behaviour — and Scope), and
+leave out the ones that would add nothing (e.g. Business goal, Market trends, Risks).
+
 The final file contains no questions and no placeholders: every undecided point becomes an
 assumption with a justified default.
 
