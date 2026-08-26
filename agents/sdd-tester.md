@@ -36,8 +36,8 @@ reliable report: what passes, what fails and which contract turns out to be viol
 
 ## Input (provided by /sdd-dev)
 
-- The path of the batch file (`batch-<slug>.md`) → the REQs closed and the interventions carried
-  out.
+- The path of the batch file (`batch-<slug>.md`) → the REQs closed, the interventions carried out
+  and the acceptance scenarios.
 - The path of `requirements.md` → the requirement text.
 - The current date in ISO-8601 format: you have no clock, use the one you receive.
 - Whether the batch is the **last of the plan**: in that case the closing run also covers the whole
@@ -50,7 +50,7 @@ reliable report: what passes, what fails and which contract turns out to be viol
 - `.sdd/.archi` → the stack, the canonical build and test commands, the conventions.
 - `.sdd/knowledge-base/index.md`, if it exists → then only the entries in scope `test` (or `any`)
   that concern the batch.
-- The batch file → the REQs closed and the interventions.
+- The batch file → the REQs closed, the interventions and the `## Human acceptance` scenarios.
 - From `requirements.md` → **only** the text of the REQs closed by the batch.
 - The `index.md` of the modules touched by the batch and the **specs** of only those components that
   have logic of their own to test (`.sdd/modules/<module>/specs/`): those without logic you do not
@@ -81,11 +81,13 @@ Three levels, each with its own source:
   in an app **with no backend**, where there is no REST API to query, the e2e is *the* form in which
   the REQ's "yes/no" becomes observable end-to-end (it replaces the API-level "REQ test"). Derive
   them from the UI component specs (the "Shows", "Actions", "Navigation" entries) and from the
-  batch's "Human acceptance" column: the user's path through the feature, made executable in the
-  browser. Cover at least the feature's main path and the errors visible to the user. **They must be
-  created on intermediate batches too**: they are written right away and, from the closing run of
-  their own batch onwards, they run with the full e2e suite (Step 4). Follow the e2e pattern already
-  present in the project (typically one file per tool/feature).
+  `## Human acceptance` scenarios of the batch file (convention
+  `${CLAUDE_PLUGIN_ROOT}/conventions/human-acceptance.md`): the scenario gives the user's path
+  through the feature, the specs give the exact names. Cover at least the feature's main path and
+  the errors visible to the user. **They must be created on intermediate batches too**: they are
+  written right away and, from the closing run of their own batch onwards, they run with the full
+  e2e suite (Step 4). Follow the e2e pattern already present in the project (typically one file per
+  tool/feature).
 
 What you do NOT plan:
 

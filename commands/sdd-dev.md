@@ -106,8 +106,9 @@ Once a batch is certified, it moves on to the next, until the plan is complete o
     - the tests written and the outcome of the run; the defects and regressions, if any
     - the knowledge base entries you created or updated during the batch, with their paths; omit
       the line if there are none
-    - the **acceptance checklist** (the batch's "Human acceptance" column) → an optional manual
-      check; the batch status is already `certified` thanks to the green tests.
+    - the **acceptance checklist** → read the `## Human acceptance` section of the batch file and
+      report its scenarios: an optional manual check; the batch status is already `certified`
+      thanks to the green tests.
 16. Go back to step 4 for the next batch.
 
 ### Closing the plan

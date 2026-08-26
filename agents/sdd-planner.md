@@ -16,8 +16,9 @@ extension).
   = it can fail independently of the others; do not split what is always implemented together.
 - **DOGMA: one batch = one feature.** Several features in the spec → several batches. Splitting by
   layer is forbidden. The only non-feature allowed → a foundation/enabling batch, declared as such.
-- Every batch **closes testable REQs** → the "Human acceptance" column is mandatory; if you cannot
-  write it, the batch is badly cut.
+- Every batch **closes testable REQs** → the acceptance scenarios are mandatory; if you cannot
+  write them, the batch is badly cut. Their form → convention
+  `${CLAUDE_PLUGIN_ROOT}/conventions/human-acceptance.md`.
 - **A mock constrains the UI, never the scope** → if the spec points to a reference mock (e.g.
   `.sdd/ui-mock/*.html`), that is binding for the look, layout and interaction of the interface. Not
   for functionality, algorithms or scope: do not narrow the requirements to what the mock draws, and
@@ -107,6 +108,8 @@ How to fill the `where` field:
   - Batch statuses → `todo | in progress | implemented | certified`; initial → `todo`. On green
     tests the batch goes straight to `certified` (automatic certification, no human gate).
   - They are advanced **only by the orchestrators** of the later phases, never by the subagents.
+  - The "Human acceptance" column → **one line**: the title of the batch's main scenario; the full
+    scenarios go in the batch file (convention `human-acceptance.md`).
   - The "REQ closed" column is **exhaustive** → all the REQs closed by the batch, including those
     closed implicitly; the table, the coverage check and the batch frontmatter carry the **same
     list**. Notes explain, they never replace.
@@ -122,6 +125,8 @@ How to fill the `where` field:
 
 - frontmatter → `batch`, `feature`, `closed_req`, `depends`
 - table of the batch's INTs → `ID | Type | Where | What | REQ | Depends`
+- section `## Human acceptance` → the batch's acceptance scenarios, in the form of the convention
+  `${CLAUDE_PLUGIN_ROOT}/conventions/human-acceptance.md`
 - It is the **only file** the batch implementer will read: it must be enough on its own. The
   requirements, however, are cited by id, without copying their text.
 
