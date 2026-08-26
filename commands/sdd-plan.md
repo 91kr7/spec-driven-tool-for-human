@@ -15,6 +15,8 @@ Delegates the technical planning of the spec `$ARGUMENTS` to the `sdd-planner` s
   validations.
 - You keep the **knowledge base** → convention
   `${CLAUDE_PLUGIN_ROOT}/conventions/knowledge-base.md` (orchestrator role): read it and follow it.
+- You work on the **branch of the cycle**, normally opened by `/sdd-analyse` → convention
+  `${CLAUDE_PLUGIN_ROOT}/conventions/branching.md`.
 
 ## Steps
 
@@ -32,10 +34,14 @@ Delegates the technical planning of the spec `$ARGUMENTS` to the `sdd-planner` s
      coverage (do not paste whole files into the chat)
    - the human validates by hand; collect the confirmation or the corrections
    - same convention as step 3: resume the same subagent until the human validates.
-5. When the subagent has finished, **commit** what it produced, following the convention
+5. **Switch to the branch** of the cycle — the one named after the spec's `request_slug` — or open
+   it from `main` if the analysis predates this rule and it does not exist, following the convention
+   `${CLAUDE_PLUGIN_ROOT}/conventions/branching.md`. The plan is not committed on `main`.
+6. When the subagent has finished, **commit** what it produced, following the convention
    `${CLAUDE_PLUGIN_ROOT}/conventions/commit.md`.
-6. Report to the user, schematically:
+7. Report to the user, schematically:
    - the path of the plan folder
+   - the branch opened (or switched to)
    - the list of batches produced, with their execution order (dependencies)
    - the knowledge base entries you created or updated, with their paths; omit the line if there
      are none

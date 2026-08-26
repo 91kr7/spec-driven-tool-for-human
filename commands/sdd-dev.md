@@ -33,9 +33,9 @@ Once a batch is certified, it moves on to the next, until the plan is complete o
      breadth of the tester's closing run).
    - a batch is in status `in progress` → a previous run was interrupted: report it to the user and
      stop, it is their call how to proceed.
-3. Open the **development branch** of the plan from `main` (or switch to it if it already exists),
-   following the convention `${CLAUDE_PLUGIN_ROOT}/conventions/branching.md`. No batch is developed
-   on `main`.
+3. **Switch to the branch** of the cycle — normally already opened by `/sdd-analyse` and carrying
+   the analysis and the plan — or open it from `main` if it does not exist, following the convention
+   `${CLAUDE_PLUGIN_ROOT}/conventions/branching.md`. No batch is developed on `main`.
 
 ### Loop over the batches — repeat while there are workable batches
 
