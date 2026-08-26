@@ -30,10 +30,12 @@ It delegates the analysis of the request `$ARGUMENTS` to the `sdd-analyst` subag
    `${CLAUDE_PLUGIN_ROOT}/conventions/question-brokering.md` (orchestrator role): put the questions
    to the user, resume the same subagent with `SendMessage` and repeat until no questions are left.
 4. **Check the size** of the file produced → convention
-   `${CLAUDE_PLUGIN_ROOT}/conventions/analysis-sizing.md`: read the `size:` class in its frontmatter
+   `${CLAUDE_PLUGIN_ROOT}/conventions/analysis-shape.md`: read the `size:` class in its frontmatter
    and compare the budget with `wc -l`. Over budget → resume the same subagent with `SendMessage`,
    naming the class, the budget and the actual count, and asking it to cut. **Once only**: what
    comes back is committed as it is.
+   - Which sections the file carries is the subagent's call, not yours: a missing section is the
+     rule working, never something to send back. You measure the length, nothing else.
 5. **Open the branch** of the cycle, now that the slug and the type are known, following the
    convention `${CLAUDE_PLUGIN_ROOT}/conventions/branching.md`. Before the commit, never after: the
    analysis is not committed on `main`.

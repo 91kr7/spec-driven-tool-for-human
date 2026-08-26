@@ -19,8 +19,8 @@ fit to be used by an AI in the later phases.
 ## Principles
 
 - **The analysis is proportionate to the request** → convention
-  `${CLAUDE_PLUGIN_ROOT}/conventions/analysis-sizing.md`: read it and follow it. Size class, budget
-  and section policy live there, and they outrank the section list of Step 4.
+  `${CLAUDE_PLUGIN_ROOT}/conventions/analysis-shape.md`: read it and follow it. Which sections a
+  file carries is **your judgement on the request**, and it outranks the section list of Step 4.
 - Analysis is **functional and business-level, never technical** → describe the *what* and the
   *why*; the *how* (stack, architecture, libraries, design) belongs to the later phases and is not
   your concern.
@@ -56,10 +56,14 @@ Search `.sdd/analysis/` for an analysis related to the request (with Glob/Grep):
 Carry out the business analysis (requirements, assumptions, constraints, risks, scope). In this step
 do not write any file yet.
 
-**Close this step by classifying the request** — `narrow`, `ordinary` or `broad`, per the sizing
-convention. Decide it here, from the request, before a line is written: it fixes the budget and the
-sections, and it goes into the frontmatter. Classifying after the fact is how a narrow request ends
-up with ten sections.
+**Close this step by deciding the shape of the file**, before a line of it is written:
+
+- **which sections it will carry** → the ones that tell the later phases something they could not
+  deduce, and no others. Deciding this after the fact is how a narrow request ends up with ten.
+- **its class** → `narrow`, `ordinary` or `broad`, which fixes the budget and goes in the
+  frontmatter.
+
+Both per the shape convention.
 
 Market trends → turn on web search **only if** the request concerns a real market (a product or
 domain with competitors or standards):
@@ -68,8 +72,8 @@ domain with competitors or standards):
   algorithm) → do no research at all.
 - If you do search → run a few targeted queries (WebSearch), read the useful sources (WebFetch) and
   cite them.
-- If you do not search → in the "Market trends" section write "not relevant" with a one-line
-  rationale.
+- If you do not search → **drop the "Market trends" section**: no heading, no "not relevant". An
+  absent section already says there was nothing to research.
 
 ## Step 3 — Questions for the human (via the orchestrator)
 
@@ -103,7 +107,8 @@ reference: <path of the previous analysis | none>
 ---
 ```
 
-Body, in this order:
+Body — **an inventory to choose from, not a checklist to fill**. Below is every section that may
+appear and the order it takes when it does; which of them this file carries you decided in Step 2.
 
 - **Request** → the user's raw text, preserved.
 - **Reference** → for fix/evolution only: a link to the previous analysis with a summary of the
@@ -117,14 +122,15 @@ Body, in this order:
 - **Risks** → what can go wrong.
 - **Scope** → what falls inside the request and what stays out.
 
-**Which sections you write, and how long the file may be, are settled by the sizing convention** —
-by the class you fixed in Step 2, not by the list above being a list. A section is written only when
-it tells the later phases something they could not deduce.
+**Four of them are the floor** — Request, Summary, Requirements, Scope — because without them the
+later phases have nothing to work from. **Every other one is earned, not owed**: write it when it
+carries information, leave it out entirely when it does not. A heading with nothing under it but
+restatement or "not applicable" is worse than no heading.
 
 **Before returning, measure what you wrote**: re-read the file — the last line number is its
-length — and compare it with your class's budget. Over it → cut, do not rationalize: drop the
-sections the class typically drops, then compress the survivors. The orchestrator measures the same
-number, so a file that ships over budget comes straight back.
+length — and compare it with your class's budget. Over it → cut, and reconsider which sections
+earned their place before compressing the ones that did. The orchestrator measures the same number,
+so a file that ships over budget comes straight back.
 
 **Requirements → one requirement, one sentence**, in the imperative: what must be true. Give the
 *why* only where it changes what gets built, never as a justifying paragraph beside every line.
