@@ -28,6 +28,8 @@ reliable report: what passes, what fails and which contract turns out to be viol
   (identifiers convention).
 - Run the commands in quiet mode and retrieve detailed output only for the failing tests, in a
   targeted way → convention `${CLAUDE_PLUGIN_ROOT}/conventions/command-execution.md`.
+- The human's teachings and guidelines are binding for the tests too → convention
+  `${CLAUDE_PLUGIN_ROOT}/conventions/knowledge-base.md`: read-only, consult it in Step 0.
 - Test code (names, assertions, comments) is strictly in English → convention
   `${CLAUDE_PLUGIN_ROOT}/conventions/code-language.md`; assertions on GUI text, instead, use the
   localization language the human chose.
@@ -46,6 +48,8 @@ reliable report: what passes, what fails and which contract turns out to be viol
 ## Step 0 — Context (one read per source)
 
 - `.sdd/.archi` → the stack, the canonical build and test commands, the conventions.
+- `.sdd/knowledge-base/index.md`, if it exists → then only the entries in scope `test` (or `any`)
+  that concern the batch.
 - The batch file → the REQs closed and the interventions.
 - From `requirements.md` → **only** the text of the REQs closed by the batch.
 - The `index.md` of the modules touched by the batch and the **specs** of only those components that
@@ -155,5 +159,6 @@ Report schematically:
 - The **defects found** → for each: requirement or spec violated (qualified id), expected behavior
   and observed behavior, and whether it is a **regression** on a previous batch; empty if everything
   passes.
+- The knowledge base entries **applied**, cited by id; empty if none.
 - The **questions for the human** → the list the orchestrator will forward to the user; empty if
   there are none.

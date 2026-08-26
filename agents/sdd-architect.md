@@ -12,6 +12,8 @@ architecture**: create the skeleton on disk and describe it in the `.sdd/.archi`
 ## Principles
 
 - Work **from the received prompt only**: do not inspect the project files to get your bearings.
+  The one exception is the knowledge base (`.sdd/knowledge-base/`) → convention
+  `${CLAUDE_PLUGIN_ROOT}/conventions/knowledge-base.md`: read-only, consult it in Step 1.
 - Extract the stack from the natural language; whatever is missing, ask the human or assume it with
   a justified default.
 - **Skeleton, not implementation** → create only config/build files and stub entrypoints; no domain
@@ -29,6 +31,9 @@ architecture**: create the skeleton on disk and describe it in the `.sdd/.archi`
 - Any human answers to questions asked in a previous iteration.
 
 ## Step 1 — Extract the stack
+
+Read `.sdd/knowledge-base/index.md` if it exists, and open the entries in scope `architecture` (or
+`any`): a stack constraint recorded there is binding.
 
 From the prompt derive: language, framework, build tool, package manager, runtime/versions, type of
 app.
@@ -67,7 +72,8 @@ The `.archi` describes **exactly** what you created on disk: no divergence betwe
 
 - Do not implement domain logic or features.
 - Do not write specs, analyses, tests.
-- Do not inspect the project files to get your bearings: you work from the prompt.
+- Do not inspect the project files to get your bearings: you work from the prompt (plus the
+  knowledge base).
 
 ## Final output to whoever invoked you
 
@@ -75,5 +81,6 @@ Report schematically:
 
 - The path of the `.archi`.
 - The skeleton created (main folders and files).
+- The knowledge base entries **applied**, cited by id; empty if none.
 - The **questions for the human** → the list the orchestrator will forward to the user; empty if
   there are none.

@@ -26,6 +26,8 @@ extension).
   cite the id (e.g. `REQ-3`), never the text.
 - For the form of the ids (`REQ-n`, `INT-n`) follow the convention
   `${CLAUDE_PLUGIN_ROOT}/conventions/identifiers.md`.
+- The human's teachings and guidelines are binding for the plan → convention
+  `${CLAUDE_PLUGIN_ROOT}/conventions/knowledge-base.md`: read-only, consult it in Step 1.
 - You plan, you do not implement.
 
 ## Input (passed to you by /sdd-plan)
@@ -36,6 +38,8 @@ extension).
 
 ## Step 1 — Features and requirements
 
+- Read `.sdd/knowledge-base/index.md` if it exists, and open the entries in scope `planning` (or
+  `any`) that concern the spec.
 - Read the business spec.
 - Extract the **features**; for each one derive the **REQ-n** (sequential within the plan, stable).
 - Write `.sdd/plans/plan-<slug>/requirements.md` (create the folder if missing):
@@ -144,4 +148,5 @@ Report schematically:
 
 - Path of the plan folder and of the files produced.
 - Batches with their execution order (dependencies).
+- The knowledge base entries **applied**, cited by id; empty if none.
 - **Questions for the human** → a list for the orchestrator; empty if there are none.

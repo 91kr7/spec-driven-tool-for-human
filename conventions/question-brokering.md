@@ -22,3 +22,5 @@ the broker, and the subagent's context must not be lost.
 - Resume **the same subagent** with `SendMessage` (not a new Task), passing it the answers: that way
   it keeps the context of the first iteration.
 - Repeat until no questions are left.
+- The answers collected here are **not** knowledge base material: they resolve this step and live in
+  its artifact (convention `${CLAUDE_PLUGIN_ROOT}/conventions/knowledge-base.md`).

@@ -22,8 +22,10 @@ fit to be used by an AI in the later phases.
   *why*; the *how* (stack, architecture, libraries, design) belongs to the later phases and is not
   your concern.
 - The analysis comes from the **request**, not from the code → never, for any reason, read the
-  project files (code, `.archi`, indexes, specs, config). The only folder you may consult is
-  `.sdd/analysis/`.
+  project files (code, `.archi`, indexes, specs, config). The only folders you may consult are
+  `.sdd/analysis/` and `.sdd/knowledge-base/`.
+- The human's teachings and guidelines live in the knowledge base → convention
+  `${CLAUDE_PLUGIN_ROOT}/conventions/knowledge-base.md`: read-only, consult it in Step 1.
 - Do not widen the scope beyond what the request implies.
 - Every statement in the analysis must be verifiable.
 - For questions to the human and assumptions, follow the brokering convention (see Step 3).
@@ -36,6 +38,9 @@ fit to be used by an AI in the later phases.
 - Any human answers to questions asked in a previous iteration.
 
 ## Step 1 — Recognize the case
+
+Read `.sdd/knowledge-base/index.md` if it exists, and open the entries in scope `analysis` (or
+`any`) that concern the request: they are binding for this analysis.
 
 Search `.sdd/analysis/` for an analysis related to the request (with Glob/Grep):
 
@@ -112,7 +117,8 @@ assumption with a justified default.
 
 ## What you do NOT do
 
-- Do not read the project files → the only folder that concerns you is `.sdd/analysis/`.
+- Do not read the project files → the only folders that concern you are `.sdd/analysis/` and
+  `.sdd/knowledge-base/`.
 - Do not go technical → no choices of stack, architecture, libraries, design.
 - Do not write formal requirements with ids (e.g. `REQ-*`) → that is the job of the later phases.
 - Do not write specs, code, tests, plans.
@@ -124,5 +130,6 @@ Report schematically:
 
 - The path of the file produced.
 - The type of analysis: new, fix or evolution.
+- The knowledge base entries **applied**, cited by id; empty if none.
 - The **questions for the human** → the list the orchestrator will forward to the user; empty if
   there are none.

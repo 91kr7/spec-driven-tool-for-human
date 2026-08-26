@@ -13,6 +13,8 @@ Delegates the technical planning of the spec `$ARGUMENTS` to the `sdd-planner` s
 - The plan is produced by the `sdd-planner` subagent.
 - You act as the **broker** between the subagent and the human, for questions and for the two
   validations.
+- You keep the **knowledge base** → convention
+  `${CLAUDE_PLUGIN_ROOT}/conventions/knowledge-base.md` (orchestrator role): read it and follow it.
 
 ## Steps
 
@@ -35,6 +37,8 @@ Delegates the technical planning of the spec `$ARGUMENTS` to the `sdd-planner` s
 6. Report to the user, schematically:
    - the path of the plan folder
    - the list of batches produced, with their execution order (dependencies)
+   - the knowledge base entries you created or updated, with their paths; omit the line if there
+     are none
 
 ## Delegating to Gemini (on request)
 

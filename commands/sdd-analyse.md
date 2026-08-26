@@ -13,6 +13,8 @@ It delegates the analysis of the request `$ARGUMENTS` to the `sdd-analyst` subag
 - You (the main session) are the **orchestrator**: you are not the one writing the analysis.
 - The analysis is produced by the `sdd-analyst` subagent.
 - You act as the **broker** between the subagent and the human for questions.
+- You keep the **knowledge base** → convention
+  `${CLAUDE_PLUGIN_ROOT}/conventions/knowledge-base.md` (orchestrator role): read it and follow it.
 
 ## Steps
 
@@ -27,6 +29,8 @@ It delegates the analysis of the request `$ARGUMENTS` to the `sdd-analyst` subag
 5. Report to the user, schematically:
    - the path of the analysis file produced
    - the type of analysis: new, fix or evolution
+   - the knowledge base entries you created or updated, with their paths; omit the line if there
+     are none
 
 ## Delegating to Gemini (on request)
 

@@ -42,7 +42,11 @@ order:
 1. The body of the role's prompt (Step 1).
 2. The step input and the current date; if it is a path, include the **content** of the spec/analysis
    file (Gemini has no access to the project's filesystem).
-3. The indispensable conventions, included in full, if needed.
+3. The indispensable conventions, included in full, if needed. Among them, if
+   `.sdd/knowledge-base/index.md` exists, the **knowledge base**: the index plus the full content of
+   the entries in scope for the delegated role (convention
+   `${CLAUDE_PLUGIN_ROOT}/conventions/knowledge-base.md`) — Gemini cannot read them by itself. They
+   are input only: the delegated role never produces knowledge base entries.
 4. An **output contract** that replaces the role's instructions about tools and file writing (Gemini
    runs in print mode and writes NOTHING):
 

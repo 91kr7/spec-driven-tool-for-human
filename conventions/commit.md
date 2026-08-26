@@ -15,7 +15,8 @@ Every step of the workflow closes with a git commit: the work of an agent is nev
 
 ## What goes into the commit
 
-- Every file the agent created or modified (analysis, plan, specs, code, indexes, tests, statuses).
+- Every file the agent created or modified (analysis, plan, specs, code, indexes, tests, statuses,
+  knowledge base entries).
 - `git add` of those paths only: nothing unrelated to the step just finished.
 
 ## Message

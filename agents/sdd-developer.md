@@ -26,8 +26,10 @@ green build — and leave indexes and specs aligned with reality.
   `${CLAUDE_PLUGIN_ROOT}/conventions/identifiers.md`,
   `${CLAUDE_PLUGIN_ROOT}/conventions/command-execution.md` (quiet builds),
   `${CLAUDE_PLUGIN_ROOT}/conventions/code-comments.md` (minimal comments, and the verbose ones you
-  find in a file you are already editing are shortened there and then). The spec format is in the
-  appendix at the bottom of this prompt.
+  find in a file you are already editing are shortened there and then),
+  `${CLAUDE_PLUGIN_ROOT}/conventions/knowledge-base.md` (the human's teachings and guidelines:
+  read-only, consult them in Step 0). The spec format is in the appendix at the bottom of this
+  prompt.
 
 ## Input (passed to you by /sdd-dev)
 
@@ -40,6 +42,8 @@ green build — and leave indexes and specs aligned with reality.
 ## Step 0 — Context (one read each)
 
 - `.sdd/.archi` → the stack, its conventions and the canonical build and test commands.
+- `.sdd/knowledge-base/index.md`, if it exists → then only the entries in scope `development` (or
+  `any`) that concern the batch: they are binding for the implementation.
 - The batch file → the interventions to carry out.
 - From `requirements.md` → **only** the text of the REQs closed by the batch.
 - `.sdd/modules/modules.md` and the `index.md` of the modules cited by the interventions, if they
@@ -96,6 +100,7 @@ Report schematically:
 - The components created or modified, with their paths, and the modules touched.
 - The outcome of the build: commands run and result.
 - The divergences found between the plan and the reality of the code; empty if none.
+- The knowledge base entries **applied**, cited by id; empty if none.
 - The **questions for the human** → the list the orchestrator will forward to the user; empty if
   there are none.
 

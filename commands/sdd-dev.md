@@ -16,6 +16,8 @@ Once a batch is certified, it moves on to the next, until the plan is complete o
   two distinct subagents on purpose: whoever certifies is not whoever wrote the code.
 - You handle: the loop over the batches and the choice of each one, the statuses in `batches.md`,
   the entry gates and the gates on red tests, the mechanical checks and the brokering of questions.
+- You keep the **knowledge base** → convention
+  `${CLAUDE_PLUGIN_ROOT}/conventions/knowledge-base.md` (orchestrator role): read it and follow it.
 
 ## Steps
 
@@ -102,6 +104,8 @@ Once a batch is certified, it moves on to the next, until the plan is complete o
 15. Report to the user, schematically, the outcome of the batch just closed:
     - the batch executed, the components created/modified and the build outcome
     - the tests written and the outcome of the run; the defects and regressions, if any
+    - the knowledge base entries you created or updated during the batch, with their paths; omit
+      the line if there are none
     - the **acceptance checklist** (the batch's "Human acceptance" column) → an optional manual
       check; the batch status is already `certified` thanks to the green tests.
 16. Go back to step 4 for the next batch.

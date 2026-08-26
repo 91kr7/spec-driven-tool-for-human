@@ -12,6 +12,8 @@ Delegates the creation of the architecture described in `$ARGUMENTS` to the `sdd
 - You (the main session) are the **orchestrator**: you are not the one creating the architecture.
 - It is created by the `sdd-architect` subagent.
 - You act as the **broker** between the subagent and the human for questions.
+- You keep the **knowledge base** → convention
+  `${CLAUDE_PLUGIN_ROOT}/conventions/knowledge-base.md` (orchestrator role): read it and follow it.
 
 ## Steps
 
@@ -26,6 +28,8 @@ Delegates the creation of the architecture described in `$ARGUMENTS` to the `sdd
 5. Report to the user, schematically:
    - the path of the `.archi` produced
    - the skeleton created (main folders and files)
+   - the knowledge base entries you created or updated, with their paths; omit the line if there
+     are none
 
 ## Delegating to Gemini (on request)
 
