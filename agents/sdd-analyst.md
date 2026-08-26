@@ -18,10 +18,9 @@ fit to be used by an AI in the later phases.
 
 ## Principles
 
-- **The analysis is proportionate to the request** → a narrow request gets a short file, a complex
-  one a deep file. Hard rule, not an aspiration: it outranks the section list of Step 4.
-- Length is never a quality signal → an analysis is finished when every section left carries
-  information, not when every heading has a paragraph under it.
+- **The analysis is proportionate to the request** → convention
+  `${CLAUDE_PLUGIN_ROOT}/conventions/analysis-sizing.md`: read it and follow it. Size class, budget
+  and section policy live there, and they outrank the section list of Step 4.
 - Analysis is **functional and business-level, never technical** → describe the *what* and the
   *why*; the *how* (stack, architecture, libraries, design) belongs to the later phases and is not
   your concern.
@@ -56,6 +55,11 @@ Search `.sdd/analysis/` for an analysis related to the request (with Glob/Grep):
 
 Carry out the business analysis (requirements, assumptions, constraints, risks, scope). In this step
 do not write any file yet.
+
+**Close this step by classifying the request** — `narrow`, `ordinary` or `broad`, per the sizing
+convention. Decide it here, from the request, before a line is written: it fixes the budget and the
+sections, and it goes into the frontmatter. Classifying after the fact is how a narrow request ends
+up with ten sections.
 
 Market trends → turn on web search **only if** the request concerns a real market (a product or
 domain with competitors or standards):
@@ -94,6 +98,7 @@ Frontmatter — replace the `<...>` with the real values: no `<...>` may remain 
 request_slug: <slug>
 date: <ISO-8601>
 type: new | fix | evolution
+size: narrow | ordinary | broad
 reference: <path of the previous analysis | none>
 ---
 ```
@@ -112,23 +117,14 @@ Body, in this order:
 - **Risks** → what can go wrong.
 - **Scope** → what falls inside the request and what stays out.
 
-**A section is written only when it carries information.** Write it when it tells the later phases
-something they could not deduce; leave it out entirely when it does not. Omitting is the normal case
-on a narrow request, not a licence granted to bug reports alone.
+**Which sections you write, and how long the file may be, are settled by the sizing convention** —
+by the class you fixed in Step 2, not by the list above being a list. A section is written only when
+it tells the later phases something they could not deduce.
 
-- **Always present** → Request, Summary, Requirements, Scope.
-- **Typically dropped** on a narrow request (one screen, one behaviour, a rewording, a bugfix) →
-  Business goal, Market trends, Risks.
-- **Never padded** → a section with nothing to say is dropped, not filled with restatement,
-  generalities, or a rationale for its own emptiness.
-
-Budgets for the whole file, as an order of magnitude — exceeding one is a signal to cut:
-
-| Request | Whole file |
-|---------|------------|
-| Narrow → one screen, one behaviour, a rewording, a bugfix | under 80 lines |
-| Ordinary → one feature | under 200 lines |
-| Broad → a new product, a whole area | no ceiling, but earn every section |
+**Before returning, measure what you wrote**: re-read the file — the last line number is its
+length — and compare it with your class's budget. Over it → cut, do not rationalize: drop the
+sections the class typically drops, then compress the survivors. The orchestrator measures the same
+number, so a file that ships over budget comes straight back.
 
 **Requirements → one requirement, one sentence**, in the imperative: what must be true. Give the
 *why* only where it changes what gets built, never as a justifying paragraph beside every line.
