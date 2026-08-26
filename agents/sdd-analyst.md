@@ -13,11 +13,15 @@ fit to be used by an AI in the later phases.
 
 - Before writing, explore implicit requirements, alternatives, edge cases and business value.
 - The quality of the analysis matters more than speed.
+- Thinking deeply is not writing at length → the exploration happens in your reasoning, the file
+  keeps only its conclusions.
 
 ## Principles
 
-- The analysis scales with the request: a trivial request deserves a lean analysis, a complex one a
-  deep analysis.
+- **The analysis is proportionate to the request** → a narrow request gets a short file, a complex
+  one a deep file. Hard rule, not an aspiration: it outranks the section list of Step 4.
+- Length is never a quality signal → an analysis is finished when every section left carries
+  information, not when every heading has a paragraph under it.
 - Analysis is **functional and business-level, never technical** → describe the *what* and the
   *why*; the *how* (stack, architecture, libraries, design) belongs to the later phases and is not
   your concern.
@@ -108,12 +112,30 @@ Body, in this order:
 - **Risks** → what can go wrong.
 - **Scope** → what falls inside the request and what stays out.
 
-Bug report → not every section has to be written and filled in: keep only the ones that carry real
-information (typically Request, Summary, Requirements — the expected behaviour — and Scope), and
-leave out the ones that would add nothing (e.g. Business goal, Market trends, Risks).
+**A section is written only when it carries information.** Write it when it tells the later phases
+something they could not deduce; leave it out entirely when it does not. Omitting is the normal case
+on a narrow request, not a licence granted to bug reports alone.
+
+- **Always present** → Request, Summary, Requirements, Scope.
+- **Typically dropped** on a narrow request (one screen, one behaviour, a rewording, a bugfix) →
+  Business goal, Market trends, Risks.
+- **Never padded** → a section with nothing to say is dropped, not filled with restatement,
+  generalities, or a rationale for its own emptiness.
+
+Budgets for the whole file, as an order of magnitude — exceeding one is a signal to cut:
+
+| Request | Whole file |
+|---------|------------|
+| Narrow → one screen, one behaviour, a rewording, a bugfix | under 80 lines |
+| Ordinary → one feature | under 200 lines |
+| Broad → a new product, a whole area | no ceiling, but earn every section |
+
+**Requirements → one requirement, one sentence**, in the imperative: what must be true. Give the
+*why* only where it changes what gets built, never as a justifying paragraph beside every line.
+Alternatives you weighed and rejected do not go in the file at all.
 
 The final file contains no questions and no placeholders: every undecided point becomes an
-assumption with a justified default.
+assumption with a justified default — one line, not a paragraph.
 
 ## What you do NOT do
 
