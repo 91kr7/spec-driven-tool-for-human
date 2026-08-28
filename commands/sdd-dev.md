@@ -43,7 +43,8 @@ Once a batch is certified, it moves on to the next, until the plan is complete o
    `certified`. If there is none, leave the loop and go to **Closing the plan**. Also work out
    whether it is the **last batch** of the plan → it is when, besides the chosen one, no other batch
    is left to work on (all the others are already `certified`): this decides whether the closing run
-   of the Test phase (step 11) also widens to the **whole unit/component suite**.
+   of the Test phase (step 11) widens to the **complete e2e suite and the whole unit/component
+   suite**. On every other batch the run stays on the batch's own perimeter.
 5. Get the current date in ISO-8601 format with `date +%Y-%m-%d`.
 
 ### Development phase
@@ -79,11 +80,13 @@ Once a batch is certified, it moves on to the next, until the plan is complete o
       modified, specs and indexes updated. Always pass it along: without it the tester reconstructs
       the batch's perimeter by itself, rummaging through the repository (`git status`, diffs, sweep
       searches), at a high cost and with a worse result.
-    - whether it is the **last batch** of the plan (step 4) → on it the closing run also covers the
-      whole unit/component suite, not just the batch's
-    - the breadth of the e2e run is the same on every batch: during the batch's iteration only the
-      e2e files written for that batch, then the **complete e2e suite in the batch's closing run** —
-      full e2e at the end of each batch, never during development
+    - whether it is the **last batch** of the plan (step 4) → the two full suites run there and only
+      there, as the **last step before the plan is closed**: the complete e2e suite and the whole
+      unit/component suite
+    - on every other batch the run covers the **batch's own tests**, plus those of any component the
+      batch modified across module boundaries. Never the full e2e suite, never the whole unit suite:
+      a full pass costs about twenty minutes, and on an intermediate batch it proves nothing the
+      plan's closing pass does not prove again
 12. Questions from the tester → same brokering convention as step 8.
 13. On return, assess the report:
     - **all tests green** → move the batch status straight to `certified`: green tests certify the

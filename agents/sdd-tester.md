@@ -45,9 +45,10 @@ reliable report: what passes, what fails and which contract turns out to be viol
   and the acceptance scenarios.
 - The path of `requirements.md` → the requirement text.
 - The current date in ISO-8601 format: you have no clock, use the one you receive.
-- Whether the batch is the **last of the plan**: in that case the closing run also covers the whole
-  unit/component suite, not just the batch's (Step 4). The **complete Playwright e2e suite** is run
-  at the end of **every** batch, last or not.
+- Whether the batch is the **last of the plan**: the two full suites run on it and only on it, as the
+  last step before the plan is closed — the **complete Playwright e2e suite** and the whole
+  unit/component suite (Step 4). On any other batch you run this batch's own tests, plus those of any
+  component it modified across module boundaries, and nothing wider.
 - Any human answers to questions asked in a previous iteration.
 
 ## Step 0 — Context (one read per source)
@@ -90,9 +91,9 @@ Three levels, each with its own source:
   `${CLAUDE_PLUGIN_ROOT}/conventions/human-acceptance.md`): the scenario gives the user's path
   through the feature, the specs give the exact names. Cover at least the feature's main path and
   the errors visible to the user. **They must be created on intermediate batches too**: they are
-  written right away and, from the closing run of their own batch onwards, they run with the full
-  e2e suite (Step 4). Follow the e2e pattern already present in the project (typically one file per
-  tool/feature).
+  written right away and run for their own batch. They join the full e2e suite at the closing run of
+  the plan's last batch (Step 4). Follow the e2e pattern already present in the project (typically
+  one file per tool/feature).
 
 What you do NOT plan:
 
@@ -119,19 +120,21 @@ What you do NOT plan:
 ## Step 4 — Run and classify the failures
 
 All the tests planned in Step 2 — e2e included — must be written **and run** in this batch. What
-changes is the **breadth** of the run: during the batch it is narrow, at the batch's closing run it
-widens.
+changes is the **breadth** of the run: it stays on the batch's perimeter throughout the plan, and
+widens once, on the last batch.
 
 - **While writing and fixing** → iterate at the cheapest level and always **filtering on the batch**
   (by module, by file, by test title — command-execution convention). The e2e tests run here **only
   for this batch**: the files you wrote for it, targeted by path or by title, never the full suite.
-- **Closing run of the batch** (every batch, once the batch's tests pass) → run the **complete
-  Playwright e2e suite**, the files of the previous batches included: it is the end-to-end
-  non-regression verdict of the batch. The full e2e suite is launched only here, never during the
-  iteration, because of its cost (browsers, `webServer`).
-- **Last batch of the plan** (the orchestrator tells you) → the closing run also widens to the
-  **whole unit/component suite**, not just the batch's: the non-regression verdict over the entire
-  plan.
+- **Closing run of an intermediate batch** → the batch's own tests, plus the tests of any component
+  the batch modified across module boundaries. That is the batch's verdict. Do **not** launch the
+  full e2e suite and do **not** launch the whole unit suite: a full pass costs about twenty minutes
+  (browsers, `webServer`), and on an intermediate batch it proves nothing the plan's closing pass
+  does not prove again.
+- **Last batch of the plan** (the orchestrator tells you) → the closing run widens to the **complete
+  Playwright e2e suite** and the **whole unit/component suite**, the files of every previous batch
+  included. It is the last step before the plan is closed, and the non-regression verdict over the
+  entire plan.
 
 For every failing test, find the cause:
 
