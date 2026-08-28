@@ -43,6 +43,7 @@ Delegates the technical planning of the spec `$ARGUMENTS` to the `sdd-planner` s
    - the path of the plan folder
    - the branch opened (or switched to)
    - the list of batches produced, with their execution order (dependencies)
+   - the new components the plan asks to build, one line each; omit the line if there are none
    - the knowledge base entries you created or updated, with their paths; omit the line if there
      are none
 

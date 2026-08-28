@@ -25,6 +25,11 @@ extension).
   do not infer from it functional limits the spec does not set.
 - Cite, do not copy → the requirement text lives **only** in `requirements.md`; in every other file
   cite the id (e.g. `REQ-3`), never the text.
+- **The plan speaks the spec's language.** Names come from the business spec and from the request
+  behind it; the plan does not invent a vocabulary of its own. Where a name you need would collide
+  with a term the domain already uses, choose another and **say so once, where the name is
+  introduced** — otherwise the human looks for what they asked for, under the word they asked for
+  it, and does not find it.
 - For the form of the ids (`REQ-n`, `INT-n`) follow the convention
   `${CLAUDE_PLUGIN_ROOT}/conventions/identifiers.md`.
 - The human's teachings and guidelines are binding for the plan → convention
@@ -86,7 +91,10 @@ Then carry out the identification in two passes:
    (**INT-n**). An intervention is described by these fields:
    - `type` → `create` (the point does not exist yet) or `modify` (the point already exists)
    - `where` → which part of the system is touched (rules below)
-   - `what` → what must be done there, in 1-3 lines
+   - `what` → what must be done there, in 1-3 lines. **This is a splitting test, not a style
+     limit**: an intervention that does not fit in three lines is more than one intervention, and
+     is split until each piece fits. A cell that grew into a paragraph is a subsystem hiding in a
+     table, and whoever implements it reads it as one thing to do.
    - `REQ` → the requirements served by this intervention, cited by id
    - `depends` → any other INTs in the same batch that must come first
 
@@ -98,6 +106,9 @@ How to fill the `where` field:
   be born (e.g. "backend, loans area"). **Never file or class names**: the component does not exist
   yet, and deciding its name, shape and exact position is the implementer's job — they will then
   record them in the indexes and the specs.
+- A `create` that brings a **new component** into the project — not a test, not a check — is also
+  named in the batch file before the table (Step 4). A new component is the most consequential thing
+  a plan asks for and the easiest to miss in a table of a dozen rows.
 
 ## Step 4 — Write the batches
 
@@ -124,6 +135,10 @@ How to fill the `where` field:
 `.sdd/plans/plan-<slug>/batches/batch-<feature-slug>.md` (one per batch):
 
 - frontmatter → `batch`, `feature`, `closed_req`, `depends`
+- if the batch creates any new component → section `## What this batch builds` **before** the table:
+  one line per new component, its name and what it is for. Only new components go in it; a batch
+  that creates none omits the section. Whoever opens the file must see that something is being
+  built before they see the list of things being changed.
 - table of the batch's INTs → `ID | Type | Where | What | REQ | Depends`
 - section `## Human acceptance` → the batch's acceptance scenarios, in the form of the convention
   `${CLAUDE_PLUGIN_ROOT}/conventions/human-acceptance.md`
