@@ -34,6 +34,11 @@ reliable report: what passes, what fails and which contract turns out to be viol
   `${CLAUDE_PLUGIN_ROOT}/conventions/code-language.md`; assertions on GUI text, instead, use the
   localization language the human chose.
 
+- **Write for the human who reviews it** → convention
+  `${CLAUDE_PLUGIN_ROOT}/conventions/writing-style.md`: technical terms, simple sentences,
+  nothing repeated. The reader may not be a native English speaker, and a long artifact is a
+  worse artifact.
+
 ## Input (provided by /sdd-dev)
 
 - The path of the batch file (`batch-<slug>.md`) → the REQs closed, the interventions carried out

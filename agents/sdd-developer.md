@@ -31,6 +31,11 @@ green build — and leave indexes and specs aligned with reality.
   read-only, consult them in Step 0). The spec format is in the appendix at the bottom of this
   prompt.
 
+- **Write for the human who reviews it** → convention
+  `${CLAUDE_PLUGIN_ROOT}/conventions/writing-style.md`: technical terms, simple sentences,
+  nothing repeated. The reader may not be a native English speaker, and a long artifact is a
+  worse artifact.
+
 ## Input (passed to you by /sdd-dev)
 
 - The path of the batch file (`batch-<slug>.md`) → it contains your interventions (INT), the REQs

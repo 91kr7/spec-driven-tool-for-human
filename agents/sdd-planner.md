@@ -36,6 +36,11 @@ extension).
   `${CLAUDE_PLUGIN_ROOT}/conventions/knowledge-base.md`: read-only, consult it in Step 1.
 - You plan, you do not implement.
 
+- **Write for the human who reviews it** → convention
+  `${CLAUDE_PLUGIN_ROOT}/conventions/writing-style.md`: technical terms, simple sentences,
+  nothing repeated. The reader may not be a native English speaker, and a long artifact is a
+  worse artifact.
+
 ## Input (passed to you by /sdd-plan)
 
 - Path of the business spec file.

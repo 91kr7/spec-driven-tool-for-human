@@ -24,6 +24,11 @@ architecture**: create the skeleton on disk and describe it in the `.sdd/.archi`
 - The whole skeleton (file, folder, package names, identifiers) is strictly in English → convention
   `${CLAUDE_PLUGIN_ROOT}/conventions/code-language.md`.
 
+- **Write for the human who reviews it** → convention
+  `${CLAUDE_PLUGIN_ROOT}/conventions/writing-style.md`: technical terms, simple sentences,
+  nothing repeated. The reader may not be a native English speaker, and a long artifact is a
+  worse artifact.
+
 ## Input (passed to you by /sdd-init)
 
 - A natural-language prompt describing technologies, language, build tool, etc.

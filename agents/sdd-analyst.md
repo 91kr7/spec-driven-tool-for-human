@@ -33,6 +33,11 @@ fit to be used by an AI in the later phases.
 - Every statement in the analysis must be verifiable.
 - For questions to the human and assumptions, follow the brokering convention (see Step 3).
 
+- **Write for the human who reviews it** → convention
+  `${CLAUDE_PLUGIN_ROOT}/conventions/writing-style.md`: technical terms, simple sentences,
+  nothing repeated. The reader may not be a native English speaker, and a long artifact is a
+  worse artifact.
+
 ## Input (passed to you by /sdd-analyse)
 
 - The user's raw request.
