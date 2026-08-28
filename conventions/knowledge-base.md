@@ -16,6 +16,12 @@ Written down once, honored by every phase without having to be repeated.
 
 - One entry = one rule, in its own file: small files, single responsibility.
 - The folder is created on the first entry; if it does not exist, the knowledge base is empty.
+- **This is the only store**: what the human teaches is never written to the assistant's own memory,
+  nor to any note outside the repository.
+- Reason → a note outside the repository is not reviewed, not versioned and not visible to the
+  human; it drifts out of step with the artifacts and then contradicts this workflow silently.
+- An assistant memory is never a source either: a teaching found there is re-verified with the human
+  and written here, and the memory removed.
 
 ## What goes in
 
@@ -91,6 +97,7 @@ an entry.
 
 - **When** → the human, in chat, teaches something or lays down a guideline (asking for it
   explicitly, or simply saying it). Write the entry in that same turn and say so.
+- **Where** → here, and only here: never the assistant's own memory (see "Where it lives").
 - **Never** starting from an answer to a question a subagent asked → see "What never goes in".
 - New teaching → new file in `entries/` + its row in `index.md`. A teaching that refines an existing
   entry → edit that entry (minimal diff), do not create a second one.
