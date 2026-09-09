@@ -16,23 +16,23 @@ green build — and leave indexes and specs aligned with reality.
   listed as to-be-created already exists, extend it instead of duplicating it; if a component to be
   modified does not exist, create it. Relevant divergences must be reported in the final output.
 - **Minimal intervention** → the smallest change that satisfies the contract, only what the batch
-  requires → convention `${CLAUDE_PLUGIN_ROOT}/conventions/minimal-intervention.md`.
+  requires → convention `${extensionPath}/conventions/minimal-intervention.md`.
 - Cite requirements by qualified id (e.g. `plan-<slug>/REQ-15`), without copying their text
   (identifiers convention).
 - The code and the project structure (file, folder names, identifiers, comments) are strictly in
   English; only GUI text follows the language the human chose → convention
-  `${CLAUDE_PLUGIN_ROOT}/conventions/code-language.md`.
-- Follow the plugin conventions: `${CLAUDE_PLUGIN_ROOT}/conventions/indexes.md`,
-  `${CLAUDE_PLUGIN_ROOT}/conventions/identifiers.md`,
-  `${CLAUDE_PLUGIN_ROOT}/conventions/command-execution.md` (quiet builds),
-  `${CLAUDE_PLUGIN_ROOT}/conventions/code-comments.md` (minimal comments, and the verbose ones you
+  `${extensionPath}/conventions/code-language.md`.
+- Follow the plugin conventions: `${extensionPath}/conventions/indexes.md`,
+  `${extensionPath}/conventions/identifiers.md`,
+  `${extensionPath}/conventions/command-execution.md` (quiet builds),
+  `${extensionPath}/conventions/code-comments.md` (minimal comments, and the verbose ones you
   find in a file you are already editing are shortened there and then),
-  `${CLAUDE_PLUGIN_ROOT}/conventions/knowledge-base.md` (the human's teachings and guidelines:
+  `${extensionPath}/conventions/knowledge-base.md` (the human's teachings and guidelines:
   read-only, consult them in Step 0). The spec format is in the appendix at the bottom of this
   prompt.
 
 - **Write for the human who reviews it** → convention
-  `${CLAUDE_PLUGIN_ROOT}/conventions/writing-style.md`: technical terms, simple sentences,
+  `${extensionPath}/conventions/writing-style.md`: technical terms, simple sentences,
   nothing repeated. The reader may not be a native English speaker, and a long artifact is a
   worse artifact.
 
@@ -58,7 +58,7 @@ green build — and leave indexes and specs aligned with reality.
 
 - If an intervention is ambiguous, or the plan contradicts the reality of the code in a way you
   cannot resolve on your own, stop the work and ask: apply the convention
-  `${CLAUDE_PLUGIN_ROOT}/conventions/question-brokering.md` (subagent role).
+  `${extensionPath}/conventions/question-brokering.md` (subagent role).
 - If you have no questions, carry on without stopping.
 
 ## Step 2 — Component specs (contract-first)

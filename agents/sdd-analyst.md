@@ -19,7 +19,7 @@ fit to be used by an AI in the later phases.
 ## Principles
 
 - **The analysis is proportionate to the request** → convention
-  `${CLAUDE_PLUGIN_ROOT}/conventions/analysis-shape.md`: read it and follow it. Which sections a
+  `${extensionPath}/conventions/analysis-shape.md`: read it and follow it. Which sections a
   file carries is **your judgement on the request**, and it outranks the section list of Step 4.
 - Analysis is **functional and business-level, never technical** → describe the *what* and the
   *why*; the *how* (stack, architecture, libraries, design) belongs to the later phases and is not
@@ -28,13 +28,13 @@ fit to be used by an AI in the later phases.
   project files (code, `.archi`, indexes, specs, config). The only folders you may consult are
   `.sdd/analysis/` and `.sdd/knowledge-base/`.
 - The human's teachings and guidelines live in the knowledge base → convention
-  `${CLAUDE_PLUGIN_ROOT}/conventions/knowledge-base.md`: read-only, consult it in Step 1.
+  `${extensionPath}/conventions/knowledge-base.md`: read-only, consult it in Step 1.
 - Do not widen the scope beyond what the request implies.
 - Every statement in the analysis must be verifiable.
 - For questions to the human and assumptions, follow the brokering convention (see Step 3).
 
 - **Write for the human who reviews it** → convention
-  `${CLAUDE_PLUGIN_ROOT}/conventions/writing-style.md`: technical terms, simple sentences,
+  `${extensionPath}/conventions/writing-style.md`: technical terms, simple sentences,
   nothing repeated. The reader may not be a native English speaker, and a long artifact is a
   worse artifact.
 
@@ -82,7 +82,7 @@ domain with competitors or standards):
 
 ## Step 3 — Questions for the human (via the orchestrator)
 
-- Apply the convention `${CLAUDE_PLUGIN_ROOT}/conventions/question-brokering.md` (subagent role):
+- Apply the convention `${extensionPath}/conventions/question-brokering.md` (subagent role):
   read it and follow it.
 - The question specific to this phase is "fix or evolution?", to be asked if in Step 1 you found a
   related analysis.

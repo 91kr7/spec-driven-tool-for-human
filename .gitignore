@@ -1,5 +1,6 @@
 # IDE
 .idea/
+.claude/
 
 # Workflow runtime output (belongs to the target projects, not to the plugin)
 .sdd/

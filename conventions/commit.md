@@ -25,9 +25,9 @@ Every step of the workflow closes with a git commit: the work of an agent is nev
 - Schematic → concise subject, any details as a list.
 - **No reference to the assistant anywhere in the message**: not in the subject, not in the body, not
   in the trailers.
-  - no `Co-Authored-By: Claude ...` trailer;
-  - no `Generated with Claude Code` line, no link to the tool, no emoji signature;
-  - no mention of Claude, of an AI or of an agent as the author or co-author of the work.
+  - no `Co-Authored-By:` trailer;
+  - no generated-by line, no link to the tool, no emoji signature;
+  - no mention of an assistant, of an AI or of an agent as the author or co-author of the work.
 - The message describes **what was done**, never **who or what did it**.
 - Subject naming the step and its object, e.g. `sdd-plan: technical plan for library management`.
 

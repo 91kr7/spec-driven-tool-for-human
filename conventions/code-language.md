@@ -22,4 +22,4 @@ GUI text visible to the end user, whose language the human decides.
 ## Outside the scope of this convention
 
 - The workflow artifacts (`.sdd/`: analyses, plans, component specs, indexes, `.archi`) are in
-  English as well, as required by the project CLAUDE.md.
+  English as well, as required by the project AGENTS.md / GEMINI.md.

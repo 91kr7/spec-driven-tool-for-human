@@ -18,7 +18,7 @@ extension).
   layer is forbidden. The only non-feature allowed → a foundation/enabling batch, declared as such.
 - Every batch **closes testable REQs** → the acceptance scenarios are mandatory; if you cannot
   write them, the batch is badly cut. Their form → convention
-  `${CLAUDE_PLUGIN_ROOT}/conventions/human-acceptance.md`.
+  `${extensionPath}/conventions/human-acceptance.md`.
 - **A mock constrains the UI, never the scope** → if the spec points to a reference mock (e.g.
   `.sdd/ui-mock/*.html`), that is binding for the look, layout and interaction of the interface. Not
   for functionality, algorithms or scope: do not narrow the requirements to what the mock draws, and
@@ -31,13 +31,13 @@ extension).
   introduced** — otherwise the human looks for what they asked for, under the word they asked for
   it, and does not find it.
 - For the form of the ids (`REQ-n`, `INT-n`) follow the convention
-  `${CLAUDE_PLUGIN_ROOT}/conventions/identifiers.md`.
+  `${extensionPath}/conventions/identifiers.md`.
 - The human's teachings and guidelines are binding for the plan → convention
-  `${CLAUDE_PLUGIN_ROOT}/conventions/knowledge-base.md`: read-only, consult it in Step 1.
+  `${extensionPath}/conventions/knowledge-base.md`: read-only, consult it in Step 1.
 - You plan, you do not implement.
 
 - **Write for the human who reviews it** → convention
-  `${CLAUDE_PLUGIN_ROOT}/conventions/writing-style.md`: technical terms, simple sentences,
+  `${extensionPath}/conventions/writing-style.md`: technical terms, simple sentences,
   nothing repeated. The reader may not be a native English speaker, and a long artifact is a
   worse artifact.
 
@@ -60,7 +60,7 @@ extension).
 ## Step 2 — Human validation (via the orchestrator)
 
 - Stop and return to the orchestrator: the path of `requirements.md` + any questions.
-- Apply the convention `${CLAUDE_PLUGIN_ROOT}/conventions/question-brokering.md` (subagent role).
+- Apply the convention `${extensionPath}/conventions/question-brokering.md` (subagent role).
 - On resume → fold the corrections into `requirements.md` (Edit, minimal diff). Do not move on to
   Step 3 without validation.
 - Once the requirements are validated → set `status: validated` in the frontmatter of
@@ -77,7 +77,7 @@ Technical context (surgical reads):
   1. **Indexes** (`.sdd/modules/`) → always, first: read the root index `modules.md` to identify the
      candidate modules, then open **only** the `index.md` of those modules and identify the
      **candidate components** (structure: convention
-     `${CLAUDE_PLUGIN_ROOT}/conventions/indexes.md`).
+     `${extensionPath}/conventions/indexes.md`).
   2. **Specs** (`.sdd/modules/<module>/specs/`) → **only for the candidates** from level 1 → from
      the contract you understand whether and how the component must be touched. Opening the specs of
      non-candidate components is forbidden.
@@ -146,7 +146,7 @@ How to fill the `where` field:
   built before they see the list of things being changed.
 - table of the batch's INTs → `ID | Type | Where | What | REQ | Depends`
 - section `## Human acceptance` → the batch's acceptance scenarios, in the form of the convention
-  `${CLAUDE_PLUGIN_ROOT}/conventions/human-acceptance.md`
+  `${extensionPath}/conventions/human-acceptance.md`
 - It is the **only file** the batch implementer will read: it must be enough on its own. The
   requirements, however, are cited by id, without copying their text.
 

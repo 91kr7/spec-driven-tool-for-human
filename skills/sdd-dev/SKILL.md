@@ -1,4 +1,5 @@
 ---
+name: sdd-dev
 description: Implements and tests a whole technical plan, batch by batch: for each batch development (specs, code, indexes) and immediately after the tests derived from the contracts; on green tests the batch is certified automatically, with no human gate, and the next batch starts. Delegates to the sdd-developer and sdd-tester subagents.
 argument-hint: "<path of the plan folder, e.g. .sdd/plans/plan-library_management>"
 ---
@@ -17,7 +18,7 @@ Once a batch is certified, it moves on to the next, until the plan is complete o
 - You handle: the loop over the batches and the choice of each one, the statuses in `batches.md`,
   the entry gates and the gates on red tests, the mechanical checks and the brokering of questions.
 - You keep the **knowledge base** → convention
-  `${CLAUDE_PLUGIN_ROOT}/conventions/knowledge-base.md` (orchestrator role): read it and follow it.
+  `${extensionPath}/conventions/knowledge-base.md` (orchestrator role): read it and follow it.
 
 ## Steps
 
@@ -35,7 +36,7 @@ Once a batch is certified, it moves on to the next, until the plan is complete o
      stop, it is their call how to proceed.
 3. **Switch to the branch** of the cycle — normally already opened by `/sdd-analyse` and carrying
    the analysis and the plan — or open it from `main` if it does not exist, following the convention
-   `${CLAUDE_PLUGIN_ROOT}/conventions/branching.md`. No batch is developed on `main`.
+   `${extensionPath}/conventions/branching.md`. No batch is developed on `main`.
 
 ### Loop over the batches — repeat while there are workable batches
 
@@ -51,13 +52,13 @@ Once a batch is certified, it moves on to the next, until the plan is complete o
 
 6. Move the batch status to `in progress` in `batches.md` (statuses are written by you, never by the
    subagents).
-7. Launch the `sdd-developer` subagent via Task, passing it:
+7. Launch the `sdd-developer` subagent via invoke_subagent, passing it:
    - the path of the batch file (`batches/batch-<slug>.md`)
    - the path of `requirements.md`
    - the current date
 8. If the subagent returns questions for the human → apply the convention
-   `${CLAUDE_PLUGIN_ROOT}/conventions/question-brokering.md` (orchestrator role): put the questions
-   to the user, resume the same subagent with `SendMessage` and repeat until no questions are left.
+   `${extensionPath}/conventions/question-brokering.md` (orchestrator role): put the questions
+   to the user, resume the same subagent with `send_message` and repeat until no questions are left.
 9. On return, run the **mechanical check** (existence checks, not judgments of merit):
    - every component created or modified has its row in the module index and its spec in `specs/`
      (convention `indexes.md`);
@@ -68,11 +69,11 @@ Once a batch is certified, it moves on to the next, until the plan is complete o
    - If something is missing, resume the same subagent with the precise list of gaps, until the
      check passes.
 10. Move the batch status to `implemented`, then **commit** the work of the developer (code, specs,
-    indexes), following the convention `${CLAUDE_PLUGIN_ROOT}/conventions/commit.md`.
+    indexes), following the convention `${extensionPath}/conventions/commit.md`.
 
 ### Test phase (right after development)
 
-11. Launch the `sdd-tester` subagent via Task, passing it:
+11. Launch the `sdd-tester` subagent via invoke_subagent, passing it:
     - the path of the batch file (`batches/batch-<slug>.md`)
     - the path of `requirements.md`
     - the current date
@@ -92,7 +93,7 @@ Once a batch is certified, it moves on to the next, until the plan is complete o
     - **all tests green** → move the batch status straight to `certified`: green tests certify the
       batch, with no human acceptance gate (if in doubt, re-run the test commands given in
       `.sdd/.archi` to confirm), then **commit** the work of the tester (tests and their artefacts),
-      following the convention `${CLAUDE_PLUGIN_ROOT}/conventions/commit.md`.
+      following the convention `${extensionPath}/conventions/commit.md`.
     - **red tests caused by defects in the code** → present the report to the user and ask how to
       proceed: send the fixes to the developer (resume `sdd-developer` with the list of defects, then
       repeat the Test phase) or stop here (the status stays `implemented`). No fix iteration starts
@@ -102,7 +103,7 @@ Once a batch is certified, it moves on to the next, until the plan is complete o
 
 14. Batch `certified` → create the git commit that closes it: everything the batch touched and is not
     committed yet (the updated status in `batches.md`, any leftovers), following the convention
-    `${CLAUDE_PLUGIN_ROOT}/conventions/commit.md`. One closing commit per batch, not one at the end
+    `${extensionPath}/conventions/commit.md`. One closing commit per batch, not one at the end
     of the plan.
 15. Report to the user, schematically, the outcome of the batch just closed:
     - the batch executed, the components created/modified and the build outcome
@@ -122,13 +123,6 @@ Once a batch is certified, it moves on to the next, until the plan is complete o
     the table.
 18. **Reintegrate the branch** → all the batches `certified`: propose the merge into `main` to the
     user and carry it out once they confirm, following the convention
-    `${CLAUDE_PLUGIN_ROOT}/conventions/branching.md`. Plan **stuck** → no merge: the branch stays as
+    `${extensionPath}/conventions/branching.md`. Plan **stuck** → no merge: the branch stays as
     it is, say what is missing.
 
-## Delegating to Gemini (on request)
-
-If the user asks to **delegate the development and/or test phase to Gemini / Google Antigravity** →
-do not launch the native subagent: delegate to the bridge subagent `sdd-gemini-runner`, passing it
-the role concerned (`sdd-developer` for development, `sdd-tester` for the tests), following the
-convention `${CLAUDE_PLUGIN_ROOT}/conventions/gemini-antigravity-delegation.md`. The mechanical
-checks, the gates and the handling of statuses in `batches.md` remain your job.

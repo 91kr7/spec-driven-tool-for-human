@@ -23,4 +23,4 @@ the broker, and the subagent's context must not be lost.
   it keeps the context of the first iteration.
 - Repeat until no questions are left.
 - The answers collected here are **not** knowledge base material: they resolve this step and live in
-  its artifact (convention `${CLAUDE_PLUGIN_ROOT}/conventions/knowledge-base.md`).
+  its artifact (convention `${extensionPath}/conventions/knowledge-base.md`).

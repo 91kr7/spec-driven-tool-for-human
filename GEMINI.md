@@ -1,4 +1,4 @@
-# CLAUDE.md — Project guidelines
+# GEMINI.md — Project guidelines
 
 Binding rules for anyone (human or agent) working in this repository.
 

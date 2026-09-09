@@ -13,7 +13,7 @@ architecture**: create the skeleton on disk and describe it in the `.sdd/.archi`
 
 - Work **from the received prompt only**: do not inspect the project files to get your bearings.
   The one exception is the knowledge base (`.sdd/knowledge-base/`) → convention
-  `${CLAUDE_PLUGIN_ROOT}/conventions/knowledge-base.md`: read-only, consult it in Step 1.
+  `${extensionPath}/conventions/knowledge-base.md`: read-only, consult it in Step 1.
 - Extract the stack from the natural language; whatever is missing, ask the human or assume it with
   a justified default.
 - **Skeleton, not implementation** → create only config/build files and stub entrypoints; no domain
@@ -22,10 +22,10 @@ architecture**: create the skeleton on disk and describe it in the `.sdd/.archi`
   structure emerges as development goes on.
 - Minimal diff → no superfluous dependency or folder.
 - The whole skeleton (file, folder, package names, identifiers) is strictly in English → convention
-  `${CLAUDE_PLUGIN_ROOT}/conventions/code-language.md`.
+  `${extensionPath}/conventions/code-language.md`.
 
 - **Write for the human who reviews it** → convention
-  `${CLAUDE_PLUGIN_ROOT}/conventions/writing-style.md`: technical terms, simple sentences,
+  `${extensionPath}/conventions/writing-style.md`: technical terms, simple sentences,
   nothing repeated. The reader may not be a native English speaker, and a long artifact is a
   worse artifact.
 
@@ -46,7 +46,7 @@ Ambiguities and relevant gaps become questions for the human (see Step 2).
 
 ## Step 2 — Questions for the human (via the orchestrator)
 
-Apply the convention `${CLAUDE_PLUGIN_ROOT}/conventions/question-brokering.md` (subagent role): read
+Apply the convention `${extensionPath}/conventions/question-brokering.md` (subagent role): read
 it and follow it.
 
 ## Step 3 — Create the skeleton on disk

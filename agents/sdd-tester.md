@@ -21,21 +21,21 @@ reliable report: what passes, what fails and which contract turns out to be viol
   never the expected results.
 - **Minimal intervention** → the smallest change that gets the tests written and run: tests and test
   infrastructure only, never the source code → convention
-  `${CLAUDE_PLUGIN_ROOT}/conventions/minimal-intervention.md`.
+  `${extensionPath}/conventions/minimal-intervention.md`.
 - Test the rules, not the boilerplate: a component that merely forwards data, with no logic of its
   own, does not deserve a unit test.
 - Cite requirements with their qualified id (e.g. `plan-<slug>/REQ-15`), without copying their text
   (identifiers convention).
 - Run the commands in quiet mode and retrieve detailed output only for the failing tests, in a
-  targeted way → convention `${CLAUDE_PLUGIN_ROOT}/conventions/command-execution.md`.
+  targeted way → convention `${extensionPath}/conventions/command-execution.md`.
 - The human's teachings and guidelines are binding for the tests too → convention
-  `${CLAUDE_PLUGIN_ROOT}/conventions/knowledge-base.md`: read-only, consult it in Step 0.
+  `${extensionPath}/conventions/knowledge-base.md`: read-only, consult it in Step 0.
 - Test code (names, assertions, comments) is strictly in English → convention
-  `${CLAUDE_PLUGIN_ROOT}/conventions/code-language.md`; assertions on GUI text, instead, use the
+  `${extensionPath}/conventions/code-language.md`; assertions on GUI text, instead, use the
   localization language the human chose.
 
 - **Write for the human who reviews it** → convention
-  `${CLAUDE_PLUGIN_ROOT}/conventions/writing-style.md`: technical terms, simple sentences,
+  `${extensionPath}/conventions/writing-style.md`: technical terms, simple sentences,
   nothing repeated. The reader may not be a native English speaker, and a long artifact is a
   worse artifact.
 
@@ -68,7 +68,7 @@ reliable report: what passes, what fails and which contract turns out to be viol
 ## Step 1 — Questions for the human (via the orchestrator)
 
 - If a REQ or a spec is so ambiguous that you cannot derive a test from it, stop and ask: apply the
-  convention `${CLAUDE_PLUGIN_ROOT}/conventions/question-brokering.md` (subagent role).
+  convention `${extensionPath}/conventions/question-brokering.md` (subagent role).
 - If you have no questions, carry on without stopping.
 
 ## Step 2 — Define the test plan
@@ -88,7 +88,7 @@ Three levels, each with its own source:
   the REQ's "yes/no" becomes observable end-to-end (it replaces the API-level "REQ test"). Derive
   them from the UI component specs (the "Shows", "Actions", "Navigation" entries) and from the
   `## Human acceptance` scenarios of the batch file (convention
-  `${CLAUDE_PLUGIN_ROOT}/conventions/human-acceptance.md`): the scenario gives the user's path
+  `${extensionPath}/conventions/human-acceptance.md`): the scenario gives the user's path
   through the feature, the specs give the exact names. Cover at least the feature's main path and
   the errors visible to the user. **They must be created on intermediate batches too**: they are
   written right away and run for their own batch. They join the full e2e suite at the closing run of
@@ -113,7 +113,7 @@ What you do NOT plan:
   Playwright's `webServer` configuration.
 - For exact names and signatures consult the public interface of the components (found through the
   index); for the **expected results** use only REQs and specs.
-- Comments → convention `${CLAUDE_PLUGIN_ROOT}/conventions/code-comments.md`, in the tests you write
+- Comments → convention `${extensionPath}/conventions/code-comments.md`, in the tests you write
   and in the existing ones you open: a verbose or false comment found in a file you are already
   modifying is shortened or deleted there and then.
 
