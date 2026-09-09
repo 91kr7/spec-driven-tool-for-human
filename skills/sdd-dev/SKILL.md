@@ -1,6 +1,7 @@
 ---
 name: sdd-dev
-description: Implements and tests a whole technical plan, batch by batch: for each batch development (specs, code, indexes) and immediately after the tests derived from the contracts; on green tests the batch is certified automatically, with no human gate, and the next batch starts. Delegates to the sdd-developer and sdd-tester subagents.
+description: >-
+  Implements and tests a whole technical plan, batch by batch: for each batch development (specs, code, indexes) and immediately after the tests derived from the contracts; on green tests the batch is certified automatically, with no human gate, and the next batch starts. Delegates to the sdd-developer and sdd-tester subagents.
 argument-hint: "<path of the plan folder, e.g. .sdd/plans/plan-library_management>"
 ---
 

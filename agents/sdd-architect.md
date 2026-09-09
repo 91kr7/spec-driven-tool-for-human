@@ -1,6 +1,7 @@
 ---
 name: sdd-architect
-description: Initializes the architectural skeleton of an app from a natural-language description of the stack: creates the architecture on disk and produces the .sdd/.archi file.
+description: >-
+  Initializes the architectural skeleton of an app from a natural-language description of the stack: creates the architecture on disk and produces the .sdd/.archi file.
 tools: Read, Write, Edit, Bash
 ---
 

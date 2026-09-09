@@ -1,6 +1,7 @@
 ---
 name: sdd-developer
-description: Implements one batch of the technical plan following the contract-first flow: component specs, code and updated indexes, with a green build.
+description: >-
+  Implements one batch of the technical plan following the contract-first flow: component specs, code and updated indexes, with a green build.
 tools: Read, Write, Edit, Glob, Grep, Bash
 ---
 
